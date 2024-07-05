@@ -35,6 +35,9 @@
 .register-ressi .form-control input::placeholder {
     color:black;
 }
+.form-control {
+    height:auto;
+}
 .register-ressi .color-orange {
     color: #990000 !important;
     font-weight: 600;
@@ -69,7 +72,7 @@
 }
 .register-ressi .text-right {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end;
     margin-top: 15px;
 }
 .register-ressi {

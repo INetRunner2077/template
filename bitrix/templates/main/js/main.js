@@ -20,6 +20,23 @@ jQuery(document).ready(function() {
         e.preventDefault();
     });
 
-
+    $(document).on('click', '.captcha_reload', function(e){
+        var captcha = $(this).parents('.captcha-row');
+        e.preventDefault();
+        $.ajax({
+            url: '/ajax/captcha.php'
+        }).done(function(text){
+            if(captcha.find('input[name=captcha_sid]').length){
+                captcha.find('input[name=captcha_sid]').val(text);
+                captcha.find('img').attr('src', '/bitrix/tools/captcha.php?captcha_sid=' + text);
+            }
+            else if(captcha.find('input[name=captcha_code]').length){
+                captcha.find('input[name=captcha_code]').val(text);
+                captcha.find('img').attr('src', '/bitrix/tools/captcha.php?captcha_code=' + text);
+            }
+            captcha.find('input[name=captcha_word]').val('').removeClass('error');
+            captcha.find('.captcha_input').removeClass('error').find('.error').remove();
+        });
+    });
 
 })

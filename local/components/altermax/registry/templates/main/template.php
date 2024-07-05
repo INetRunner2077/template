@@ -1,6 +1,5 @@
-<?php
-
-?>
+<section class="main-container col2-right-layout">
+    <div class="main container">
 <div class="register-ressi">
 <? if(!empty($arResult['ERRORS'])): ?>
     <div class="error">
@@ -59,12 +58,14 @@
 
                 <p class="text-right">
                     <input type="hidden" name="save" value="Y">
-                    <button class="danil_button_target" type="submit"><span>Регистрация</span></button>
+                    <button class="danil_button_target button button-green h4-size" type="submit"><span>Регистрация</span></button>
                 </p>
 
         </form>
 
 </div>
+    </div>
+</section>
 
 <script>
 
