@@ -4868,7 +4868,8 @@ button span {
 	list-style: none
 }
 .sidebar li {
-	list-style: none
+	list-style: none;
+	width:100%;
 }
 .category-sidebar .product-categories li ul li a {
 	border-bottom: 0 solid #e8e6e2;

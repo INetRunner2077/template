@@ -1,28 +1,30 @@
 <?
-define("NEED_AUTH", true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-
-$userName = $USER->GetFullName();
-if (!$userName)
-	$userName = $USER->GetLogin();
-?>
-<script>
-	<?if ($userName):?>
-	BX.localStorage.set("eshop_user_name", "<?=CUtil::JSEscape($userName)?>", 604800);
-	<?else:?>
-	BX.localStorage.remove("eshop_user_name");
-	<?endif?>
-
-	<?if (isset($_REQUEST["backurl"]) && $_REQUEST["backurl"] <> '' && preg_match('#^/\w#', $_REQUEST["backurl"])):?>
-	document.location.href = "<?=CUtil::JSEscape($_REQUEST["backurl"])?>";
-	<?endif?>
-</script>
-
-<?
 $APPLICATION->SetTitle("Авторизация");
 ?>
-<p>Вы зарегистрированы и успешно авторизовались.</p>
- 
-<p><a href="<?=SITE_DIR?>">Вернуться на главную страницу</a></p>
+<div class="more_text_big">
+<?$APPLICATION->IncludeFile(SITE_DIR."include/auth_description.php", Array(), Array("MODE" => "html", "NAME" => GetMessage("AUTH_INCLUDE_AREA"), ));?>
+</div>
 
+<?if(!$USER->IsAuthorized()){
+	$arParams = [
+		"REGISTER_URL" => SITE_DIR."auth/registration/",
+		"PROFILE_URL" => SITE_DIR."auth/forgot-password/",
+		"SHOW_ERRORS" => "Y",
+		"FORGOT_PASSWORD_URL" => SITE_DIR."auth/forgot-password/?forgot-password=yes",
+		"CHANGE_PASSWORD_URL" => SITE_DIR."auth/change-password/?change-password=yes",
+	];
+
+	$APPLICATION->IncludeComponent(
+		"danil:system.auth.form",
+		"main",
+		$arParams
+	);
+}elseif( !empty( $_REQUEST["backurl"] ) ){
+	LocalRedirect( $_REQUEST["backurl"] );
+}else{
+	LocalRedirect(SITE_DIR.'personal/');
+}?>
+<!-- /AuthorizationForm -->	
+	
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

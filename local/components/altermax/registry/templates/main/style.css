@@ -1,0 +1,132 @@
+.register-ressi .label_block .form-control {
+    display: block !important;
+    width: 100% !important;
+    height: 61px !important;
+    padding: 15px 10px 10px 15px !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    color: #354145 !important;
+    background-color: #fff !important;
+    background-clip: padding-box !important;
+    border: 2px solid #b3adad !important;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+    border-radius: 12px!important;
+}
+.register-ressi .form-control {
+    margin-bottom:0px!important;
+}
+.register-ressi .iblock.label_block {
+    width:100% !important;
+}
+.register-ressi .registraion-page {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+.register-ressi .button-red span {
+    font-size: 18px!important;
+}
+.register-ressi .button-red {
+    background:#8A221C!important;
+    color:white;
+
+}
+.register-ressi .form-control input::placeholder {
+    color:black;
+}
+.register-ressi .color-orange {
+    color: #990000 !important;
+    font-weight: 600;
+    font-size: medium;
+    padding: 10px 15px 10px 15px;
+}
+.register-ressi .form-control {
+    display: flex;
+    flex-direction: column;
+}
+.register-ressi .form-control label:not(.label_captha):not(.error) {
+    flex-basis: 30%!important;
+    font-weight: 400!important;
+    color: grey!important;
+    font-size: 15px!important;
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    z-index: 99;
+}
+.label_captha {
+    flex-basis: 30%!important;
+    font-weight: 500!important;
+    color: black!important;
+    font-size: initial!important;
+}
+.register-captcha .captcha {
+    font-size:19px!important;
+}
+.register-ressi .wrap_md {
+    flex-basis:70%;
+}
+.register-ressi .text-right {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
+}
+.register-ressi {
+    background: #fff;
+    border: 1px solid #e8e8e8;
+    padding: 16px;
+}
+.register-ressi p {
+    margin-bottom:0px;
+}
+
+#captcha_word-error {
+    color: #e62222 !important;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    font-weight: 600;
+    margin-right: 10px !important;
+    font-size: 10px;
+    text-align: right;
+    z-index: 99;
+}
+
+.register-ressi .error:not(.label_block .error):not(#captcha_word-error) {
+    padding: 15px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    margin-bottom:20px;
+}
+.licence_block {
+    margin-top:15px;
+}
+.captcha_input .inputtext {
+    border: 1px dashed #0D366B;
+}
+
+@media all and (max-width: 1084px) {
+    .register-ressi .registraion-page {
+        width: 100%;
+    }
+    .register-ressi .form-control {
+        flex-direction: column;
+    }
+    .register-ressi .text-right {
+        justify-content: center;
+        margin-top: 24px;
+    }
+    .captcha-row {
+        margin-top: 10px;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .register-ressi .color-orange {
+        font-size:revert;
+        margin-bottom: 15px;
+    }
+}

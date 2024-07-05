@@ -1,19 +1,22 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <?
-IncludeTemplateLangFile(__FILE__);
+use Bitrix\Main\Page\Asset;
 use Bitrix\Main\UI\Extension;
 Extension::load('ui.bootstrap4');
+CJSCore::Init(array("jquery"));
 ?>
     <!DOCTYPE html>
     <html lang="<?=LANGUAGE_ID?>"><head>
         <meta charset="<?=LANG_CHARSET?>">
         <?$APPLICATION->ShowHead();?>
-    <? $APPLICATION->SetAdditionalCSS('/bitrix/templates/main/css/style.css'); ?>
-    <? $APPLICATION->SetAdditionalCSS('/bitrix/templates/main/css/addons.css'); ?>
-    <? $APPLICATION->SetAdditionalCSS('/bitrix/templates/main/css/theme-color.css'); ?>
-    <? $APPLICATION->SetAdditionalCSS('/bitrix/templates/main/css/all.css'); ?>
-    <? $APPLICATION->SetAdditionalCSS('/bitrix/templates/main/css/simple-line-icons.css'); ?>
-    <? $APPLICATION->SetAdditionalCSS('/bitrix/templates/main/css/font-awesome.min.css'); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/style.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/addons.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/theme-color.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/all.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/css/main/bootstrap.min.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/simple-line-icons.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/font-awesome.min.css"); ?>
+    <? Asset::getInstance()->addJs('/bitrix/templates/main/js/main.js') ?>
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
     </head>
@@ -130,7 +133,7 @@ Extension::load('ui.bootstrap4');
                             <!-- top links -->
                             <div class="headerlinkmenu col-md-8 col-sm-8 col-xs-12">
                                 <ul class="links">
-                                    <li class="text-uppercase"><a title="Вход" href="/account"><span>Вход</span></a></li><li class="text-uppercase"><a title="Регистрация" href="/userregister"><span>Регистрация</span></a></li>              </ul>
+                                    <li class="text-uppercase"><a title="Вход" href="/account"><span>Вход</span></a></li><li class="text-uppercase"><a title="Регистрация" href="/auth/registration"><span>Регистрация</span></a></li>              </ul>
                             </div>
                         </div>
                     </div>
@@ -261,3 +264,56 @@ Extension::load('ui.bootstrap4');
                 </div>
             </div>
         </nav>
+
+        <section class="blog_post" id="home">
+            <div class="container">
+                <div class="row">
+                    <!-- Center colunm-->
+                    <div class="col-xs-12 col-sm-9 col-sm-push-3" id="center_column">
+                        123
+                    </div><!-- ./ Center colunm -->
+                    <!-- Left colunm -->
+                    <!-- Left colunm -->
+
+
+                    <?$APPLICATION->IncludeComponent(
+                        "altermax:section",
+                        "sections_list_danil",
+                        array(
+                            "IBLOCK_TYPE" => "xmlcatalog",
+                            "IBLOCK_ID" => "11",
+                            "DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
+                            "CACHE_TYPE" => "A",
+                            "CACHE_TIME" => $arParams["CACHE_TIME"],
+                            "CACHE_GROUPS" => "N",
+                            "COUNT_ELEMENTS" => "N",
+                            "SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+                            "SECTIONS_LIST_PREVIEW_DESCRIPTION" => $arParams["SECTIONS_LIST_PREVIEW_DESCRIPTION"],
+                            "SECTIONS_LIST_PREVIEW_PROPERTY" => $arParams["SECTIONS_LIST_PREVIEW_PROPERTY"],
+                            "SHOW_SUBSECTION" => $arParams["SHOW_SUBSECTION"],
+                            "SHOW_SECTION_LIST_PICTURES" => $arParams["SHOW_SECTION_LIST_PICTURES"],
+                            "TOP_DEPTH" => (($arParams["SECTION_TOP_DEPTH"]&&$arParams["SECTION_TOP_DEPTH"]<=2)?$arParams["SECTION_TOP_DEPTH"]:2),
+                            "COMPONENT_TEMPLATE" => "sections_list_danil",
+                            "SECTION_ID" => $_REQUEST["SECTION_ID"],
+                            "SECTION_CODE" => "",
+                            "COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
+                            "ADDITIONAL_COUNT_ELEMENTS_FILTER" => "additionalCountFilter",
+                            "HIDE_SECTIONS_WITH_ZERO_COUNT_ELEMENTS" => "N",
+                            "SECTION_FIELDS" => array(
+                                0 => "",
+                                1 => "",
+                            ),
+                            "SECTION_USER_FIELDS" => array(
+                                0 => "",
+                                1 => "",
+                            ),
+                            "FILTER_NAME" => "sectionsFilter",
+                            "CACHE_FILTER" => "N",
+                            "ADD_SECTIONS_CHAIN" => "Y"
+                        ),
+                        $component
+                    ); ?>
+
+                </div>
+            </div>
+        </section>
