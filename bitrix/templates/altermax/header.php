@@ -10,6 +10,7 @@ CJSCore::Init(array("jquery"));
         <meta charset="<?=LANG_CHARSET?>">
         <?$APPLICATION->ShowHead();?>
     <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/style.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/style_bitrix.css"); ?>
     <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/addons.css"); ?>
     <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/theme-color.css"); ?>
     <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/all.css"); ?>
@@ -134,7 +135,10 @@ CJSCore::Init(array("jquery"));
                             <!-- top links -->
                             <div class="headerlinkmenu col-md-8 col-sm-8 col-xs-12">
                                 <ul class="links">
-                                    <li class="text-uppercase"><a title="Вход" href="/account"><span>Вход</span></a></li><li class="text-uppercase"><a title="Регистрация" href="/auth/registration"><span>Регистрация</span></a></li>              </ul>
+                                    <li class="text-uppercase"><a title="Вход" href="/auth"><span>Вход</span></a></li>
+                                    <li class="text-uppercase"><a title="Регистрация" href="/auth/registration"><span>Регистрация</span></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

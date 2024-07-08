@@ -28,63 +28,6 @@
     margin-right: 1%;
 }
 
-
-
-.captcha_reload::after {
-    background: rgba(0, 0, 0, 0) url(/bitrix/templates/altermax/img/icons_wish.svg) repeat scroll -67px -82px;
-    height: 13px;
-    left: 10px;
-    top: 11px;
-    transition: background 0.7s ease-in-out 0s;
-    width: 15px;
-}
-
-.captcha_reload {
-    border: 1px solid transparent;
-    cursor: pointer;
-    height: 35px;
-    left: 179px;
-    position: absolute;
-    top: 0;
-    width: 36px;
-}
-
-.captcha_reload:hover:before {
-    background: #383838;
-}
-
-.captcha_reload::before {
-    border-radius: 25px;
-    height: 25px;
-    left: 5px;
-    top: 5px;
-    width: 25px;
-    background:#0c3467;
-}
-
-.captcha-row.register-captcha .captcha_image {
-    height: 37px;
-    position: relative;
-    width: auto;
-    width: 30%;
-}
-
-.iblock_captha_container {
-    display:flex;
-    align-items: center;
-}
-
-.captcha-row .captcha_image .captcha_reload {
-    right: 0;
-    text-indent: -9999px;
-}
-
-.captcha_reload::before, .captcha_reload::after {
-    content: "";
-    display: block;
-    position: absolute;
-}
-
 .register-ressi .iblock.label_block {
     width:100% !important;
 }
@@ -175,14 +118,6 @@
 }
 .licence_block {
     margin-top:15px;
-}
-.captcha_input .inputtext {
-    border: 1px dashed #0D366B;
-    width:100%;
-}
-.captcha_input {
-    width: 30%;
-    margin-left: 5%;
 }
 
 @media all and (max-width: 1084px) {

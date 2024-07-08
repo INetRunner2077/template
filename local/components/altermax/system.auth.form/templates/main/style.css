@@ -1,0 +1,67 @@
+@media (max-width: 630px) {
+    #ajax_auth .socserv {
+        display: flex;
+        align-content: flex-start;
+        flex-direction: column;
+    }
+}
+.popup .but-r .buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 31px!important;
+}
+#ajax_auth .socserv a {
+    background: #2a5381;
+    color: white;
+}
+.registration .transparent {
+    background: #8A221C;
+    color: white !important;
+}
+.main_info .but-r button {
+    background: #8A221C;
+    color: white !important;
+}
+
+#avtorization-form-page .form-control input {
+    display: block;
+    height: 61px !important;
+    padding: 15px 10px 10px 15px !important;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: black;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 2px solid #b3adad !important;
+    border-radius: 12px;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+#avtorization-form-page .form-control label {
+    position: absolute;
+    top: 8px;
+    color: #93a2a6;
+    margin-right: 5%;
+    text-align: right;
+}
+.but-r button {
+    background: #8A221C!important;
+    color:white!important;
+}
+.but-r button:hover {
+    background:#2b456c!important;
+}
+.registration .vbig_btn {
+background:#2a5381!important;
+    color:white!important;
+}
+
+@media all and (max-width: 600px) {
+  .form_wrapp {
+      display: flex;
+      flex-direction: column;
+  }
+    .auth-title {
+        text-align:center;
+    }
+}
