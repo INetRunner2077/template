@@ -9,14 +9,15 @@ CJSCore::Init(array("jquery"));
     <html lang="<?=LANGUAGE_ID?>"><head>
         <meta charset="<?=LANG_CHARSET?>">
         <?$APPLICATION->ShowHead();?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/style.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/addons.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/theme-color.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/all.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/style.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/addons.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/theme-color.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/all.css"); ?>
     <? Asset::getInstance()->addCss("/bitrix/css/main/bootstrap.min.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/simple-line-icons.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/main/css/font-awesome.min.css"); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/main/js/main.js') ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/simple-line-icons.css"); ?>
+    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/font-awesome.min.css"); ?>
+    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/main.js') ?>
+    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/jquery.validate.js') ?>
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
     </head>

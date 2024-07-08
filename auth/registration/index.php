@@ -2,7 +2,7 @@
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	$APPLICATION->SetTitle("Регистрация");
 
-	if($USER->IsAuthorized())
+	if(!$USER->IsAuthorized())
 	{?>
 	
 	<?

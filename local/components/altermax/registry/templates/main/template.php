@@ -33,10 +33,11 @@
                 </div>
 
                 <div class="form-control bg register-captcha captcha-row clearfix">
+                    <label class="label_captha">
+                        <span>  Введите капчу:&nbsp;</span>
+                    </label>
                     <div class="iblock label_block_captha">
-                        <label class="label_captha">
-                            <span>  Введите капчу:&nbsp;</span>
-                        </label>
+                        <div class="iblock_captha_container">
                         <div class="captcha_image">
                             <img src="/bitrix/tools/captcha.php?captcha_sid=<?=$arResult["CAPTCHA_CODE"]?>" border="0" />
                             <input type="hidden" name="captcha_sid" value="<?=$arResult["CAPTCHA_CODE"]?>" />
@@ -45,11 +46,11 @@
                         <div class="captcha_input">
                             <input type="text" class="inputtext captcha" name="captcha_word" size="30" maxlength="50" value="" required />
                         </div>
+                        </div>
                     </div>
                     <div class="iblock text_block"></div>
                 </div>
-                <div class="licence_block filter label_block">
-                    <input type="hidden" name="aspro_market_form_validate">
+                <div class="licence_block filter">
                     <input type="checkbox" id="licenses_popup" checked="" name="licenses_popup" required="" value="Y" aria-required="true">
                     <label for="licenses_popup">
                         Я согласен на <a href="/include/licenses_detail.php" target="_blank">обработку персональных
