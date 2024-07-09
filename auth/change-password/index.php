@@ -16,8 +16,8 @@
 		}
 
 		$APPLICATION->IncludeComponent( 
-			"bitrix:system.auth.changepasswd", 
-			"main", 
+			"altermax:system.auth.changepasswd",
+			"energoflot",
 			$arParams,
 			false 
 		);
