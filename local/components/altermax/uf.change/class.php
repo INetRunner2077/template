@@ -53,15 +53,11 @@ class Registry extends CBitrixComponent
                     "PERSONAL_PROFESSION",
                     'PERSONAL_BIRTHDATE',
                     "PERSONAL_WWW",
-                    "PERSONAL_ICQ",
-                    "PERSONAL_GENDER",
                     "PERSONAL_BIRTHDAY",
                     "PERSONAL_PHONE",
                     "PERSONAL_FAX",
                     "PERSONAL_MOBILE",
-                    "PERSONAL_PAGER",
                     "PERSONAL_STREET",
-                    "PERSONAL_MAILBOX",
                     "PERSONAL_CITY",
                     "PERSONAL_STATE",
                     "PERSONAL_ZIP",
@@ -72,15 +68,12 @@ class Registry extends CBitrixComponent
                     "WORK_POSITION",
                     "WORK_WWW",
                     "WORK_PHONE",
-                    "WORK_FAX",
                     "WORK_PAGER",
                     "WORK_STREET",
                     "WORK_MAILBOX",
                     "WORK_CITY",
                     "WORK_STATE",
                     "WORK_ZIP",
-                    "WORK_COUNTRY",
-                    "WORK_PROFILE",
                     "WORK_NOTES",
                     "TIME_ZONE",
                     "PHONE_NUMBER",
@@ -175,6 +168,17 @@ class Registry extends CBitrixComponent
             }
             $this->arResult["bVarsFromForm"] = $strError != '';
         }
+
+        foreach ($this->arResult["USER_PROPERTIES"]['DATA'] as $enum) {
+            if($enum['USER_TYPE_ID'] != 'enumeration' or  $enum['VALUE'] == null) { continue; }
+             $property_enums = CUserFieldEnum::GetList(Array(), Array("VALUE "=>$enum['VALUE'], 'USER_FIELD_NAME' => $enum['FIELD_NAME'] ));
+             if($enum_fields = $property_enums->GetNext())
+             {
+                 $this->arResult["USER_PROPERTIES"]['DATA'][$enum['FIELD_NAME']]['VALUE_XML'] = $enum_fields['XML_ID'];
+             }
+        }
+
+
         $this->arResult["BX_SESSION_CHECK"] = bitrix_sessid_post();
         $this->includeComponentTemplate();
 

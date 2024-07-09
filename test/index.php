@@ -171,61 +171,22 @@ $obEnum->SetEnumValues($iUserFieldId, $arAddEnum);
 
 
 
-/*  Создание пользовательского поля 'Форма собственности'  */
-$aUserFields['USER_TYPE_ID'] = 'enumeration';
-$aUserFields['SETTINGS'] = array();
-$aUserFields['FIELD_NAME'] = 'UF_OWNERSHIP';
-$aUserFields['EDIT_FORM_LABEL']['ru'] = 'Форма собственности';
-$aUserFields['LIST_COLUMN_LABEL']['ru'] = 'Форма собственности';
-$aUserFields['LIST_FILTER_LABEL']['ru'] = 'Форма собственности';
-$aUserFields['ERROR_MESSAGE']['ru'] = 'Форма собственности';
-$aUserFields['SETTINGS']['DISPLAY'] = 'LIST';
-$iUserFieldId   = $oUserTypeEntity->Add($aUserFields);
-
-$form['OOO'] = array( 'VALUE' => 'ООО', 'SORT' => 500, 'DEF' => 'N');
-$form['ZAO'] = array( 'VALUE' => 'ЗАО', 'SORT' => 500, 'DEF' => 'N');
-$form['PAO'] = array( 'VALUE' => 'ПАО', 'SORT' => 500, 'DEF' => 'N');
-$form['AO'] = array( 'VALUE' => 'АО', 'SORT' => 500, 'DEF' => 'N');
-$form['FGYP'] = array( 'VALUE' => 'ФГУП', 'SORT' => 500, 'DEF' => 'N');
-
-$i = 0;
-foreach ($form as $xml => $field) {
-    $i++;
-    $arAddEnum['n'.$i] = array(
-        'XML_ID' => $xml,
-        'VALUE'  => $field['VALUE'],
-        'DEF'    => $field['DEF'],
-        'SORT'   => $i * 10
-    );
-}
-
-
-$obEnum = new CUserFieldEnum();
-$obEnum->SetEnumValues($iUserFieldId, $arAddEnum);
-
-
-/*  Создание пользовательского поля 'Форма собственности'  */
-
-
-
-
 /*  Создание пользовательского поля 'Тип покупателя'  */
-unset($form);
 $aUserFields['USER_TYPE_ID'] = 'enumeration';
 $aUserFields['SETTINGS'] = array();
-$aUserFields['FIELD_NAME'] = 'UF_TYPE_OF_BUYER';
+$aUserFields['FIELD_NAME'] = 'UF_TYPE_OF_BUYER_ALTERMAX';
 $aUserFields['EDIT_FORM_LABEL']['ru'] = 'Тип покупателя';
 $aUserFields['LIST_COLUMN_LABEL']['ru'] = 'Тип покупателя';
 $aUserFields['LIST_FILTER_LABEL']['ru'] = 'Тип покупателя';
 $aUserFields['ERROR_MESSAGE']['ru'] = 'Тип покупателя';
 $aUserFields['SETTINGS']['DISPLAY'] = 'CHECKBOX';
 $iUserFieldId   = $oUserTypeEntity->Add($aUserFields);
-$form['PRIVATE'] = array( 'VALUE' => 'Частное лицо', 'SORT' => 500, 'DEF' => 'Y');
-$form['INDIVIDUAL'] = array( 'VALUE' => 'Индивидуальный предприниматель', 'SORT' => 500, 'DEF' => 'N');
-$form['ORGANIZATION'] = array( 'VALUE' => 'Организация', 'SORT' => 500, 'DEF' => 'N');
-
+$type['PRIVATE'] = array( 'VALUE' => 'Частное лицо', 'SORT' => 500, 'DEF' => 'Y');
+$type['INDIVIDUAL'] = array( 'VALUE' => 'Индивидуальный предприниматель', 'SORT' => 500, 'DEF' => 'N');
+$type['ORGANIZATION'] = array( 'VALUE' => 'Организация', 'SORT' => 500, 'DEF' => 'N');
+unset($arAddEnum);
 $i = 0;
-foreach ($form as $xml => $field) {
+foreach ($type as $xml => $field) {
     $i++;
     $arAddEnum['n'.$i] = array(
         'XML_ID' => $xml,
@@ -242,41 +203,6 @@ $obEnum->SetEnumValues($iUserFieldId, $arAddEnum);
 
 /*  Создание пользовательского поля 'Тип покупателя'  */
 
-
-
-
-/*  Создание пользовательского поля 'Тип покупателя'  */
-unset($form);
-$aUserFields['USER_TYPE_ID'] = 'enumeration';
-$aUserFields['SETTINGS'] = array();
-$aUserFields['FIELD_NAME'] = 'UF_TYPE_OF_BUYER';
-$aUserFields['EDIT_FORM_LABEL']['ru'] = 'Тип покупателя';
-$aUserFields['LIST_COLUMN_LABEL']['ru'] = 'Тип покупателя';
-$aUserFields['LIST_FILTER_LABEL']['ru'] = 'Тип покупателя';
-$aUserFields['ERROR_MESSAGE']['ru'] = 'Тип покупателя';
-$aUserFields['SETTINGS']['DISPLAY'] = 'CHECKBOX';
-$iUserFieldId   = $oUserTypeEntity->Add($aUserFields);
-$form['PRIVATE'] = array( 'VALUE' => 'Частное лицо', 'SORT' => 500, 'DEF' => 'Y');
-$form['INDIVIDUAL'] = array( 'VALUE' => 'Индивидуальный предприниматель', 'SORT' => 500, 'DEF' => 'N');
-$form['ORGANIZATION'] = array( 'VALUE' => 'Организация', 'SORT' => 500, 'DEF' => 'N');
-
-$i = 0;
-foreach ($form as $xml => $field) {
-    $i++;
-    $arAddEnum['n'.$i] = array(
-        'XML_ID' => $xml,
-        'VALUE'  => $field['VALUE'],
-        'DEF'    => $field['DEF'],
-        'SORT'   => $i * 10
-    );
-}
-
-
-$obEnum = new CUserFieldEnum();
-$obEnum->SetEnumValues($iUserFieldId, $arAddEnum);
-
-
-/*  Создание пользовательского поля 'Тип покупателя'  */
 
 ?>
 

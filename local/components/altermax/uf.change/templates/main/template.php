@@ -11,9 +11,6 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
 ?>
 <section class="main-container col2-right-layout">
     <div class="main container">
-<link rel="stylesheet" href="/local/components/danil/uf.change/templates/main/datepicker/dist/css/datepicker.material.css">
-<script src="/local/components/danil/uf.change/templates/main/datepicker/dist/datepicker.js"></script>
-<script src="/local/components/danil/uf.change/templates/main/masked/dist/jquery.maskedinput.min.js"></script>
 <form method="post" class="uf_form" action="<?=$arResult["FORM_TARGET"]?>">
     <? if($_REQUEST['order'] == 'Y'): ?>
         <input type="hidden" name="order" value="Y">
@@ -37,16 +34,16 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
                 $obEnum = new \CUserFieldEnum;
                 $rsEnum = $obEnum->GetList(
                     array(),
-                    array("USER_FIELD_NAME" => "UF_TYPE_OF_BUYER")
+                    array("USER_FIELD_NAME" => "UF_TYPE_OF_BUYER_ALTERMAX")
                 );
                 $enum = array();
                 while ($arEnum = $rsEnum->Fetch()) {
-                    if ($arEnum['DEF'] == 'Y') {
-                        $def = $arEnum["ID"];
+                    if ($arEnum['ID'] == $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER_ALTERMAX']['VALUE']) {
+                        $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER_ALTERMAX']['VALUE_XML'] = $arEnum["XML_ID"];
                     }
-                    $enum[$arEnum["ID"]] = $arEnum["VALUE"];
+                    $enum[$arEnum["ID"]] = array('value' => $arEnum["VALUE"], 'xml_id' => $arEnum['XML_ID'] );
                 }
-                $checked = $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER']['VALUE'];
+                $checked = $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER_ALTERMAX']['VALUE'];
 
                 ?>
                 <span class="fields enumeration field-wrap" data-has-input="no">
@@ -55,8 +52,8 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
                    foreach ($enum as $value => $name): ?>
                        <span class="fields enumeration enumeration-checkbox field-item">
                          <label class="checklist--style">
-                          <input value="<?= $value ?>" type="radio" name="UF_TYPE_OF_BUYER" <? ($value == $checked) ? print_r('checked') : ''; ?>  tabindex="0">
-                             <span><?= $name ?></span>
+                          <input value="<?= $value ?>" data-xml = "<?=$name['xml_id']?>" type="radio" name="UF_TYPE_OF_BUYER_ALTERMAX" <? ($value == $checked) ? print_r('checked') : ''; ?>  tabindex="0">
+                             <span><?= $name['value'] ?></span>
                          </label>
                         </span>
                    <?endforeach; ?>
@@ -66,7 +63,7 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
             </div>
 
             <?
-            $block_hide = $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER']['VALUE'] == 19 ? 'block' : 'none';
+            $block_hide = $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER_ALTERMAX']['VALUE_XML'] == 'ORGANIZATION' ? 'block' : 'none';
             ?>
 
             <div class="buyer_details" style="display:<?=$block_hide?>">
@@ -76,35 +73,35 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
                         <label>ИНН</label>
                         <?$APPLICATION->IncludeComponent(
                             "bitrix:system.field.edit",
-                            $arResult["USER_PROPERTIES"]["DATA"]['UF_INN']["USER_TYPE"]["USER_TYPE_ID"],
-                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_INN']), null, array("HIDE_ICONS"=>"Y"));?>
+                            $arResult["USER_PROPERTIES"]["DATA"]['UF_INN_ALTERMAX']["USER_TYPE"]["USER_TYPE_ID"],
+                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_INN_ALTERMAX']), null, array("HIDE_ICONS"=>"Y"));?>
                     </div>
                     <div class="input_container">
                         <label>Форма собственности <span class="star">*</span></label>
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:system.field.edit",
-                            $arResult["USER_PROPERTIES"]["DATA"]['UF_OWNERSHIP']["USER_TYPE"]["USER_TYPE_ID"],
-                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_OWNERSHIP']), null, array("HIDE_ICONS"=>"Y"));?>
+                            $arResult["USER_PROPERTIES"]["DATA"]['UF_OWNERSHIP_ALTERMAX']["USER_TYPE"]["USER_TYPE_ID"],
+                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_OWNERSHIP_ALTERMAX']), null, array("HIDE_ICONS"=>"Y"));?>
                     </div>
                     <div class="input_container">
                         <label>Название организации <span class="star">*</span></label>
                         <?$APPLICATION->IncludeComponent(
                             "bitrix:system.field.edit",
-                            $arResult["USER_PROPERTIES"]["DATA"]['UF_NAME_ORGANIZATION']["USER_TYPE"]["USER_TYPE_ID"],
-                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_NAME_ORGANIZATION']), null, array("HIDE_ICONS"=>"Y"));?>
+                            $arResult["USER_PROPERTIES"]["DATA"]['UF_NAME_ORGANIZATION_ALTERMAX']["USER_TYPE"]["USER_TYPE_ID"],
+                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_NAME_ORGANIZATION_ALTERMAX']), null, array("HIDE_ICONS"=>"Y"));?>
                     </div>
                     <div class="input_container">
                         <label>  Юридический адрес </label>
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:system.field.edit",
-                            $arResult["USER_PROPERTIES"]["DATA"]['UF_LEGAL_ADRESS']["USER_TYPE"]["USER_TYPE_ID"],
-                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_LEGAL_ADRESS']), null, array("HIDE_ICONS"=>"Y"));?>
+                            $arResult["USER_PROPERTIES"]["DATA"]['UF_LEGAL_ADRESS_ALTERMAX']["USER_TYPE"]["USER_TYPE_ID"],
+                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_LEGAL_ADRESS_ALTERMAX']), null, array("HIDE_ICONS"=>"Y"));?>
                     </div>
                 </div>
             </div>
 
 
-            <? $type =  $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER']['VALUE']; ?>
+            <? $type =  $arResult["USER_PROPERTIES"]["DATA"]['UF_TYPE_OF_BUYER_ALTERMAX']['VALUE_XML']; ?>
 
             <div class="contact_information">
                 <h4 class="checkout-sep box-sep bord">КОНТАКТНАЯ ИНФОРМАЦИЯ</h4>
@@ -129,30 +126,26 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
                         <label>Телефон</label>
                         <input  type="text" name="PERSONAL_PHONE" placeholder="+7 (___) ___-__-__" class="phone" maxlength="255" value="<? echo $arResult["arUser"]["PERSONAL_PHONE"]?>" />
                     </div>
-                    <?  $type == 18 ? $disp = 'block' : $disp = 'none'; ?>
+                    <?  $type == 'INDIVIDUAL' ? $disp = 'block' : $disp = 'none'; ?>
                     <div class="input_container" style="display:<?=$disp?>">
                         <label>  ОГРНИП </label>
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:system.field.edit",
-                            $arResult["USER_PROPERTIES"]["DATA"]['UF_OGRNIP']["USER_TYPE"]["USER_TYPE_ID"],
-                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_OGRNIP']), null, array("HIDE_ICONS"=>"Y"));?>
+                            $arResult["USER_PROPERTIES"]["DATA"]['UF_OGRNIP_ALTERMAX']["USER_TYPE"]["USER_TYPE_ID"],
+                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_OGRNIP_ALTERMAX']), null, array("HIDE_ICONS"=>"Y"));?>
                     </div>
-                    <?  $type == 17 ? $disp = 'block' : $disp = 'none'; ?>
+                    <?  $type == 'PRIVATE' ? $disp = 'block' : $disp = 'none'; ?>
                     <div class="input_container" style="display:<?=$disp?>">
                         <label>  Должность </label>
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:system.field.edit",
-                            $arResult["USER_PROPERTIES"]["DATA"]['UF_POST']["USER_TYPE"]["USER_TYPE_ID"],
-                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_POST']), null, array("HIDE_ICONS"=>"Y"));?>
+                            $arResult["USER_PROPERTIES"]["DATA"]['UF_POST_ALTERMAX']["USER_TYPE"]["USER_TYPE_ID"],
+                            array("bVarsFromForm" => $arResult["bVarsFromForm"], "arUserField" => $arResult["USER_PROPERTIES"]["DATA"]['UF_POST_ALTERMAX']), null, array("HIDE_ICONS"=>"Y"));?>
                     </div>
                 </div>
             </div>
         </div>
         <div class="first-row-right">
-
-          <!--  <div class="information_cointatiner">
-                Что-то напишем
-            </div> !-->
         </div>
     </div>
 
@@ -189,14 +182,14 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
     </div>
 </section>
 
-<? if($type == 19): ?>
+<? if($type == 'ORGANIZATION'): ?>
 
 <script>
-$('.input_container input[name="UF_OWNERSHIP"]').prop('required', true);
-$('.input_container input[name="UF_NAME_ORGANIZATION"]').prop('required', true);
-$.validator.addClassRules("UF_OWNERSHIP", {
+$('.input_container input[name="UF_OWNERSHIP_ALTERMAX"]').prop('required', true);
+$('.input_container input[name="UF_NAME_ORGANIZATION_ALTERMAX"]').prop('required', true);
+$.validator.addClassRules("UF_OWNERSHIP_ALTERMAX", {
 required: true });
-$.validator.addClassRules("UF_NAME_ORGANIZATION", {
+$.validator.addClassRules("UF_NAME_ORGANIZATION_ALTERMAX", {
 required: true });
 </script>
 
@@ -228,10 +221,10 @@ $('.uf_form').validate({
             'NAME': {
                 required: 'Введите Имя'
             },
-            'UF_OWNERSHIP': {
+            'UF_OWNERSHIP_ALTERMAX': {
                required: 'Выеберете форму собственности' 
             },
-            'UF_NAME_ORGANIZATION': {
+            'UF_NAME_ORGANIZATION_ALTERMAX': {
                required: 'Введите название организации' 
             },
         },
@@ -239,65 +232,61 @@ $('.uf_form').validate({
     });
 
     $('.type_of_buyer input').click(function() {
-        if($(this).val() == 19) {
+        if($(this).attr( "data-xml") == 'ORGANIZATION') {
             $('.buyer_details').css('display', 'block');
 
-            $('.input_container input[name="UF_OWNERSHIP"]').prop('required', true);
-            $('.input_container input[name="UF_NAME_ORGANIZATION"]').prop('required', true);
+            $('.input_container input[name="UF_OWNERSHIP_ALTERMAX"]').prop('required', true);
+            $('.input_container input[name="UF_NAME_ORGANIZATION_ALTERMAX"]').prop('required', true);
 
-            $.validator.addClassRules("UF_OWNERSHIP", {
+            $.validator.addClassRules("UF_OWNERSHIP_ALTERMAX", {
 	         required: true });
 
-             $.validator.addClassRules("UF_NAME_ORGANIZATION", {
+             $.validator.addClassRules("UF_NAME_ORGANIZATION_ALTERMAX", {
             required: true });
 
         } 
-         else if($(this).val() == 18) {
-            $('.input_container input[name="UF_POST"]').val('').parents('.input_container').css('display', 'none');
-            $('.input_container input[name="UF_OGRNIP"]').val('').parents('.input_container').css('display', 'block');
+         else if($(this).attr( "data-xml") == 'INDIVIDUAL') {
+            $('.input_container input[name="UF_POST_ALTERMAX"]').val('').parents('.input_container').css('display', 'none');
+            $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').val('').parents('.input_container').css('display', 'block');
             $('.buyer_details').css('display', 'none');
-            $('.input_container input[name="UF_OWNERSHIP"]').prop('required', false);
-            $('.input_container input[name="UF_NAME_ORGANIZATION"]').prop('required', false);
+            $('.input_container input[name="UF_OWNERSHIP_ALTERMAX"]').prop('required', false);
+            $('.input_container input[name="UF_NAME_ORGANIZATION_ALTERMAX"]').prop('required', false);
 
-            $.validator.addClassRules("UF_OWNERSHIP", {
+            $.validator.addClassRules("UF_OWNERSHIP_ALTERMAX", {
 	         required: false });
 
-             $.validator.addClassRules("UF_NAME_ORGANIZATION", {
+             $.validator.addClassRules("UF_NAME_ORGANIZATION_ALTERMAX", {
             required: false });
 
 
          } 
-         else if ($(this).val() == 17) {
-            $('.input_container input[name="UF_POST"]').val('').parents('.input_container').css('display', 'block');
-            $('.input_container input[name="UF_OGRNIP"]').val('').parents('.input_container').css('display', 'none');
+         else if ($(this).attr( "data-xml") == 'PRIVATE') {
+            $('.input_container input[name="UF_POST_ALTERMAX"]').val('').parents('.input_container').css('display', 'block');
+            $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').val('').parents('.input_container').css('display', 'none');
             $('.buyer_details').css('display', 'none');
-            $('.input_container input[name="UF_OWNERSHIP"]').prop('required', false);
-            $('.input_container input[name="UF_NAME_ORGANIZATION"]').prop('required', false);
+            $('.input_container input[name="UF_OWNERSHIP_ALTERMAX"]').prop('required', false);
+            $('.input_container input[name="UF_NAME_ORGANIZATION_ALTERMAX"]').prop('required', false);
 
-            $.validator.addClassRules("UF_OWNERSHIP", {
+            $.validator.addClassRules("UF_OWNERSHIP_ALTERMAX", {
 	         required: false });
 
-             $.validator.addClassRules("UF_NAME_ORGANIZATION", {
+             $.validator.addClassRules("UF_NAME_ORGANIZATION_ALTERMAX", {
             required: false });
          }       
     });
 
-  /*  var datepicker = new Datepicker('.datepicker-js', {
-        format: 'dd-mm-yyyy',
-        language: 'ru-RU',
-    }); */
 
     $('.datepicker-js').mask("99-99-9999");
 
     //маска ИНН
-    $('.input_container input[name="UF_INN"]').mask('9999999999');
+    $('.input_container input[name="UF_INN_ALTERMAX"]').mask('9999999999');
     //маска ОГРНИП
-    $('.input_container input[name="UF_OGRNIP"]').mask("999999999999999");
+    $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').mask("999999999999999");
 
 
     (function () {
 
-    var $address = $('.input_container input[name="UF_LEGAL_ADRESS"]');
+    var $address = $('.input_container input[name="UF_LEGAL_ADRESS_ALTERMAX"]');
 
     $address.fias({
         oneString: true,
