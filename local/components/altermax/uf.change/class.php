@@ -169,14 +169,14 @@ class Registry extends CBitrixComponent
             $this->arResult["bVarsFromForm"] = $strError != '';
         }
 
-        foreach ($this->arResult["USER_PROPERTIES"]['DATA'] as $enum) {
+        /* foreach ($this->arResult["USER_PROPERTIES"]['DATA'] as $enum) {
             if($enum['USER_TYPE_ID'] != 'enumeration' or  $enum['VALUE'] == null) { continue; }
              $property_enums = CUserFieldEnum::GetList(Array(), Array("VALUE "=>$enum['VALUE'], 'USER_FIELD_NAME' => $enum['FIELD_NAME'] ));
              if($enum_fields = $property_enums->GetNext())
              {
                  $this->arResult["USER_PROPERTIES"]['DATA'][$enum['FIELD_NAME']]['VALUE_XML'] = $enum_fields['XML_ID'];
              }
-        }
+        } */
 
 
         $this->arResult["BX_SESSION_CHECK"] = bitrix_sessid_post();

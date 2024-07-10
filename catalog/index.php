@@ -1,7 +1,7 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Каталог");
 $APPLICATION->IncludeComponent(
-	"bitrix:catalog", 
+	"altermax:catalog", 
 	".default", 
 	array(
 		"COMPONENT_TEMPLATE" => ".default",
@@ -54,6 +54,7 @@ $APPLICATION->IncludeComponent(
 		"PRODUCT_ID_VARIABLE" => "id",
 		"USE_COMPARE" => "N",
 		"PRICE_CODE" => array(
+			0 => "BASE",
 		),
 		"USE_PRICE_COUNT" => "N",
 		"SHOW_PRICE_COUNT" => "1",
@@ -161,7 +162,7 @@ $APPLICATION->IncludeComponent(
 		"USE_BIG_DATA" => "Y",
 		"BIG_DATA_RCM_TYPE" => "personal",
 		"USE_ENHANCED_ECOMMERCE" => "N",
-		"PAGER_TEMPLATE" => ".default",
+		"PAGER_TEMPLATE" => "altermax",
 		"DISPLAY_TOP_PAGER" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
 		"PAGER_TITLE" => "Товары",
@@ -195,6 +196,8 @@ $APPLICATION->IncludeComponent(
 		"LIST_SHOW_SLIDER" => "Y",
 		"LIST_SLIDER_INTERVAL" => "3000",
 		"LIST_SLIDER_PROGRESS" => "N",
+		"SIDEBAR_SECTION_POSITION" => "right",
+		"SIDEBAR_DETAIL_POSITION" => "right",
 		"VARIABLE_ALIASES" => array(
 			"ELEMENT_ID" => "ELEMENT_ID",
 			"SECTION_ID" => "SECTION_ID",
