@@ -38,9 +38,14 @@ if ($sectionListParams["COUNT_ELEMENTS"] === "Y")
 		$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
 	}
 }
+?>
+<div class="main-container">
+	<div class="container has-sidebar">
+		<div class="row">
+<?
 $APPLICATION->IncludeComponent(
-	"bitrix:catalog.section.list",
-	"",
+	"altermax:catalog.category",
+	"category_main",
 	$sectionListParams,
 	$component,
 	($arParams["SHOW_TOP_ELEMENTS"] !== "N" ? array("HIDE_ICONS" => "Y") : array())
@@ -67,7 +72,7 @@ if ($arParams["USE_COMPARE"] === "Y")
 		array("HIDE_ICONS" => "Y")
 	);
 }
-
+/*
 if ($arParams["SHOW_TOP_ELEMENTS"] !== "N")
 {
 	if (isset($arParams['USE_COMMON_SETTINGS_BASKET_POPUP']) && $arParams['USE_COMMON_SETTINGS_BASKET_POPUP'] === 'Y')
@@ -163,4 +168,10 @@ if ($arParams["SHOW_TOP_ELEMENTS"] !== "N")
 		$component
 	);
 	unset($basketAction);
-}
+}*/
+?>
+		</div>
+	</div><!-- .container -->
+</div>
+
+

@@ -206,8 +206,8 @@ else
 					}
 				}
 				$APPLICATION->IncludeComponent(
-					"bitrix:catalog.section.list",
-					"",
+					"altermax:catalog.category",
+					"category_section",
 					$sectionListParams,
 					$component,
 					array("HIDE_ICONS" => "Y")

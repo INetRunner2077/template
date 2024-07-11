@@ -70,7 +70,9 @@ if ($isFilter)
 		$arCurSection = array();
 }
 ?>
-
+<div class="main-container">
+	<div class="container has-sidebar">
+		<div class="row">
 <?
 if ($isVerticalFilter)
 {
@@ -81,4 +83,7 @@ else
 	include($_SERVER["DOCUMENT_ROOT"]."/".$this->GetFolder()."/section_horizontal.php");
 }
 ?>
+		</div>
+	</div><!-- .container -->
+</div>
 

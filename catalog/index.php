@@ -101,7 +101,7 @@ $APPLICATION->IncludeComponent(
 		"ELEMENT_SORT_ORDER" => "asc",
 		"ELEMENT_SORT_FIELD2" => "id",
 		"ELEMENT_SORT_ORDER2" => "desc",
-		"INCLUDE_SUBSECTIONS" => "Y",
+		"INCLUDE_SUBSECTIONS" => "N",
 		"LIST_META_KEYWORDS" => "-",
 		"LIST_META_DESCRIPTION" => "-",
 		"LIST_BROWSER_TITLE" => "-",
