@@ -5,6 +5,8 @@ $APPLICATION->SetTitle("Авторизация");
 
 <?php
 
+
+
 /*  Создание пользовательского поля 'должность' */
 $oUserTypeEntity    = new CUserTypeEntity();
 

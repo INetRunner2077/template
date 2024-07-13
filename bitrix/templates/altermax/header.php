@@ -19,6 +19,7 @@ CJSCore::Init(array("jquery"));
     <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/font-awesome.min.css"); ?>
     <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/main.js') ?>
     <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/jquery.validate.js') ?>
+    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/owl.carousel.min.js') ?>
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
     </head>
