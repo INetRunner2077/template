@@ -62,3 +62,32 @@
     width: 30%;
     margin-left: 5%;
 }
+.counter_wrapp #main_counter {
+    text-align: center;
+    width: 60px;
+}
+.product-cart-buy .product-item-amount {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.counter_wrapp {
+    margin-right:10px;
+}
+
+.minus, .plus {
+    cursor:pointer;
+}
+#to_basket {
+    background: red;
+    padding: 7px;
+    color: white;
+}
+.product-item-detail-info-container {
+    margin-bottom:0px !important;
+}
+
+.counter_wrapp #other_counter {
+    text-align: center;
+    width: 60px;
+}

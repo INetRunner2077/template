@@ -16,7 +16,7 @@ use Bitrix\Main\Localization\Loc;
  */
 
 $this->setFrameMode(true);
-$this->addExternalCss('/bitrix/css/main/bootstrap.css');
+$this->addExternalJS('/local/components/altermax/catalog.element/templates/.default/bootstrap.min.js');
 
 $templateLibrary = array('popup', 'fx', 'ui.fonts.opensans');
 $currencyList = '';
@@ -214,36 +214,44 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
         <div class="row">
             <div class="col-xs-12 col-sm-9 col-sm-push-3" id="product_column">
                 <div class="center_column">
-                    <div class="product-view-area">
+                    <div class="product-view-area" id="<?=$itemIds['ID']?>">
                         <div class="product-big-image col-xs-12 col-sm-5 col-lg-5 col-md-5">
                             <div class="icon-sale-label sale-left"> </div>
-                            <div class="large-image imgheighByWidth1_1">
+                            <div class="large-image">
                                 <div class="boximg">
-                                    <a href="<?=$detail_src?>" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20" style="position: relative; display: block;">
-                                        <img class="zoom-img" src="<?=$detail_src?>" alt="<?=$detail_name?>" style="display: block; visibility: visible;">
+                                    <a href="<?=$detail_src?>" class="cloud-zoom" id="zoom1"">
+                                        <img class="zoom-img" src="<?=$detail_src?>" alt="<?=$detail_name?>">
                                     </a>
                                 </div>
                             </div>
                             <? if(!empty($actualItem['PROPERTIES']['MORE_PHOTO'])): ?>
                             <div class="flexslider flexslider-thumb">
-                                <div class="flex-viewport" style="overflow: hidden; position: relative;">
-                                    <ul class="previews-list slides" style="width: 1000%; transition-duration: 0s; transform: translate3d(-343px, 0px, 0px);">
+                                <div class="flex-viewport">
+                                    <ul class="previews-list slides">
                                         <? foreach ($actualItem['PROPERTIES']['MORE_PHOTO']['VALUE'] as $idFile): ?>
-                                        <? $filesrc = CFile::GetPath($idFile)?>
-                                        <li style="width: 100px; float: left; display: block;">
-                                            <a href="<?=$filesrc?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: '<?=$filesrc?>' ">
-                                                <img src="<?=$filesrc?>" alt="<?=$actualItem['NAME']?>" draggable="false">
-                                            </a>
-                                        </li>
-                                         <? endforeach; ?>
+                                            <? $filesrc = CFile::GetPath($idFile)?>
+                                            <li>
+                                                <a href="<?=$filesrc?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: '<?=$filesrc?>' ">
+                                                    <img src="<?=$filesrc?>" alt="<?=$actualItem['NAME']?>"
+                                                </a>
+                                            </li>
+                                        <? endforeach; ?>
                                     </ul>
                                 </div>
-                                <ul class="flex-direction-nav"><li><a class="flex-prev" href="#"></a></li><li><a class="flex-next flex-disabled" href="#" tabindex="-1"></a></li></ul>
+                                <ul class="flex-direction-nav"><li>
+                                        <a class="flex-prev" href="#"></a>
+                                    </li><li>
+                                        <a class="flex-next flex-disabled" href="#" tabindex="-1"></a>
+                                    </li></ul>
                             </div>
                             <? endif; ?>
 
+
                             <!-- end: more-images -->
                         </div><!-- .product-big-image -->
+
+
+
                         <div class="col-xs-12 col-sm-7 col-lg-7 col-md-7 product-details-area">
                             <div class="product-name">
                                 <h1><?=$actualItem['NAME']?></h1>
@@ -252,18 +260,9 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                 <p class="special-price"> <span class="price-label">Цена</span>
                                     <span class="price"><?=$price['PRINT_RATIO_PRICE']?></span> </p>
                             </div>
-                            <div class="ratings">
-                                <div class="rating">
-                                    <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>                     </div>
-                            </div>
                             <div class="short-description">
                                 <h2>Описание <?=$actualItem['NAME']?></h2>
-                                <?=$actualItem['PREVIEW_TEXT']?>                 </div>
-                            <div class="product-cart-option">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i><span>В избранное</span></a></li>
-                                    <li><a href="#"><i class="fa fa-envelope"></i><span>Поделится</span></a></li>
-                                </ul>
+                                <?=$actualItem['PREVIEW_TEXT']?>
                             </div>
                             <div class="product-cart-buy">
                                 <div class="product-item-detail-info-container" style="<?=(!$actualItem['CAN_BUY'] ? 'display: none;' : '')?>"
@@ -271,25 +270,31 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                     <div class="product-item-detail-info-container-title"><?=Loc::getMessage('CATALOG_QUANTITY')?></div>
                                     <div class="product-item-amount">
 
-                                        <? echo '123'?>
-
-                                        <? if($actualItem['PRODUCT']['QUANTITY'] > 0): ?>
+                                        <? if($actualItem['PRODUCT']['QUANTITY'] > 0 and $arResult['ITEM_HAS_IN_CART'] == false): ?>
                                         <div class="counter_wrapp">
                                             <div class="counter_block big_basket" data-item="<?=$actualItem['ID']?>" style="/* display: none; */">
-                                                <span class="minus" id="bx_117848907_100406_quant_down">-</span>
-                                                <input type="text" class="text" id="bx_117848907_100406_quantity" name="quantity" value="1">
-                                                <span class="plus" id="bx_117848907_100406_quant_up">+</span>
+                                                <span class="minus" id="quant_down">-</span>
+                                                <input type="text" class="text" id="main_counter" name="quantity" value="1">
+                                                <span class="plus" id="quant_up">+</span>
                                             </div>
                                         </div>
                                         <div class="button_wrap">
                                             <div class="product-item-detail-info-container in-cart-button">
-                                                <button <?=$buyButtonClassName?> class="button cart-button button-green" id="in_basket" title="<?=$arParams['MESS_BTN_BUY']?>">
+                                                <button <?=$buyButtonClassName?> data-item="<?=$actualItem['ID']?>" data-count="1" class="button cart-button button-green" id="in_basket" title="<?=$arParams['MESS_BTN_BUY']?>">
                                                     <i class="fa fa-shopping-basket"></i>
                                                     <span><?=$arParams['MESS_BTN_BUY']?></span>
                                                 </button>
                                             </div>
                                         </div>
+                                        <? else: ?>
+                                            <div class="product-item-detail-info-container in-basket">
+                                                <a href="<?=$arParams['BASKET_URL']?>" id="to_basket" title="В корзине">
+                                                    <i class="fa fa-shopping-basket"></i>
+                                                    <span> В корзине </span>
+                                                </a>
+                                            </div>
                                         <? endif; ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -314,111 +319,101 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                     <div class="std">
                                         <div class="review-ratting">
                                             <table class="table">
-                                                <tbody><tr>
-                                                    <th>Напряжение в открытом состоянии(Iоткр 0.2А)</th>
-                                                    <td>5В</td>
-                                                </tr>
+                                                <tbody>
+                                                <? foreach ($actualItem['PROPERTIES'] as $prop): ?>
+                                                <? if(($prop['PROPERTY_TYPE'] == 'S' or $prop['PROPERTY_TYPE'] == 'N') and ($prop['ACTIVE'] == 'Y') and (!empty($prop['VALUE'])) and (!is_array($prop['VALUE']))): ?>
                                                 <tr>
-                                                    <th>Максимально допустимый средний ток в открытом состоянии</th>
-                                                    <td>0.3А</td>
+                                                    <th><?=$prop['NAME']?></th>
+                                                    <td><?=$prop['VALUE']?></td>
                                                 </tr>
-                                                <tr>
-                                                    <th>Импульсный ток в открытом состоянии(tи&lt;10мс)</th>
-                                                    <td>2А</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Максимальное напряжение в закрытом состоянии</th>
-                                                    <td>40В</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Постоянный ток в закрытом состоянии</th>
-                                                    <td>10мкА</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Максимальное импульсное неотпирающее напряжение(tимп&lt;2мкс)</th>
-                                                    <td>5В</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Диапазон рабочих температур</th>
-                                                    <td>-40…70C</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Вес</th>
-                                                    <td>0.2г</td>
-                                                </tr>
-                                                </tbody></table>
+                                                <? endif; ?>
+                                                <? endforeach; ?>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div><!-- #specifications -->
 
                                 <div id="documentation" class="tab-pane fade">
-                                    <div class="std">
-                                        <p>В разработке.</p>
-                                    </div>
+                                    <? foreach ($actualItem['PROPERTIES'] as $prop): ?>
+                                        <? if(($prop['PROPERTY_TYPE'] == 'F') and (!empty($prop['VALUE'])) and ($prop['ACTIVE'] == 'Y')): ?>
+                                        <?
+                                         $rsFile = \CFile::GetList(array(), array('@ID'=>implode(',',$prop['VALUE'])));
+                                         while ($arFile = $rsFile->Fetch()) {
+                                             if($arFile['CONTENT_TYPE'] == 'application/pdf') {
+                                                 $arrFiles[$arFile["ID"]]
+                                                     = $arFile;
+                                                 $arrFiles[$arFile["ID"]]['SRC'] = '/upload/' . $arFile['SUBDIR'] . '/' . $arFile['FILE_NAME'];
+                                             }
+                                         }
+                                        ?>
+                                     <? foreach ($arrFiles as $file): ?>
                                     <div class="file-loadbx-ico">
                                         <i class="fa fa-file-pdf-o color-red"></i>
-                                        <h4>Характеристики, параметры</h4>
-                                        <a href="#">Скачать файл</a>
+                                        <h4><?=$file['ORIGINAL_NAME']?></h4>
+                                        <a href="<?=$file['SRC']?>" download>Скачать файл</a>
                                     </div>
+                                        <? endforeach; ?>
+                                        <? unset($arrImages); ?>
+                                        <? endif; ?>
+                                        <? endforeach; ?>
                                 </div><!-- #documentation -->
 
                             </div><!-- #productTabContent -->
                         </div><!-- .product-tab-inner -->
                     </div><!-- .product-overview-tab -->
                     <br>
-                    <div class="related-product-area">
+                    <div class="related-product-area" id="related-product-area">
                         <div class="page-header">
                             <h2>Результаты поиска по позиции</h2>
                         </div>
                     </div>
-                    <div id="productTabContent" class="product-list-area">
+                    <div id="OtherProduct" class="product-list-area">
                         <ul class="products-list" id="products-list">
                         </ul>
                     </div><!-- .product-list-area -->
                 </div><!-- .center_column -->
             </div><!-- #product_column -->
             <!-- Left colunm -->
+            <?$APPLICATION->IncludeComponent(
+                "altermax:section",
+                "sections_list_danil",
+                array(
+                    "IBLOCK_TYPE" => "xmlcatalog",
+                    "IBLOCK_ID" => "11",
+                    "DISPLAY_PANEL" => '',
+                    "CACHE_TYPE" => "A",
+                    "CACHE_TIME" => 3600,
+                    "CACHE_GROUPS" => "N",
+                    "COUNT_ELEMENTS" => "N",
+                    "SECTION_URL" => '',
+                    "SECTIONS_LIST_PREVIEW_DESCRIPTION" => '',
+                    "SECTIONS_LIST_PREVIEW_PROPERTY" => '',
+                    "SHOW_SUBSECTION" => '',
+                    "SHOW_SECTION_LIST_PICTURES" => '',
+                    "TOP_DEPTH" => (($arParams["SECTION_TOP_DEPTH"]&&$arParams["SECTION_TOP_DEPTH"]<=2)?$arParams["SECTION_TOP_DEPTH"]:2),
+                    "COMPONENT_TEMPLATE" => "sections_list_danil",
+                    "SECTION_ID" => '',
+                    "SECTION_CODE" => "",
+                    "COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
+                    "ADDITIONAL_COUNT_ELEMENTS_FILTER" => "additionalCountFilter",
+                    "HIDE_SECTIONS_WITH_ZERO_COUNT_ELEMENTS" => "N",
+                    "SECTION_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                    ),
+                    "SECTION_USER_FIELDS" => array(
+                        0 => "",
+                        1 => "",
+                    ),
+                    "FILTER_NAME" => "sectionsFilter",
+                    "CACHE_FILTER" => "N",
+                    "ADD_SECTIONS_CHAIN" => "Y"
+                ),
+                $component
+            ); ?>
         </div>
         <!-- service section -->
-        <div class="jtv-service-area" data-file="baner_line_serv.php">
-            <!--div class="container"-->
-            <div class="row">
-                <div class="col col-md-4 col-sm-6 col-xs-12 ">
-                    <div class="block-wrapper return">
-                        <div class="text-des">
-                            <div class="icon-wrapper"><i class="fa fa-truck"></i></div>
-                            <div class="service-wrapper">
-                                <h3>Доставка в регионы</h3>
-                                <p>Доставляем по всей России.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-md-4 col-sm-6 col-xs-12">
-                    <div class="block-wrapper support">
-                        <div class="text-des">
-                            <div class="icon-wrapper"><i class="far fa-question-circle"></i></div>
-                            <div class="service-wrapper">
-                                <h3>Тех. поддержка</h3>
-                                <p>Всегда вам поможем.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col col-md-4 col-sm-6 col-xs-12">
-                    <div class="block-wrapper user">
-                        <div class="text-des">
-                            <div class="icon-wrapper"><i class="fa fa-tags"></i></div>
-                            <div class="service-wrapper">
-                                <h3>Скидки и акции</h3>
-                                <p>С нами выгоднее.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/div-->
-        </div><!-- .jtv-service-area -->
     </div><!-- .container -->
 </div>
 
@@ -431,5 +426,8 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
     BX.Sale.ItemComponent.init({
         BasketUrl: '<?=$arParams['BASKET_URL']?>',
         siteID: '<?=CUtil::JSEscape($component->getSiteId())?>',
+        maxValue: '<?=$actualItem['PRODUCT']['QUANTITY']?>',
+        iblockId: '<?=$arParams['IBLOCK_ID']?>',
+        itemId: '<?=$actualItem['ID']?>',
     });
 </script>

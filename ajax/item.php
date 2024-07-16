@@ -105,7 +105,7 @@ if(!empty($_REQUEST["add_item"])){
                 }
             }
             if ($successfulAdd){
-                $addResult = array('STATUS' => 'OK', 'MESSAGE' => 'CATALOG_SUCCESSFUL_ADD_TO_BASKET', 'MESSAGE_EXT' => $strErrorExt);
+                $addResult = array('STATUS' => 'OK', 'ITEM_ID' => $_REQUEST["item"], 'MESSAGE' => 'CATALOG_SUCCESSFUL_ADD_TO_BASKET', 'MESSAGE_EXT' => $strErrorExt);
             }else{
                 $addResult = array('STATUS' => 'ERROR', 'MESSAGE' => $strError, 'MESSAGE_EXT' => $strErrorExt);
             }
