@@ -245,12 +245,8 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                     </li></ul>
                             </div>
                             <? endif; ?>
-
-
                             <!-- end: more-images -->
                         </div><!-- .product-big-image -->
-
-
 
                         <div class="col-xs-12 col-sm-7 col-lg-7 col-md-7 product-details-area">
                             <div class="product-name">
@@ -272,14 +268,15 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
 
                                         <? if($actualItem['PRODUCT']['QUANTITY'] > 0 and $arResult['ITEM_HAS_IN_CART'] == false): ?>
                                         <div class="counter_wrapp">
-                                            <div class="counter_block big_basket" data-item="<?=$actualItem['ID']?>" style="/* display: none; */">
+                                            <div class="counter_block big_basket" data-item="<?=$actualItem['ID']?>">
                                                 <span class="minus" id="quant_down">-</span>
                                                 <input type="text" class="text" id="main_counter" name="quantity" value="1">
                                                 <span class="plus" id="quant_up">+</span>
+
                                             </div>
                                         </div>
                                         <div class="button_wrap">
-                                            <div class="product-item-detail-info-container in-cart-button">
+                                            <div class="product-item-detail-info-container in-cart-button" id="buttonMain">
                                                 <button <?=$buyButtonClassName?> data-item="<?=$actualItem['ID']?>" data-count="1" class="button cart-button button-green" id="in_basket" title="<?=$arParams['MESS_BTN_BUY']?>">
                                                     <i class="fa fa-shopping-basket"></i>
                                                     <span><?=$arParams['MESS_BTN_BUY']?></span>

@@ -14,7 +14,12 @@ BX.namespace('BX.Sale.ItemComponent');
             this.siteId = parameters.siteID || '';
             this.maxValue = parameters.maxValue || '';
             this.iblockId = parameters.iblockId || '';
-            this.itemId= parameters.itemId || '';
+            this.itemId = parameters.itemId || '';
+
+            $('#countMain').data('item', this.itemId);
+            $('#countMain').data('count', 1);
+            $('#buttonMain').data('item', this.itemId);
+
 
             var ctx = this;
             BX(function(){
@@ -37,7 +42,7 @@ BX.namespace('BX.Sale.ItemComponent');
 
             BX.bindDelegate(BX('products-list'), 'click', {className: 'minus'}, function() {ctx.quantDown($(this),false)});
 
-            BX.bindDelegate(BX('products-list'), 'click', {className: 'in_basket'}, function() {ctx.inCart($(this), false)});
+            BX.bindDelegate(BX('products-list'), 'click', {className: 'in_basket'}, function() {ctx.inCart($(this))});
 
             BX.bindDelegate(BX('page'), 'click', {className: 'quick_view_popup-close'}, function() {ctx.deleteOneClick($(this))});
 
@@ -50,10 +55,10 @@ BX.namespace('BX.Sale.ItemComponent');
 
         OneClickBuy: function (e) {
 
-            var count = $(e).attr('data-count');
-            var itemId = $(e).attr('data-item-onebuy');
-            var name = $(e).attr('data-name');
-            var price = $(e).attr('data-price');
+            var count = $(e).data('count');
+            var itemId = $(e).data('item-onebuy');
+            var name = $(e).data('name');
+            var price = $(e).data('price');
 
             var popup = $('<div id="quick_view_popup-wrap" style="display: block; top: 222px;">\n' +
                 '        <div id="quick_view_popup-outer">\n' +
@@ -122,7 +127,7 @@ BX.namespace('BX.Sale.ItemComponent');
             if(main == true) {
                var max = this.maxValue;
             } else {
-               var max = e.parent().attr('data-quantity');
+               var max = e.parent().data('quantity');
             }
 
             if(e.val() > max) {
@@ -137,7 +142,7 @@ BX.namespace('BX.Sale.ItemComponent');
                     if(main == true) {
                         var max = this.maxValue;
                     } else {
-                        var max = $(e).parent().attr('data-quantity');
+                        var max = $(e).parent().data('quantity');
                     }
 
                     var input_val = $(e).parent().find('input[name="quantity"]');
@@ -147,13 +152,13 @@ BX.namespace('BX.Sale.ItemComponent');
                     if(new_val > max) { new_val = max }
                     input_val.val(new_val);
                     if(main == true) {
-                       var itemId = $(e).parent().attr('data-item');
+                       var itemId = $(e).parent().data('item');
                        var input = $('button[data-item=' + itemId + ']');
-                       input.attr('data-count', new_val);
+                       input.data('count', new_val);
                     } else {
-                        var itemId = $(e).parent().attr('data-item');
+                        var itemId = $(e).parent().data('item');
                         var input = $('button[data-item=' + itemId + ']');
-                        input.attr('data-count', new_val);
+                        input.data('count', new_val);
                     }
                 }
             }
@@ -166,7 +171,7 @@ BX.namespace('BX.Sale.ItemComponent');
                     if(main == true) {
                         var max = this.maxValue;
                     } else {
-                        var max = $(e).parent().attr('data-quantity');
+                        var max = $(e).parent().data('quantity');
                     }
 
                     var input_val = $(e).parent().find('input[name="quantity"]');
@@ -176,13 +181,13 @@ BX.namespace('BX.Sale.ItemComponent');
                     if(new_val > max) { new_val = max }
                     input_val.val(new_val);
                     if(main == true) {
-                        var itemId = $(e).parent().attr('data-item');
+                        var itemId = $(e).parent().data('item');
                         var input = $('button[data-item=' + itemId + ']');
-                        input.attr('data-count', new_val);
+                        input.data('count', new_val);
                     } else {
-                        var itemId = $(e).parent().attr('data-item');
+                        var itemId = $(e).parent().data('item');
                         var input = $('button[data-item=' + itemId + ']');
-                        input.attr('data-count', new_val);
+                        input.data('count', new_val);
                     }
                 }
             }
@@ -284,14 +289,17 @@ BX.namespace('BX.Sale.ItemComponent');
                         item.find('.cart_description .product-name').text(data[key].TITLE);
                         item.find('.availability').text(data[key].QUANTITY);
                         item.find('.ajax-change-price').text(data[key].PRICE);
-                        item.find('.counter_block').attr('data-item', key);
-                        item.find('.counter_block').attr('data-quantity', data[key].QUANTITY);
+                        item.find('.counter_block').data('item', key);
+                        item.find('.counter_block').data('quantity', data[key].QUANTITY);
+                        item.find('.in_basket').data('item', key);
+                        item.find('.by-one-click').data('item-onebuy', key);
+                        item.find('.in_basket').data('count', 1);
+                        item.find('.by-one-click').data('count', 1);
+                        item.find('.by-one-click').data('name', data[key].TITLE);
+                        item.find('.by-one-click').data('price', data[key].PRICE);
                         item.find('.in_basket').attr('data-item', key);
-                        item.find('.by-one-click').attr('data-item-onebuy', key);
-                        item.find('.in_basket').attr('data-count', 1);
-                        item.find('.by-one-click').attr('data-count', 1);
-                        item.find('.by-one-click').attr('data-name', data[key].TITLE);
-                        item.find('.by-one-click').attr('data-price', data[key].PRICE);
+
+
 
                         if(data[key].BASKET == true) {
                             var button =   $('<div class="product-item-detail-info-container in-basket">\n' +
@@ -315,13 +323,12 @@ BX.namespace('BX.Sale.ItemComponent');
 
         },
 
-        inCart: function (e, main) {
+        inCart: function (e) {
 
             var data = {};
-            if(main == true)
-            data.quantity = $(e).attr('data-count');
+            data.quantity = $(e).data('count');
             data.add_item = "Y";
-            data.item = $(e).attr('data-item');
+            data.item = $(e).data('item');
 
            this.BasketUrl;
             $.ajax({
@@ -352,76 +359,3 @@ BX.namespace('BX.Sale.ItemComponent');
 
     };
 })();
-
-BX.ready(function () {
-
-    function openHoverWindow(htmlInc){
-        var overlayId='quick_view_popup-overlay';
-        var winWrapId='quick_view_popup-wrap';
-        var wrapWinId='quick_view_popup-outer';
-        var boxWinId='quick_view_popup-content';
-        var closeWinBtm='quick_view_popup-close';
-        //проверяем наличие фонового перекрытия, если есть
-
-        //проверяем наличие уже такого окна
-        if(jQuery('#'+overlayId).length>0){
-            jQuery('#'+overlayId).remove();
-        }
-        //console.info('show');
-        //добавим в боди перекрытие
-        var overlay='<div id="'+overlayId+'"></div>';
-        jQuery('body').addClass('hover-window').append(overlay);
-        //добавим в боди саму форму
-        if(jQuery('#'+winWrapId).length>0){
-            //удалим старое
-            jQuery('#'+winWrapId).remove();
-        }
-        var divForm='<div id="'+winWrapId+'"></div>';
-        jQuery('body').append(divForm);
-        var containerWin=jQuery('#'+winWrapId);
-        //новое окно рамка
-        var wrapWin='<div id="'+wrapWinId+'"></div>';
-        jQuery(containerWin).append(wrapWin);
-        //блок окна и кнопка закрытия
-        var boxWin='<div id="'+boxWinId+'"></div><a style="display: inline;" id="'+closeWinBtm+'" href="#"><i class="icon pe-7s-close"></i></a>';
-        //добавим в блок
-        jQuery('#'+wrapWinId).append(boxWin);
-        //покажем блок
-        jQuery(containerWin).css('display','block');
-        //вставим данные htmlInc
-        jQuery('#'+boxWinId).html(htmlInc);
-        //выровняем его по высоте
-        var winHeight=jQuery(window).height();
-        var bxHeight=jQuery(containerWin).height();
-        if(bxHeight<winHeight){
-            //надо что то выровнять
-            var padding=(winHeight-bxHeight) / 2;
-            jQuery(containerWin).css({top:padding});
-        }
-        jQuery(window).resize(function(){
-            var winHeight=jQuery(window).height();
-            var bxHeight=jQuery(containerWin).height();
-            if(bxHeight<winHeight){
-                //надо что то выровнять
-                var padding=(winHeight-bxHeight) / 2;
-                jQuery(containerWin).position().top=padding;
-            }
-        });
-        //обработку на закрытияе формы
-        jQuery('#'+closeWinBtm).click(function(e){
-            e.preventDefault();
-            //удалим форму и фон
-            jQuery('#'+winWrapId).remove();
-            jQuery('#'+overlayId).remove();
-            //обработчик после
-        });
-        jQuery('#'+overlayId).click(function(e){
-            e.preventDefault();
-            //удалим форму и фон
-            jQuery('#'+winWrapId).remove();
-            jQuery('#'+overlayId).remove();
-            //обработчик после
-        });
-    }
-
-});

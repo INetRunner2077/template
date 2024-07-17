@@ -1,3 +1,4 @@
+<?php if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die(); ?>
 <section class="main-container col2-right-layout">
     <div class="main container">
 <div class="register-ressi">
