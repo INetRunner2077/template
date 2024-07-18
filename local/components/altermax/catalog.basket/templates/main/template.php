@@ -1,4 +1,5 @@
 <?php
+
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
     die();
 } ?>
@@ -40,11 +41,12 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                 </thead>
                                 <tbody>
                                 <?
-                                foreach ($arResult['BASKET'] as $id => $item): ?>
+                                foreach ($arResult['BASKET'] as $id => $item):
+                                    ?>
                                     <tr>
                                         <td class="cart_description">
                                             <p class="product-name">
-                                                <a href="/item/FSCQ0765RTYDTU"
+                                                <a href="<?= $item['DETAIL_PAGE_URL'] ?>"
                                                    target="_blank"><?= $item['NAME'] ?></a>
                                             </p>
                                         </td>
@@ -64,6 +66,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                                    class="form-control input-sm input-sm numb-only ajax-numgds refresh-form-on-focus"
                                                    type="text"
                                                    name="ch_item[<?= $id ?>][qty]"
+                                                   data-maxcount="<?= $item['MAX_QUANTITY'] ?>"
                                                    value="<?= $item['QUANTITY'] ?>">
                                         </td>
                                         <td class="price text-right">
@@ -76,7 +79,8 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                             </span>
                                         </td>
                                         <td class="action">
-                                            <a href="#" class="js-clear-this" data-item="<?= $id ?>"
+                                            <a href="#" class="js-clear-this"
+                                               data-item="<?= $id ?>"
                                                data-input="#sum-inp-ch-<?= $id ?>"
                                                data-parent="tr"><i
                                                         class="icon-close"></i></a>
@@ -91,7 +95,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                     <td colspan="2" class="text-right"><strong>Итого,руб.:</strong>
                                     </td>
                                     <td class="text-right"><strong><span
-                                                    class="hide-on-change"><?=$arResult['TOTAL_COST']?></span></strong>
+                                                    class="hide-on-change"><?= $arResult['TOTAL_COST'] ?></span></strong>
                                     </td>
                                     <td></td>
                                 </tr>

@@ -4,15 +4,13 @@ use Bitrix\Main\Application,
     Bitrix\Main\Context,
     Bitrix\Main\Loader;
 
+$request = Context::getCurrent()->getRequest();
+$action  = $request->get("action");
+if(empty($action)) { die(); }
+
 if(Loader::IncludeModule("sale")) {
 
-
-
-
-    $request = Context::getCurrent()->getRequest();
-
     $itemId  = $request->get("ItemId");
-    $action  = $request->get("action");
     $fUser = Sale\Fuser::getId();
     $siteId = Bitrix\Main\Context::getCurrent()->getSite();
 
@@ -51,10 +49,22 @@ if(Loader::IncludeModule("sale")) {
                 $addResult = array('STATUS' => 'ERROR');
                 echo json_encode($addResult);
                 die();
+            } else {
+                $addResult = array('STATUS' => 'OK');
+                echo json_encode($addResult);
             }
         }
 
     }
+
+if($action == 'B') {
+
+    $basket = Sale\Basket::loadItemsForFUser(Sale\Fuser::getId(), Bitrix\Main\Context::getCurrent()->getSite());
+    $basketItems = $basket->getBasketItems();
+    $addResult = array('STATUS' => 'BASKET', 'FINAL_PRICE' => $basket->getPrice());
+    echo json_encode($addResult);
+
+}
 
 
 }

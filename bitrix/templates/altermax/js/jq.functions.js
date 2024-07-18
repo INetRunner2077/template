@@ -516,6 +516,8 @@ function changeValNum(idEl,input,wey){
       //console.info('click');
       e.preventDefault();
       var val=jQuery(input).val();
+      var max = jQuery(input).data('maxcount');
+      var request = true;
       //console.info('val='+val);
       if(wey=='plus'){
         val++;
@@ -526,16 +528,28 @@ function changeValNum(idEl,input,wey){
       else {
         val=val-1;
       }
+      if(val > max) {
+        val--;
+        request = false;
+      }
       if(val<0){
         val=0;
       }
+      if(val == 0){
+        val=1;
+      }
       //вернем значение назад
-      jQuery(input).val(val).change();
+      if(request) {
+        jQuery(input).val(val).change();
+      }
     });
 
   });
 }
 //изменение цены в зависимости от кол-ва
+var timer_q;
+var timer_b;
+
 function changePriceByValueSum(classBx){
   jQuery(classBx).each(function(idx,elem){
     var onePrice=jQuery(elem).data('oneprice');
@@ -547,8 +561,10 @@ function changePriceByValueSum(classBx){
         //есть элемент, мотрим по нему
         jQuery(inpLookSum).change(function(){
           var val=this.value;
+          clearTimeout(timer_q);
+          clearTimeout(timer_b);
+          timer_q  = setTimeout(() => { OpenAjaxResponse('Q', jQuery(elem).data('item'), val) }, 1000);
           //для исключения ошибок в строку, для замены
-          OpenAjaxResponse('Q', jQuery(elem).data('item'), val);
           onePrice=String(onePrice);
           var price=onePrice.replace(',','.');
           price=parseFloat(price) * val;
@@ -560,6 +576,10 @@ function changePriceByValueSum(classBx){
       }
     }
   });
+}
+
+function ResetCount(data) {
+ $('tfoot .hide-on-change').text(data.FINAL_PRICE);
 }
 
 //обработка формы ajax
@@ -685,7 +705,7 @@ function authUserCartAdd(classBtm,delClassParent){
         //jQuery(inputCtrl).val(0).change();
         //добавим класс родителю
         OpenAjaxResponse('D', jQuery(btm).data('item'), 1)
-
+        timer_b  = setTimeout(() => { OpenAjaxResponse('B', 1,1) }, 2000);
         var parent=jQuery(btm).closest(parentEl);
         if(parent){
           jQuery(parent).addClass(delClassParent);
@@ -708,7 +728,9 @@ function OpenAjaxResponse(action, itemId, count) {
     data: data,
     dataType: "json",
     success: function (data) {
-      console.log(data);
+      if(data.STATUS == 'BASKET') {
+        ResetCount(data);
+      }
     }
   });
 }
