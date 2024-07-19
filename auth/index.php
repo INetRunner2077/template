@@ -21,9 +21,9 @@ $APPLICATION->SetTitle("Авторизация");
         $arParams
     );
 }elseif( !empty( $_REQUEST["backurl"] ) ){
-    LocalRedirect( $_REQUEST["backurl"] );
+    LocalRedirect( 'account/' );
 }else{
-    LocalRedirect(SITE_DIR.'personal/');
+    LocalRedirect(SITE_DIR.'account/');
 }?>
     <!-- /AuthorizationForm -->
 

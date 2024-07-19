@@ -173,10 +173,38 @@ $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.c
         </div>
     </div>
 
-
-    <div class="save_container">
-        <input type="submit" class="button subm-btm button-green" name="save"  value="Сохранить аккаунт">&nbsp;
+    <div class="row terms-submit-line">
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-sm-8">
+                    <ul class="form-terms-checkbox">
+                        <li>
+                            <label>
+                                <input form="user-edit-full" type="checkbox" name="terms[news]" value="1" checked="">
+                                Я хочу получать новости и анонсы от Компании</label>
+                        </li>
+                        <li>
+                            <label>
+                                <input form="user-edit-full" type="checkbox" name="terms[prod]" value="1" required="" checked="">
+                                Я согласен с <a href="/uslovie-prodadj" target="_blank">Соглашением об условиях продажи Продукции</a></label>
+                        </li>
+                        <li>
+                            <label>
+                                <input form="user-edit-full" type="checkbox" name="terms[lice]" value="1" required="" checked="">
+                                Я согласен с условиями <a href="/soglashenie-polzovatelja" target="_blank">Соглашения пользователя</a></label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-4">
+                    <button form="user-edit-full" class="button subm-btm button-green" type="submit">
+                          <span>
+                                                        Завершить регистрацию                          </span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
 </form>
 
     </div>
@@ -294,3 +322,7 @@ $('.uf_form').validate({
 })();
 
 </script>
+
+
+
+

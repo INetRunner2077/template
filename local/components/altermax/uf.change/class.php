@@ -121,7 +121,18 @@ class Registry extends CBitrixComponent
                 $USER_FIELD_MANAGER->EditFormAddFields("USER", $arFields);
 
 
+                if(empty($arFields['NAME'])) {
+                    $this->arResult['ERRORS'][] = 'Обязательно для заполнения: Имя пользователя';
+                }
+
+                if(empty($arFields['LAST_NAME'])) {
+                    $this->arResult['ERRORS'][] = 'Обязательно для заполнения: Фамилия';
+                }
+
                 unset($arFields['EMAIL']);
+
+                if(empty($this->arResult['ERRORS'])) {
+
 
                 if($obUser->Update($arResult["ID"], $arFields))
                 {
@@ -130,6 +141,8 @@ class Registry extends CBitrixComponent
                 else
                 {
                     $strError .= $obUser->LAST_ERROR;
+                }
+
                 }
             }
         }

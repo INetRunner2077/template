@@ -76,10 +76,10 @@
     color: black!important;
     font-size: initial!important;
 }
-.register-container .captcha {
+.register-captcha .captcha {
     font-size:19px!important;
 }
-.register-container .wrap_md {
+.register-ressi .wrap_md {
     flex-basis:70%;
 }
 .register-ressi .text-right {
@@ -109,7 +109,7 @@
     z-index: 99;
 }
 
-.register-container .error:not(.label_block .error):not(#captcha_word-error) {
+.register-ressi .error:not(.label_block .error):not(#captcha_word-error) {
     padding: 15px;
     color: #a94442;
     background-color: #f2dede;

@@ -7,23 +7,3 @@ $APPLICATION->SetTitle("Корзина"); ?>
 Array(),
 false
 );?><br><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
-
-
-
-<script>
-
-
-
-    $.ajax({
-        type: "POST",
-        url: "/ajax/offer.php",
-        data: finder,
-        dataType: "json",
-        success: function (data) {
-            console.log('sussess')
-    });
-
-
-
-
-</script>

@@ -1,7 +1,9 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
 <?
+
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\UI\Extension;
+
 Extension::load('ui.bootstrap4');
 CJSCore::Init(array("jquery"));
 ?>
@@ -143,9 +145,19 @@ CJSCore::Init(array("jquery"));
                             <!-- top links -->
                             <div class="headerlinkmenu col-md-8 col-sm-8 col-xs-12">
                                 <ul class="links">
+                                    <? if(!$USER->IsAuthorized()): ?>
                                     <li class="text-uppercase"><a title="Вход" href="/auth"><span>Вход</span></a></li>
                                     <li class="text-uppercase"><a title="Регистрация" href="/auth/registration"><span>Регистрация</span></a>
                                     </li>
+                                    <?else: ?>
+                                        <li class="text-uppercase"><a
+                                                    title="Аккаунт"
+                                                    href="/account/"><span>Аккаунт</span></a>
+                                        </li>
+                                        <li class="text-uppercase"><a
+                                                    title="Выход" href="/?logout=yes&<?=bitrix_sessid_get()?>"><span>Выход</span></a>
+                                        </li>
+                                    <? endif; ?>
                                 </ul>
                             </div>
                         </div>

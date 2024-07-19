@@ -40,7 +40,6 @@
 
 .iblock_captha_container {
     display:flex;
-    align-items: center;
 }
 
 .captcha-row .captcha_image .captcha_reload {
@@ -60,7 +59,7 @@
 }
 .captcha_input {
     width: 30%;
-    margin-left: 5%;
+    margin-left: 16%;
 }
 .counter_wrapp #main_counter {
     text-align: center;
@@ -90,4 +89,16 @@
 .counter_wrapp #other_counter {
     text-align: center;
     width: 60px;
+}
+.errorCust {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    color: red!important;
+    right: 24px;
+    top: 9px;
+    font-size: 11px;
+    padding: 0px!important;
+    background-color: transparent!important;
+    margin-bottom: 0px!important;
 }

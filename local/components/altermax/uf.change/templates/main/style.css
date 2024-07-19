@@ -22,6 +22,12 @@
     font-weight: 600 !important;
     color: black!important;
 }
+.subm-btm {
+    white-space: normal!important;
+}
+.form-terms-checkbox {
+    list-style:none;
+}
 
 .first-row .input_container input {
     display: block !important;
@@ -81,7 +87,7 @@ label.error:not(#captcha_word-error) {
 }
 .input_container select::placeholder {
     color:black;
-} 
+}
 .input_container input[type="date"] {
     display: block !important;
     font-size: 20px !important;
