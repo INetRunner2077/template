@@ -1,0 +1,10 @@
+#related-product-area {
+    display:none;
+}
+#OtherProduct {
+    display: none;
+}
+#products-list .action {
+    display: flex;
+    justify-content: space-between;
+}
