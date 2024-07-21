@@ -28,8 +28,6 @@ Thumbs.db
 /bitrix/js/
 /bitrix/css/
 /bitrix/license_key.php
-/bitrix/modules/
-!bitrix/modules/altermax.shop/
 /bitrix/otp/
 /bitrix/p3p.xml
 /bitrix/redirect.php
