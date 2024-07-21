@@ -117,6 +117,12 @@ class altermax_shop extends CModule {
 				}
 			}
 		}
+
+		CopyDirFiles(__DIR__ . '/components/', Application::getDocumentRoot() . '/local/components/', true, true);
+		CopyDirFiles(__DIR__ . '/templates/', Application::getDocumentRoot() . '/local/templates/', true, true);
+		CopyDirFiles(__DIR__ . '/public/', Application::getDocumentRoot(), true, true);
+
+
 		return true;
 	}
 	
