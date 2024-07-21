@@ -172,7 +172,7 @@ CJSCore::Init(array("jquery"));
                                 <!-- Header Logo -->
                                 <div class="logo">
                                     <a title="Энергофлот" href="/">
-                                        <img alt="Изделия электронной техники" title="Изделия электронной техники" src="<?=SITE_TEMPLATE_PATH?>/img/hd_logo.png">
+                                        <img alt="Изделия электронной техники" title="Изделия электронной техники" src="<?=CFile::GetPath( \Bitrix\Main\Config\Option::get("bitrix24", "client_logo_retina"))?>">
                                     </a>
                                 </div>
                             </div>

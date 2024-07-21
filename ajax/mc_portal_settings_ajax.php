@@ -24,11 +24,11 @@ $arReturn = [
     'status' => 'error',
     'txt' => 'Error! CODE 971'
 ];
-
 if($USER->IsAdmin() && check_bitrix_sessid() && in_array($arPostList['BX_TYPE'], $arWhiteType))
 {
     function am_save_logo_file($arFile, $arRestriction = Array(), $mode = "")
     {
+        Loader::includeModule('iblock');
         $oldFileID = \Bitrix\Main\Config\Option::get("bitrix24", "client_logo".($mode == "retina" ? "_retina" : ""), "");
 
         $arFile = array_merge(
@@ -49,6 +49,15 @@ if($USER->IsAdmin() && check_bitrix_sessid() && in_array($arPostList['BX_TYPE'],
         }
 
         $fileID = (int)CFile::SaveFile($arFile, "bitrix24");
+
+        $file = CFile::ResizeImageGet($fileID, array(
+            'width'=>'420',
+            'height'=>'100'
+        ), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+
+        // добавляем в массив VALUES новую уменьшенную картинку
+        $VALUES = CFile::MakeFileArray($_SERVER["DOCUMENT_ROOT"].$file["src"]);
+        $fileID = (int)CFile::SaveFile($VALUES, "bitrix24");
 
         return $fileID;
     }
