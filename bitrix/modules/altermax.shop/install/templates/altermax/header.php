@@ -11,24 +11,24 @@ CJSCore::Init(array("jquery"));
     <html lang="<?=LANGUAGE_ID?>"><head>
         <meta charset="<?=LANG_CHARSET?>">
         <?$APPLICATION->ShowHead();?>
-        <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/style.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/style_bitrix.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/addons.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/theme-color.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/all.css"); ?>
+        <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/style.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/style_bitrix.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/addons.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/theme-color.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/all.css"); ?>
     <? Asset::getInstance()->addCss("/bitrix/css/main/bootstrap.min.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/simple-line-icons.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/flexslider.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/font-awesome.min.css"); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/main.js'); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/jquery.validate.js'); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/owl.carousel.min.js'); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/cloud-zoom.js'); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/jquery.flexslider.js'); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/jqModal.js'); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/quick_view_popup.css"); ?>
-    <? Asset::getInstance()->addCss("/bitrix/templates/altermax/css/pe-icon-7-stroke.min.css"); ?>
-    <? Asset::getInstance()->addJs('/bitrix/templates/altermax/js/jq.functions.js'); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/simple-line-icons.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/flexslider.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/font-awesome.min.css"); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/main.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/owl.carousel.min.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/cloud-zoom.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jqModal.js'); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/quick_view_popup.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/pe-icon-7-stroke.min.css"); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jq.functions.js'); ?>
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
     </head>

@@ -33,8 +33,28 @@ class altermax_shop extends CModule {
 
 		$this->InstallEvents();
 		$this->InstallFiles();
+		$this->ChangeTemplate();
+		$this->InstalIblock();
 		$this->registerModule();
+
 		return true;
+	}
+
+	public function InstalIblock() {
+
+		\Bitrix\Main\Loader::IncludeModule('iblock');
+
+		require_once __DIR__ . '/db/IBlockTypesModuleManager.php';
+		$iBlockTypesModuleManager = new IBlockTypesModuleManager();
+		$iBlockTypesModuleManager->doInstall();
+		$res = ImportXMLFile(
+			__DIR__ .  "/iblock_xml/altermax_catalog.xml",
+			'altermax_catalog',
+			's1',
+			'N',
+			'N'
+		);
+
 	}
 
 	/**
@@ -160,7 +180,24 @@ class altermax_shop extends CModule {
 
 	 	return true;
 
-	} 
+	}
+
+
+	public function ChangeTemplate() {
+
+		$obSite = new CSite();
+		$t = $obSite->Update('s1', array(
+			'ACTIVE' => "Y",
+			'TEMPLATE'=>array(
+				array(
+					'CONDITION' => "",
+					'SORT' => 1,
+					'TEMPLATE' => "altermax"
+				),
+			)
+		));
+	 	return true;
+	}
 
 	/**
 	 * Удаляем таблицы из БД
