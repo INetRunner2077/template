@@ -18,13 +18,11 @@ CJSCore::Init(array("jquery"));
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/all.css"); ?>
     <? Asset::getInstance()->addCss("/bitrix/css/main/bootstrap.min.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/simple-line-icons.css"); ?>
-    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/flexslider.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/font-awesome.min.css"); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/main.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/owl.carousel.min.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/cloud-zoom.js'); ?>
-    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jqModal.js'); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/quick_view_popup.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/pe-icon-7-stroke.min.css"); ?>
