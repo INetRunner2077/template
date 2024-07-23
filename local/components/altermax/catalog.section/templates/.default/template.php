@@ -823,7 +823,7 @@ if ($showLazyLoad)
                                                     <div class="item-content">
                                                         <p> <?=$item['PREVIEW_TEXT'] ?> </p>
                                                         <div class="item-price">
-                                                            <div class="price-box"> <span class="regular-price"> <span class="price"> <?=$item['ITEM_PRICES'][$item['ITEM_PRICE_SELECTED']]['BASE_PRICE']?> Руб </span> </span> </div>
+                                                            <div class="price-box"> <span class="regular-price"> <span class="price"> <?=$item['ITEM_PRICES'][$item['ITEM_PRICE_SELECTED']]['BASE_PRICE']?> <?=$item['ITEM_PRICES'][$item['ITEM_PRICE_SELECTED']]['CURRENCY']?> </span> </span> </div>
                                                         </div>
                                                         <div class="pro-action">
                                                             <a type="button" class="add-to-cart hashref" href="<?=$item['DETAIL_PAGE_URL']?>"><span> Подробнее</span> </a>

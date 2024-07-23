@@ -28,6 +28,7 @@ CJSCore::Init(array("jquery"));
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/pe-icon-7-stroke.min.css"); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jq.functions.js'); ?>
 
+
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
     </head>
     <body class="cms-pamcms-index-index cms-home-page ">
@@ -178,16 +179,30 @@ CJSCore::Init(array("jquery"));
 
                                 <!-- Search -->
 
-                                <div class="top-search">
-                                    <div id="search">
-                                        <form method="get" action="/search" id="main-seach-bx">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Поиск по названию" name="s" value="" minlength="4" required="">
-                                                <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+
+                                <?$APPLICATION->IncludeComponent(
+                                    "altermax:search.title",
+                                    "altermax",
+                                    array(
+                                        "CATEGORY_0" => array(
+                                        ),
+                                        "CATEGORY_0_TITLE" => "",
+                                        "CHECK_DATES" => "N",
+                                        "CONTAINER_ID" => "title-search",
+                                        "INPUT_ID" => "title-search-input",
+                                        "NUM_CATEGORIES" => "1",
+                                        "ORDER" => "date",
+                                        "PAGE" => SITE_DIR."catalog/",
+                                        "SHOW_INPUT" => "Y",
+                                        "SHOW_OTHERS" => "N",
+                                        "TOP_COUNT" => "5",
+                                        "USE_LANGUAGE_GUESS" => "Y",
+                                        "COMPONENT_TEMPLATE" => ".default"
+                                    ),
+                                    false
+                                );?>
+
+
 
                                 <!-- End Search -->
 
