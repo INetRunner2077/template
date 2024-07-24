@@ -1,51 +1,61 @@
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-use Bitrix\Main\Application,
-    Bitrix\Sale,
-    Bitrix\Main\Context,
-    Bitrix\Main\Loader;
+<?
+
+require($_SERVER["DOCUMENT_ROOT"]
+    ."/bitrix/modules/main/include/prolog_before.php");
+
+use Bitrix\Main\Context;
+use Bitrix\Main\Loader;
+use Bitrix\Sale;
 
 $request = Context::getCurrent()->getRequest();
-$action  = $request->get("action");
-if(empty($action)) { die(); }
+$action = $request->get("action");
+if (empty($action)) {
+    die();
+}
 
-if(Loader::IncludeModule("sale")) {
-
-    $itemId  = $request->get("ItemId");
+if (Loader::IncludeModule("sale")) {
+    $itemId = $request->get("ItemId");
     $fUser = Sale\Fuser::getId();
     $siteId = Bitrix\Main\Context::getCurrent()->getSite();
 
-    if($action == 'D') {
-
+    if ($action == 'D') {
         global $APPLICATION;
-        $dbBasketItems = CSaleBasket::GetList(array(),array(
-            'FUSER_ID' => $fUser,
-            'LID' => $siteId,
-            'ORDER_ID' => 'NULL',
-            'PRODUCT_ID' => $itemId));
+        $dbBasketItems = CSaleBasket::GetList(
+            array(),
+            array(
+                'FUSER_ID'   => $fUser,
+                'LID'        => $siteId,
+                'ORDER_ID'   => 'NULL',
+                'PRODUCT_ID' => $itemId,
+            )
+        );
         if ($arBasket = $dbBasketItems->Fetch()) {
             CSaleBasket::Delete($arBasket['ID']);
         }
     }
-    if($action == 'Q') {
+    if ($action == 'Q') {
         $count = $request->get("count");
         $res = array();
         $product = array(
             'PRODUCT_ID' => $itemId,
-            'QUANTITY' => $count,
+            'QUANTITY'   => $count,
         );
         $arFields = array(
-            "QUANTITY" => $count
+            "QUANTITY" => $count,
         );
 
-        $dbBasketItems = CSaleBasket::GetList(array(),array(
-            'FUSER_ID' => $fUser,
-            'LID' => $siteId,
-            'ORDER_ID' => 'NULL',
-            'PRODUCT_ID' => $itemId
-        ));
+        $dbBasketItems = CSaleBasket::GetList(
+            array(),
+            array(
+                'FUSER_ID'   => $fUser,
+                'LID'        => $siteId,
+                'ORDER_ID'   => 'NULL',
+                'PRODUCT_ID' => $itemId,
+            )
+        );
         if ($arBasket = $dbBasketItems->Fetch()) {
             $updateResult = CSaleBasket::Update($arBasket['ID'], $arFields);
-            if(!$updateResult){
+            if (!$updateResult) {
                 $addResult = array('STATUS' => 'ERROR');
                 echo json_encode($addResult);
                 die();
@@ -54,23 +64,24 @@ if(Loader::IncludeModule("sale")) {
                 echo json_encode($addResult);
             }
         }
-
     }
 
-if($action == 'B') {
-    $basket = Sale\Basket::loadItemsForFUser(Sale\Fuser::getId(), Bitrix\Main\Context::getCurrent()->getSite());
-    $basketItems = $basket->getBasketItems();
-    $addResult = array('STATUS' => 'BASKET', 'FINAL_PRICE' => $basket->getPrice());
-    echo json_encode($addResult);
-}
+    if ($action == 'B') {
+        $basket = Sale\Basket::loadItemsForFUser($fUser, $siteId);
+        $basketItems = $basket->getBasketItems();
+        $addResult = array(
+            'STATUS'      => 'BASKET',
+            'FINAL_PRICE' => $basket->getPrice(),
+        );
+        echo json_encode($addResult);
+    }
 
-if($action == 'DelOrder') {
-
-    global $USER;
-    $orderId  = $request->get('orderId');
+    if ($action == 'DelOrder') {
+        global $USER;
+        $orderId = $request->get('orderId');
         $order = Sale\Order::load($orderId);
 
-        if($USER->GetID() == $order->getUserId()) {
+        if ($USER->GetID() == $order->getUserId()) {
             //отменяем оплаты если есть
             $paymentCollection = $order->getPaymentCollection();
             if ($paymentCollection->isPaid()) {
@@ -93,19 +104,76 @@ if($action == 'DelOrder') {
             $res_delete = Sale\Order::delete($orderId);
 
             echo $res_delete;
-            if($res_delete->isSuccess()) {
+            if ($res_delete->isSuccess()) {
                 $addResult = array('STATUS' => 'OK', 'ORDER_ID' => $orderId);
                 echo json_encode($addResult);
             } else {
-                $addResult = array('STATUS' => 'ERROR', 'MESSAGE' =>  $res_delete->getErrors());
+                $addResult = array(
+                    'STATUS'  => 'ERROR',
+                    'MESSAGE' => $res_delete->getErrors(),
+                );
                 echo json_encode($addResult);
             }
-
         }
+    }
 
-}
+    if ($action == 'refresh') {
+        $basket = Sale\Basket::loadItemsForFUser($fUser, $siteId);
+        ob_start();
+        ?>
+<div class="mini-cart slim-cart">
+    <div data-toggle="dropdown" data-hover="dropdown"
+         class="basket dropdown-toggle">
+        <a href="/checkout">
+            <div class="cart-icon">
+                <i class="icon-basket-loaded icons"></i>
+                <span class="cart-total"><?=$basket->count()?></span></div>
+            <div class="shoppingcart-inner hidden-xs"><span
+                    class="cart-title text-uppercase">Корзина</span></div>
+        </a>
+    </div>
+    <div>
+        <div class="top-cart-content">
+            <div class="block-subtitle hidden">Недавно добавленные товары</div>
+            <ul id="cart-sidebar" class="mini-products-list">
 
+       <?php foreach ($basket as $item): ?>
+       <? $item = $item->toArray(); ?>
+       <?  if($item['CURRENCY'] == 'RUB') { $item['CURRENCY'] = 'р.'; } ?>
+            <li class="item odd">
+                <a href="#" title="<?=$item['NAME']?>" class="product-image">
+                    <i class="fa fa-info"></i>
+                </a>
+                <div class="product-details">
+                    <p class="product-name"><a
+                            href="<?=$item['DETAIL_PAGE_URL']?>"
+                            target="_blank"><?=$item['NAME']?></a></p>
+                    <strong><?=(int)$item['QUANTITY']?></strong> x <span class="price"><?=$item['BASE_PRICE']?></span> =
+                    <span class="price"><?=$item['BASE_PRICE'] * (int)$item['QUANTITY'].' '?><span
+                            class="lwr-case"><?=$item['CURRENCY']?></span></span>
+                </div>
+            </li>
+        <?php
+        endforeach;?>
+            </ul>
+            <div class="top-subtotal"><span class="text-uppercase">Итого</span>,
+                руб: <span class="price"><?=$basket->getPrice()?></span></div>
+            <div class="actions">
+                <button class="btn-checkout" type="button" onClick="location.href='/ord/'"><i
+                        class="fa fa-check"></i> <span>Оформить</span>
+                </button>
+                <button class="view-cart" type="button" onClick="location.href='/basket/'"><i
+                        class="fa fa-shopping-cart"></i>
+                    <span>Изменить</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+        <? $basket = ob_get_clean();
 
+        echo $basket;
+        die();
+    }
 }
 
 ?>

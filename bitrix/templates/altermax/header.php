@@ -3,8 +3,6 @@
 
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\UI\Extension;
-
-Extension::load('ui.bootstrap4');
 CJSCore::Init(array("jquery"));
 ?>
     <!DOCTYPE html>
@@ -16,6 +14,7 @@ CJSCore::Init(array("jquery"));
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/addons.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/theme-color.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/all.css"); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/bootstrap.min.js'); ?>
     <? Asset::getInstance()->addCss("/bitrix/css/main/bootstrap.min.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/simple-line-icons.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/font-awesome.min.css"); ?>
@@ -27,6 +26,8 @@ CJSCore::Init(array("jquery"));
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/quick_view_popup.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/pe-icon-7-stroke.min.css"); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jq.functions.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js'); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/flexslider.css"); ?>
 
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>

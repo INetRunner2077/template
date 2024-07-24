@@ -646,17 +646,16 @@ function refreshMiniCart(miniCartBoxId,actionPath){
     jQuery(miniCartBoxId).on('refreshcart',function(){
       //console.info('upt_do');
       //отправим обычный ajax
-      var fdata = {
-      'fnc-form':'order_cart',
-      'fnc-elem':'updateCart',
-      is_ajax : '1'
-    };
+      var data = {}
+      data.action = 'refresh';
+
       jQuery.ajax({
         url: actionPath,
         type: 'POST',
-        data: fdata,
+        data: data,
         success:function(data){
-          //console.info(data);
+          console.info(data);
+
           jQuery(miniCartBoxId).html(data);
         }
       });
@@ -721,7 +720,6 @@ function OpenAjaxResponse(action, itemId, count) {
   data.action = action;
   data.ItemId = itemId;
   data.count = count || '';
-
   $.ajax({
     type: "POST",
     url: "/ajax/basketAjax.php",
@@ -1339,7 +1337,8 @@ jQuery(document).ready(function(){
   //изменение цены строки в зависимотсти от кол-ва
   changePriceByValueSum('.ajax-change-price');
   //отследим изменение миникорзины
-  refreshMiniCart('#minicart-ajax-rfsh','/order');
+  refreshMiniCart('#minicart-ajax-rfsh','/ajax/basketAjax.php');
+  $('#minicart-ajax-rfsh').trigger('refreshcart');
   //обновление корзины, при изменении данных в проверке заказа
   //refshCartOnChange('#checkuot-bx-wrap input.refresh-form-on-focus','#checkuot-bx-wrap','has-changes-val');
   //удаление элементов из корзины по кнопке

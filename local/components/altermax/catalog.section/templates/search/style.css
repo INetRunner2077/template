@@ -9,11 +9,12 @@
 .litle-product {
 	display: flex;
 	align-items: center;
-	flex-basis: 30%;
-	min-width:30%;
+	flex-basis: 40%;
+	min-width:40%;
 }
 .litle-img-area {
 	max-width: 80px;
+	min-width: 80px;
 }
 .litle-description {
 	display: flex;
@@ -45,12 +46,12 @@
 	background-color: #398439;
 }
 .litle_list_li {
-	min-height:95px;
+    max-height: 130px;
 }
 .products_show {
-	text-align: right;
-	margin-bottom: 10px;
+text-align: right;
+margin-bottom: 10px;
 }
 .products_show a:first-child {
-	margin-right: 20px;
+margin-right: 20px;
 }

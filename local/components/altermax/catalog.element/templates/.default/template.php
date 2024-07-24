@@ -1,7 +1,5 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-$this->addExternalJS(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js');
-$this->addExternalCss(SITE_TEMPLATE_PATH.'/css/flexslider.css');
 use Bitrix\Catalog\ProductTable;
 use Bitrix\Main\Localization\Loc;
 
