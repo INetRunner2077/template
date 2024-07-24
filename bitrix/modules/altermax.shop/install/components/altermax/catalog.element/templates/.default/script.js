@@ -329,7 +329,6 @@ BX.namespace('BX.Sale.ItemComponent');
             data.quantity = $(e).data('count');
             data.add_item = "Y";
             data.item = $(e).data('item');
-
            this.BasketUrl;
             $.ajax({
                 type: "POST",
@@ -338,6 +337,7 @@ BX.namespace('BX.Sale.ItemComponent');
                 dataType: "json",
                 success: function (data) {
                     BX.Sale.ItemComponent.updateButton(data);
+                    $('#minicart-ajax-rfsh').trigger('refreshcart');
                 }
             });
 

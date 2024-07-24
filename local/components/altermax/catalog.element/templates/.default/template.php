@@ -15,7 +15,6 @@ use Bitrix\Main\Localization\Loc;
  */
 
 $this->setFrameMode(true);
-$this->addExternalJS('/local/components/altermax/catalog.element/templates/.default/bootstrap.min.js');
 
 $templateLibrary = array('popup', 'fx', 'ui.fonts.opensans');
 $currencyList = '';

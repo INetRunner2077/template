@@ -13,6 +13,9 @@
                                 $this->AddEditAction($arItems['ID'], $arItems['EDIT_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "ELEMENT_EDIT"));
                                 $this->AddDeleteAction($arItems['ID'], $arItems['DELETE_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                                 ?>
+                                <?
+                                 !empty($arItems['PICTURE']['SRC']) ? $picture_src = $arItems['PICTURE']['SRC'] : $picture_src = SITE_TEMPLATE_PATH.'/img/altermax_logo.jpg';
+                                ?>
                                 <li class="item col-lg-4 col-md-4 col-sm-6 col-xs-6" id="<?=$this->GetEditAreaId($arItems['ID']);?>">
                                     <div class="product-item">
                                         <div class="item-inner">
@@ -20,8 +23,8 @@
                                                 <div class="pr-img-area">
                                                     <a title="<?=$arItems['NAME']?>" href="<?=$arItems['SECTION_PAGE_URL']?>">
                                                         <figure>
-                                                            <img class="first-img" src="/upload/iblock/c7f/gvcubgz0gngglav17oy7xprugdmwzmoh.png" alt="<?=$arItems['NAME']?>">
-                                                            <img class="hover-img" src="/upload/iblock/c7f/gvcubgz0gngglav17oy7xprugdmwzmoh.png" alt="<?=$arItems['NAME']?>">
+                                                            <img class="first-img" src="<?=$picture_src?>" alt="<?=$arItems['NAME']?>">
+                                                            <img class="hover-img" src="<?=$picture_src?>" alt="<?=$arItems['NAME']?>">
                                                         </figure>
                                                     </a>
                                                 </div>

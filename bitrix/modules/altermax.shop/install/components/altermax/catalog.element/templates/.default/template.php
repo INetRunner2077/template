@@ -1,6 +1,5 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-
 use Bitrix\Catalog\ProductTable;
 use Bitrix\Main\Localization\Loc;
 
@@ -212,41 +211,38 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
 <div class="main-container">
     <div class="container has-sidebar">
         <div class="row">
+
+
             <div class="col-xs-12 col-sm-9 col-sm-push-3" id="product_column">
                 <div class="center_column">
                     <div class="product-view-area" id="<?=$itemIds['ID']?>">
+
                         <div class="product-big-image col-xs-12 col-sm-5 col-lg-5 col-md-5">
-                            <div class="icon-sale-label sale-left"> </div>
-                            <div class="large-image">
+                            <div class="icon-sale-label sale-left"></div>
+                            <div class="large-image imgheighByWidth1_1">
                                 <div class="boximg">
-                                    <a href="<?=$detail_src?>" class="cloud-zoom" id="zoom1"">
+                                    <a href="<?=$detail_src?>" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20">
                                         <img class="zoom-img" src="<?=$detail_src?>" alt="<?=$detail_name?>">
                                     </a>
                                 </div>
                             </div>
                             <? if(!empty($actualItem['PROPERTIES']['MORE_PHOTO'])): ?>
                             <div class="flexslider flexslider-thumb">
-                                <div class="flex-viewport">
-                                    <ul class="previews-list slides">
-                                        <? foreach ($actualItem['PROPERTIES']['MORE_PHOTO']['VALUE'] as $idFile): ?>
+                                <ul class="previews-list slides">
+                                    <? foreach ($actualItem['PROPERTIES']['MORE_PHOTO']['VALUE'] as $idFile): ?>
                                             <? $filesrc = CFile::GetPath($idFile)?>
-                                            <li>
-                                                <a href="<?=$filesrc?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: '<?=$filesrc?>' ">
-                                                    <img src="<?=$filesrc?>" alt="<?=$actualItem['NAME']?>"
-                                                </a>
-                                            </li>
-                                        <? endforeach; ?>
-                                    </ul>
-                                </div>
-                                <ul class="flex-direction-nav"><li>
-                                        <a class="flex-prev" href="#"></a>
-                                    </li><li>
-                                        <a class="flex-next flex-disabled" href="#" tabindex="-1"></a>
-                                    </li></ul>
+                                    <li>
+                                        <a href="<?=$filesrc?>" class="cloud-zoom-gallery" rel="useZoom: 'zoom1', smallImage: '<?=$filesrc?>' ">
+                                            <img src="<?=$filesrc?>" alt="<?=$actualItem['NAME']?>" style="width:80px">
+                                        </a>
+                                    </li>
+                                    <? endforeach; ?>
+                                </ul>
                             </div>
                             <? endif; ?>
                             <!-- end: more-images -->
-                        </div><!-- .product-big-image -->
+                        </div>
+
 
                         <div class="col-xs-12 col-sm-7 col-lg-7 col-md-7 product-details-area">
                             <div class="product-name">

@@ -3,8 +3,6 @@
 
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\UI\Extension;
-
-Extension::load('ui.bootstrap4');
 CJSCore::Init(array("jquery"));
 ?>
     <!DOCTYPE html>
@@ -16,19 +14,21 @@ CJSCore::Init(array("jquery"));
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/addons.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/theme-color.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/all.css"); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/bootstrap.min.js'); ?>
     <? Asset::getInstance()->addCss("/bitrix/css/main/bootstrap.min.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/simple-line-icons.css"); ?>
-    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/flexslider.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/font-awesome.min.css"); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/main.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/owl.carousel.min.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/cloud-zoom.js'); ?>
-    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jqModal.js'); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/quick_view_popup.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/pe-icon-7-stroke.min.css"); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jq.functions.js'); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js'); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/flexslider.css"); ?>
+
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
     </head>
@@ -180,16 +180,30 @@ CJSCore::Init(array("jquery"));
 
                                 <!-- Search -->
 
-                                <div class="top-search">
-                                    <div id="search">
-                                        <form method="get" action="/search" id="main-seach-bx">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Поиск по названию" name="s" value="" minlength="4" required="">
-                                                <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+
+                                <?$APPLICATION->IncludeComponent(
+                                    "altermax:search.title",
+                                    "altermax",
+                                    array(
+                                        "CATEGORY_0" => array(
+                                        ),
+                                        "CATEGORY_0_TITLE" => "",
+                                        "CHECK_DATES" => "N",
+                                        "CONTAINER_ID" => "title-search",
+                                        "INPUT_ID" => "title-search-input",
+                                        "NUM_CATEGORIES" => "1",
+                                        "ORDER" => "date",
+                                        "PAGE" => SITE_DIR."catalog/",
+                                        "SHOW_INPUT" => "Y",
+                                        "SHOW_OTHERS" => "N",
+                                        "TOP_COUNT" => "5",
+                                        "USE_LANGUAGE_GUESS" => "Y",
+                                        "COMPONENT_TEMPLATE" => ".default"
+                                    ),
+                                    false
+                                );?>
+
+
 
                                 <!-- End Search -->
 

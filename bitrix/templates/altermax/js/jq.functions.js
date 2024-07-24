@@ -654,8 +654,6 @@ function refreshMiniCart(miniCartBoxId,actionPath){
         type: 'POST',
         data: data,
         success:function(data){
-          console.info(data);
-
           jQuery(miniCartBoxId).html(data);
         }
       });

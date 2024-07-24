@@ -46,9 +46,14 @@ else
 {
 	$basketAction = ($arParams['SECTION_ADD_TO_BASKET_ACTION'] ?? '');
 }
-
+?>
+<div class="main-container">
+    <div class="container has-sidebar">
+        <div class="row">
+            <div class="col-xs-12 col-sm-9 col-sm-push-3" id="product_column">
+<?
 $APPLICATION->IncludeComponent(
-	"bitrix:catalog.search",
+	"altermax:catalog.search",
 	"",
 	[
 		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
