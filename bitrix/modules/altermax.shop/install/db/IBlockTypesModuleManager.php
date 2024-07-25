@@ -23,6 +23,20 @@ class IBlockTypesModuleManager {
                     'ELEMENT_NAME' => 'файл'
                 ]
             ],
+            [
+                'type' => [
+                    'ID' => 'altermax_advertising',
+                    'SECTIONS' => 'Y',
+                    'IN_RSS'=>'N',
+                    'SORT' => 100,
+                ],
+                'lang' => [
+                    'LANGUAGE_ID' => 'ru',
+                    'NAME' => 'Альтермакс: Реклама',
+                    'SECTION_NAME' => 'Реклама',
+                    'ELEMENT_NAME' => 'фото'
+                ]
+            ],
         ];
     }
 
@@ -33,10 +47,8 @@ class IBlockTypesModuleManager {
                 $typeTableObject = TypeTable::add($iblockType['type']);
             }
 
-            TypeLanguageTable::add([
-                ...$iblockType['lang'],
-                'IBLOCK_TYPE_ID' => $typeTableObject->getId(),
-            ]);
+            $iblockType['lang']['IBLOCK_TYPE_ID'] = $typeTableObject->getId();
+            TypeLanguageTable::add($iblockType['lang']);
         }
     }
 

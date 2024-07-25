@@ -7,6 +7,7 @@ BX.namespace('BX.Sale.ItemComponent');
         maxValue: '',
         iblockId: '',
         itemId: '',
+        find: '',
 
         init: function(parameters)
         {
@@ -15,15 +16,22 @@ BX.namespace('BX.Sale.ItemComponent');
             this.maxValue = parameters.maxValue || '';
             this.iblockId = parameters.iblockId || '';
             this.itemId = parameters.itemId || '';
+            this.find = parameters.find || '';
 
             $('#countMain').data('item', this.itemId);
             $('#countMain').data('count', 1);
             $('#buttonMain').data('item', this.itemId);
 
-
             var ctx = this;
+
             BX(function(){
-                ctx.finder();
+            ctx.buttonItemAjax();
+            });
+
+            BX(function(){
+                if(this.find == 'Y') {
+                    ctx.finder();
+                }
             });
 
             BX.bind(BX('in_basket'), 'click', function() {ctx.inCart($(this), true)});
@@ -328,7 +336,7 @@ BX.namespace('BX.Sale.ItemComponent');
             var data = {};
             data.quantity = $(e).data('count');
             data.add_item = "Y";
-            data.item = $(e).data('item');
+            data.item = this.itemId;
            this.BasketUrl;
             $.ajax({
                 type: "POST",
@@ -337,15 +345,30 @@ BX.namespace('BX.Sale.ItemComponent');
                 dataType: "json",
                 success: function (data) {
                     BX.Sale.ItemComponent.updateButton(data);
-                    $('#minicart-ajax-rfsh').trigger('refreshcart');
                 }
             });
 
+        },
 
+        buttonItemAjax: function () {
+
+            var data = {};
+            data.button_item = "Y";
+            data.item = this.itemId;
+            this.BasketUrl;
+            $.ajax({
+                type: "POST",
+                url: "/ajax/item.php",
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    BX.Sale.ItemComponent.updateButton(data);
+                }
+            });
         },
 
         updateButton : function (data) {
-            if(data.STATUS = "OK") {
+            if(data.STATUS == "OK") {
                 var button =   $('<div class="product-item-detail-info-container in-basket">\n' +
                     '<a href="#" id="to_basket" title="В корзине">\n' +
                     '<i class="fa fa-shopping-basket"></i>\n' +
@@ -354,6 +377,12 @@ BX.namespace('BX.Sale.ItemComponent');
                     '</div>');
                 button.find('#to_basket').attr('href', this.BasketUrl);
                 $('button[data-item=' + data.ITEM_ID + ']').replaceWith(button);
+                $('.product-cart-buy .counter_wrapp').css('display', 'none');
+            }
+            if(data.STATUS == "NO") {
+                $('.product-cart-buy .counter_wrapp').css('display', 'block');
+                $('.product-cart-buy .button_wrap').css('display', 'block');
+                $('.product-cart-buy .in-basket').css('display', 'none');
             }
         },
 

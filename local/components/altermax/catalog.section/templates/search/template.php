@@ -234,12 +234,18 @@ if (!empty($arResult['ITEMS'])): ?>
                 if ($_REQUEST['show'] == 'list'): ?>
                     <ul class="products-grid litle-list">
                         <div class="products_show">
-                        <a href="<?= $APPLICATION->GetCurPageParam("show=list", array('show')) ?>">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                        </a>
-                        <a href="<?= $APPLICATION->GetCurPageParam("show=tile", array('show')) ?>">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                        </a>
+                            <a href="<?= $APPLICATION->GetCurPageParam(
+                                "show=list",
+                                array('show')
+                            ) ?>">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </a>
+                            <a href="<?= $APPLICATION->GetCurPageParam(
+                                "show=tile",
+                                array('show')
+                            ) ?>">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                            </a>
                         </div>
                         <?
                         foreach ($arResult['ITEMS'] as $item): ?>
@@ -253,13 +259,21 @@ if (!empty($arResult['ITEMS'])): ?>
                                             <div class="pr-img-area litle-img-area">
                                                 <a title="<?= $item['NAME'] ?>"
                                                    href="<?= $item['DETAIL_PAGE_URL'] ?>">
-                                                    <? if (empty($item['PREVIEW_PICTURE']['SRC'])): ?>
-
-                                                        <? $item['PREVIEW_PICTURE']['SRC'] = SITE_TEMPLATE_PATH.'/img/altermax_logo.jpg'; ?>
-
-                                                    <? endif; ?>
                                                     <?
-                                                    if(empty($item['PREVIEW_PICTURE']['FILE_NAME'])) { $item['PREVIEW_PICTURE']['FILE_NAME'] = 'no_photo.png';  }
+                                                    if (empty($item['PREVIEW_PICTURE']['SRC'])): ?>
+
+                                                        <?
+                                                        $item['PREVIEW_PICTURE']['SRC']
+                                                            = SITE_TEMPLATE_PATH
+                                                            .'/img/altermax_logo.jpg'; ?>
+
+                                                    <?
+                                                    endif; ?>
+                                                    <?
+                                                    if (empty($item['PREVIEW_PICTURE']['FILE_NAME'])) {
+                                                        $item['PREVIEW_PICTURE']['FILE_NAME']
+                                                            = 'no_photo.png';
+                                                    }
                                                     ?>
                                                     <figure>
                                                         <img class="first-img"
@@ -313,12 +327,18 @@ if (!empty($arResult['ITEMS'])): ?>
                 ): ?>
                     <ul class="products-grid">
                         <div class="products_show">
-                        <a href="<?= $APPLICATION->GetCurPageParam("show=list", array('show')) ?>">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                        </a>
-                        <a href="<?= $APPLICATION->GetCurPageParam("show=tile", array('show')) ?>">
-                            <i class="fa fa-table" aria-hidden="true"></i>
-                        </a>
+                            <a href="<?= $APPLICATION->GetCurPageParam(
+                                "show=list",
+                                array('show')
+                            ) ?>">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </a>
+                            <a href="<?= $APPLICATION->GetCurPageParam(
+                                "show=tile",
+                                array('show')
+                            ) ?>">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                            </a>
                         </div>
                         <?
                         foreach ($arResult['ITEMS'] as $item): ?>
@@ -400,8 +420,8 @@ if (!empty($arResult['ITEMS'])): ?>
         "altermax:section",
         "sections_list_danil",
         array(
-            "IBLOCK_TYPE"                            => "xmlcatalog",
-            "IBLOCK_ID"                              => "11",
+            "IBLOCK_TYPE"                            => $arParams['IBLOCK_TYPE'],
+            "IBLOCK_ID"                              => $arParams['IBLOCK_ID'],
             "DISPLAY_PANEL"                          => '',
             "CACHE_TYPE"                             => "A",
             "CACHE_TIME"                             => 3600,

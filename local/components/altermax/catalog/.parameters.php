@@ -339,13 +339,6 @@ $arComponentParameters = array(
 			"DEFAULT" => "N",
 			"REFRESH" => "Y",
 		),
-		"USE_COMPARE" => array(
-			"PARENT" => "COMPARE_SETTINGS",
-			"NAME" => GetMessage("T_IBLOCK_DESC_USE_COMPARE_EXT"),
-			"TYPE" => "CHECKBOX",
-			"DEFAULT" => "N",
-			"REFRESH" => "Y",
-		),
 		"SHOW_TOP_ELEMENTS" => array(
 			"PARENT" => "TOP_SETTINGS",
 			"NAME" => GetMessage("NC_P_SHOW_TOP_ELEMENTS"),
@@ -711,13 +704,6 @@ $arComponentParameters = array(
 			"REFRESH" => "Y",
 		),
 
-		"USE_GIFTS_DETAIL" => array(
-			"PARENT" => "GIFTS_SETTINGS",
-			"NAME" => GetMessage("SALE_T_DESC_USE_GIFTS_DETAIL"),
-			"TYPE" => "CHECKBOX",
-			"DEFAULT" => "Y",
-			"REFRESH" => "Y",
-		),
 
 		"USE_GIFTS_SECTION" => array(
 			"PARENT" => "GIFTS_SETTINGS",
@@ -735,13 +721,6 @@ $arComponentParameters = array(
 			"REFRESH" => "Y",
 		),
 
-		"USE_STORE" => array(
-			"PARENT" => "STORE_SETTINGS",
-			"NAME" => GetMessage("T_IBLOCK_DESC_USE_STORE"),
-			"TYPE" => "CHECKBOX",
-			"DEFAULT" => "N",
-			"REFRESH" => "Y",
-		),
 		'COMPATIBLE_MODE' => array(
 			'PARENT' => 'EXTENDED_SETTINGS',
 			'NAME' => GetMessage('CP_BC_COMPATIBLE_MODE'),
