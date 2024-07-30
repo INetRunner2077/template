@@ -1072,13 +1072,6 @@ if (ModuleManager::isModuleInstalled("sale"))
 		'DEFAULT' => 'Y'
 	);
 
-	$arTemplateParameters['USE_BIG_DATA'] = array(
-		'PARENT' => 'BIG_DATA_SETTINGS',
-		'NAME' => GetMessage('CP_BC_TPL_USE_BIG_DATA'),
-		'TYPE' => 'CHECKBOX',
-		'DEFAULT' => 'Y',
-		'REFRESH' => 'Y'
-	);
 	if (!isset($arCurrentValues['USE_BIG_DATA']) || $arCurrentValues['USE_BIG_DATA'] == 'Y')
 	{
 		$rcmTypeList = array(

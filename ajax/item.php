@@ -18,12 +18,16 @@ if(!empty($_REQUEST["add_item"])){
             array("PRODUCT_ID" => $_REQUEST["item"], "FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
             false, false, array("ID", "DELAY")
         )->Fetch();
-        if(!empty($dbBasketItems) && $dbBasketItems["DELAY"] == "Y"){
+        if(!empty($dbBasketItems)){
             $arFields = array("DELAY" => "N", "SUBSCRIBE" => "N");
             if($_REQUEST["quantity"]){
                 $arFields['QUANTITY'] = $_REQUEST["quantity"];
             }
             CSaleBasket::Update($dbBasketItems["ID"], $arFields);
+            $addResult = array('STATUS' => 'OK', 'ITEM_ID' => $_REQUEST["item"], 'MESSAGE' => 'CATALOG_SUCCESSFUL_ADD_TO_BASKET');
+            echo json_encode($addResult);
+            die();
+
         }
         else{
             $product_properties=$arSkuProp=array();
@@ -283,10 +287,19 @@ elseif(!empty($_REQUEST["button_item"])) {
     $arResult['ITEM_HAS_IN_CART'] = "NO";
 
     foreach ($basketItems as $basketItem) {
-        if ($basketItem->getField('PRODUCT_ID') == $_REQUEST['item'] && $basketItem->getField('ORDER_ID') === null && $basketItem->getField('DELAY') == 'N') {
+
+        $basketId = $basketItem->getField('PRODUCT_ID');
+
+        if ($basketId == $_REQUEST['item']) {
             $arResult['ITEM_HAS_IN_CART'] = "OK";
             break;
         }
+        $scuParentId = CCatalogSku::GetProductInfo($basketId);
+        if($scuParentId['ID'] == $_REQUEST['item']) {
+            $arResult['ITEM_HAS_IN_CART'] = "OK";
+            break;
+        }
+
     }
     if($arResult['ITEM_HAS_IN_CART'] == "OK") {
         echo json_encode(array("STATUS" => "OK", 'ITEM_ID' => $_REQUEST['item']));

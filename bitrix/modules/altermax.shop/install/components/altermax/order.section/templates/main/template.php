@@ -14,7 +14,7 @@ global $APPLICATION;
                         <div class="page-title">
                             <div class="row">
                                 <div class="col-md-8 col-sm-8 col-xs-12">
-                                    <h2>Order #<?=$arResult['ORDERS'][$arResult['ID']]['ID']?></h2>
+                                    <h2>Заказ #<?=$arResult['ORDERS'][$arResult['ID']]['ID']?></h2>
                                 </div>
                                 <div class="col-md-4 col-sm-4 col-xs-12 text-right">
                                     <h2 style="font-weight: normal;"></h2>
@@ -24,10 +24,10 @@ global $APPLICATION;
                         <div class="row">
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="orders-list table-responsive">
-                                    <table class="table table-bordered cart_summary table-striped">
+                                    <table class="table table-bordered cart_summary table-striped" id="order_area">
                                         <tbody><tr>
                                             <td class="order-number">Номер</td>
-                                            <td>#<?=$arResult['ORDERS'][$arResult['ID']]['ID']?></td>
+                                            <td><?=$arResult['ORDERS'][$arResult['ID']]['ID']?></td>
                                         </tr>
                                         <tr>
                                             <td class="order-number">Дата заказа</td>
@@ -41,9 +41,39 @@ global $APPLICATION;
                                                 <?=$arResult['ORDERS'][$arResult['ID']]['STATUS']['NAME']?>
                                             </td>
                                         </tr>
-                                        </tbody></table>
+                                        <tr>
+                                            <td class="order-number">Статус отгрузки</td>
+                                            <td>
+                                                <?=$arResult['SHIPMENT'][$arResult['ID']]['DELIVERY_STATUS_NAME']?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="order-number">Служба доставки</td>
+                                            <td>
+                                                <?=$arResult['SHIPMENT'][$arResult['ID']]['DELIVERY_NAME']?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="order-number">Способ оплаты</td>
+                                            <td>
+                                                <?=$arResult['PAYMENT'][$arResult['ID']]['PAY_SYSTEM_NAME']?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="order-pay">Оплатить заказ</td>
+                                            <td>
+                                                <a class="sale-order-list-button ajax_reload" data-return="<?=$arResult["RETURN_URL"]?>" href="<?=$arResult['PAYMENT'][$arResult['ID']]['PSA_ACTION_FILE']?>">
+                                                    Оплатить
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+                        </div>
+                        <div class="payment_area">
+
                         </div>
                         <div class="recent-orders">
                             <div class="table-responsive">
@@ -130,7 +160,7 @@ global $APPLICATION;
                                     <div class="col-sm-6">
                                         <button class="button subm-btm button-gray full-line-size"
                                                 type="button"
-                                                onclick="location.href='/register2/'">
+                                                onclick="location.href='/register2/?acc=Y'">
                                             <span>Аккаунт</span></button>
                                     </div>
                                 </div>

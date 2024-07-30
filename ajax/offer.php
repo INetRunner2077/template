@@ -40,19 +40,14 @@ $ids[] = $result['ITEM_ID'];
 
 }
 
-if(empty($arrReturn)) {
-        die();
-}
+
 
 Loader::includeModule('catalog');
 
-
+$ids = array(23);
 $arrCountProduct = \Bitrix\Catalog\ProductTable::getList(
     [
-        'select' => [
-            'ID',
-            'QUANTITY',
-        ],
+
         'filter' => ['ID' => $ids],
     ]
 );

@@ -23,4 +23,35 @@ jQuery(document).ready(function() {
 
     });
 
+
+    BX.bindDelegate(BX('order_area'), 'click', { 'class': 'ajax_reload' }, BX.proxy(function(event)
+    {
+        event.preventDefault();
+
+        BX.ajax(
+            {
+                method: 'POST',
+                dataType: 'html',
+                url: event.target.href,
+                data:
+                    {
+                        sessid: BX.bitrix_sessid(),
+                        RETURN_URL: event.target.dataset.return,
+                    },
+                onsuccess: BX.proxy(function(result)
+                {
+                    $('.payment_area').css('display','block');
+                    $('.payment_area').empty()
+                    $('.payment_area').append(result);
+
+                },this),
+                onfailure: BX.proxy(function()
+                {
+                    return this;
+                }, this)
+            }, this
+        );
+    }, this));
+
+
 });

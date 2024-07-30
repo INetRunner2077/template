@@ -31,10 +31,10 @@ class altermax_shop extends CModule {
 	*/
 	public function DoInstall() {
 
-		//$this->InstallEvents();
-		//$this->InstallFiles();
-		//$this->ChangeTemplate();
-		//$this->InstalIblock();
+		$this->InstallEvents();
+		$this->InstallFiles();
+		$this->ChangeTemplate();
+		$this->InstalIblock();
 		$this->InstallUTF();
 		$this->registerModule();
 

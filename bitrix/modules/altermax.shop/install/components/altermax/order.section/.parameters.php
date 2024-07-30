@@ -2,12 +2,13 @@
 
 $arComponentParameters = array(
 	"PARAMETERS" => array(
-		"SUCCESS_PAGE"=>array(
-			"NAME" => "Путь после регистрации",
-			"TYPE" => "STRING",
-			"MULTIPLE" => "N",
-			"DEFAULT" => array(),
-		),
+        "PATH_TO_PAYMENT" => Array(
+            "NAME" => 'Страница подключения платежной системы',
+            "TYPE" => "STRING",
+            "MULTIPLE" => "N",
+            "DEFAULT" => "/personal/order/payment/",
+            "PARENT" => "ADDITIONAL_SETTINGS",
+        ),
 	),
 );
 ?>

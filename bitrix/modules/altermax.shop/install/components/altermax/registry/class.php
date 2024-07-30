@@ -7,9 +7,10 @@ class Registry extends CBitrixComponent
 
     public function DoRegister() {
         global $APPLICATION, $DB, $USER;
-        if (!$APPLICATION->CaptchaCheckCode($this->request->get("captcha_word"), $this->request->get("captcha_sid"))) {
+
+       /* if (!$APPLICATION->CaptchaCheckCode($this->request->get("captcha_word"), $this->request->get("captcha_sid"))) {
             $this->arResult["ERRORS"][] = 'Капча не верная';
-        }
+        } */
 
         if(empty($this->arResult["ERRORS"]))
         {
@@ -30,14 +31,14 @@ class Registry extends CBitrixComponent
 
             /* Присваиваем дефолтное значение пользовательскому полю с типом покупателя (частное лицо) */
             $obEnum = new \CUserFieldEnum;
-            $rsEnum = $obEnum->GetList(array(), array("USER_FIELD_NAME" => 'UF_TYPE_OF_BUYER', 'XML_ID' => 'PRIVATE'));
+            $rsEnum = $obEnum->GetList(array(), array("USER_FIELD_NAME" => 'UF_TYPE_OF_BUYER_ALTERMAX', 'XML_ID' => 'PRIVATE'));
             $enum = array();
             if($arEnum = $rsEnum->Fetch())
             {
                 $personIdDefault = $arEnum['ID'];
             }
 
-            $this->arResult['VALUES']['UF_TYPE_OF_BUYER'] = $personIdDefault;
+            $this->arResult['VALUES']['UF_TYPE_OF_BUYER_ALTERMAX'] = $personIdDefault;
             /* Присваиваем дефолтное значение пользовательскому полю с типом покупателя (частное лицо) */
 
             $filter = Array
@@ -145,7 +146,7 @@ class Registry extends CBitrixComponent
         }
         !empty($_REQUEST['email']) ? $this->arResult["VALUES"]['EMAIL'] = $_REQUEST['email']: '';
         !empty($_REQUEST['pass']) ? $this->arResult["VALUES"]['PASS'] = $_REQUEST['pass']: '';
-        $this->arResult["CAPTCHA_CODE"] = htmlspecialcharsbx($APPLICATION->CaptchaGetCode());
+        //$this->arResult["CAPTCHA_CODE"] = htmlspecialcharsbx($APPLICATION->CaptchaGetCode());
 
 
         $this->includeComponentTemplate();

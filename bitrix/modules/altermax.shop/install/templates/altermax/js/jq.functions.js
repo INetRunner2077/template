@@ -529,8 +529,7 @@ function changeValNum(idEl,input,wey){
         val=val-1;
       }
       if(val > max) {
-        val--;
-        request = false;
+        val = max;
       }
       if(val<0){
         val=0;
@@ -539,9 +538,7 @@ function changeValNum(idEl,input,wey){
         val=1;
       }
       //вернем значение назад
-      if(request) {
         jQuery(input).val(val).change();
-      }
     });
 
   });
@@ -562,8 +559,8 @@ function changePriceByValueSum(classBx){
         jQuery(inpLookSum).change(function(){
           var val=this.value;
           clearTimeout(timer_q);
-          clearTimeout(timer_b);
           timer_q  = setTimeout(() => { OpenAjaxResponse('Q', jQuery(elem).data('item'), val) }, 1000);
+          timer_b  = setTimeout(() => { OpenAjaxResponse('B', 1,1) }, 2000);
           //для исключения ошибок в строку, для замены
           onePrice=String(onePrice);
           var price=onePrice.replace(',','.');
@@ -654,8 +651,6 @@ function refreshMiniCart(miniCartBoxId,actionPath){
         type: 'POST',
         data: data,
         success:function(data){
-          console.info(data);
-
           jQuery(miniCartBoxId).html(data);
         }
       });
@@ -1338,6 +1333,7 @@ jQuery(document).ready(function(){
   changePriceByValueSum('.ajax-change-price');
   //отследим изменение миникорзины
   refreshMiniCart('#minicart-ajax-rfsh','/ajax/basketAjax.php');
+
   $('#minicart-ajax-rfsh').trigger('refreshcart');
   //обновление корзины, при изменении данных в проверке заказа
   //refshCartOnChange('#checkuot-bx-wrap input.refresh-form-on-focus','#checkuot-bx-wrap','has-changes-val');

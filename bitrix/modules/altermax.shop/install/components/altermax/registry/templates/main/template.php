@@ -33,15 +33,15 @@
                                     </div>
                                 </div>
 
-                                <div class="form-control bg register-captcha captcha-row clearfix">
+                         <!--       <div class="form-control bg register-captcha captcha-row clearfix">
                                     <label class="label_captha">
                                         <span>  Введите капчу:&nbsp;</span>
                                     </label>
                                     <div class="iblock label_block_captha">
                                         <div class="iblock_captha_container">
                                             <div class="captcha_image">
-                                                <img src="/bitrix/tools/captcha.php?captcha_sid=<?=$arResult["CAPTCHA_CODE"]?>" border="0" />
-                                                <input type="hidden" name="captcha_sid" value="<?=$arResult["CAPTCHA_CODE"]?>" />
+                                                <img src="/bitrix/tools/captcha.php?captcha_sid=//$arResult["CAPTCHA_CODE"]" border="0" />
+                                                <input type="hidden" name="captcha_sid" value="//$arResult["CAPTCHA_CODE"]" />
                                                 <div class="captcha_reload">Релоад</div>
                                             </div>
                                             <div class="captcha_input">
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="iblock text_block"></div>
-                                </div>
+                                </div> -->
 
 
                                 <p class="text-right">

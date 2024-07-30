@@ -1,5 +1,8 @@
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/prolog_before.php");
-
+if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
+    die();
+}
+use Bitrix\Sale;
 if(!CModule::IncludeModule("sale") || !CModule::IncludeModule("catalog") || !CModule::IncludeModule("iblock")){
     echo "failure";
     return;
@@ -15,12 +18,16 @@ if(!empty($_REQUEST["add_item"])){
             array("PRODUCT_ID" => $_REQUEST["item"], "FUSER_ID" => CSaleBasket::GetBasketUserID(), "LID" => SITE_ID, "ORDER_ID" => "NULL"),
             false, false, array("ID", "DELAY")
         )->Fetch();
-        if(!empty($dbBasketItems) && $dbBasketItems["DELAY"] == "Y"){
+        if(!empty($dbBasketItems)){
             $arFields = array("DELAY" => "N", "SUBSCRIBE" => "N");
             if($_REQUEST["quantity"]){
                 $arFields['QUANTITY'] = $_REQUEST["quantity"];
             }
             CSaleBasket::Update($dbBasketItems["ID"], $arFields);
+            $addResult = array('STATUS' => 'OK', 'ITEM_ID' => $_REQUEST["item"], 'MESSAGE' => 'CATALOG_SUCCESSFUL_ADD_TO_BASKET');
+            echo json_encode($addResult);
+            die();
+
         }
         else{
             $product_properties=$arSkuProp=array();
@@ -271,6 +278,28 @@ elseif(!empty($_REQUEST["delete_item"])){
     if(!empty($dbBasketItems)){
         CSaleBasket::Delete($dbBasketItems["ID"]);
     }
+}
+elseif(!empty($_REQUEST["button_item"])) {
+
+    $basket = Sale\Basket::loadItemsForFUser(Sale\Fuser::getId(), Bitrix\Main\Context::getCurrent()->getSite());
+    $basketItems = $basket->getBasketItems();
+
+    $arResult['ITEM_HAS_IN_CART'] = "NO";
+
+    foreach ($basketItems as $basketItem) {
+        if ($basketItem->getField('PRODUCT_ID') == $_REQUEST['item'] && $basketItem->getField('ORDER_ID') === null && $basketItem->getField('DELAY') == 'N') {
+            $arResult['ITEM_HAS_IN_CART'] = "OK";
+            break;
+        }
+    }
+    if($arResult['ITEM_HAS_IN_CART'] == "OK") {
+        echo json_encode(array("STATUS" => "OK", 'ITEM_ID' => $_REQUEST['item']));
+        die();
+    } else {
+        echo json_encode(array("STATUS" => "NO", 'ITEM_ID' => $_REQUEST['item']));
+        die();
+    }
+
 }
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/modules/main/include/epilog_after.php");?>

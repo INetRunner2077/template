@@ -136,7 +136,9 @@ class Registry extends CBitrixComponent
 
                 if($obUser->Update($arResult["ID"], $arFields))
                 {
-                  LocalRedirect('/hello/');
+                    if (empty($_REQUEST['acc'])) {
+                        LocalRedirect('/hello/');
+                    }
                 }
                 else
                 {

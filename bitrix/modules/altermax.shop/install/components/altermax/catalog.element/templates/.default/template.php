@@ -2,7 +2,6 @@
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
 use Bitrix\Catalog\ProductTable;
 use Bitrix\Main\Localization\Loc;
-
 /**
  * @global CMain $APPLICATION
  * @var array $arParams
@@ -15,7 +14,6 @@ use Bitrix\Main\Localization\Loc;
  */
 
 $this->setFrameMode(true);
-$this->addExternalJS('/local/components/altermax/catalog.element/templates/.default/bootstrap.min.js');
 
 $templateLibrary = array('popup', 'fx', 'ui.fonts.opensans');
 $currencyList = '';
@@ -211,8 +209,6 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
 <div class="main-container">
     <div class="container has-sidebar">
         <div class="row">
-
-
             <div class="col-xs-12 col-sm-9 col-sm-push-3" id="product_column">
                 <div class="center_column">
                     <div class="product-view-area" id="<?=$itemIds['ID']?>">
@@ -263,7 +259,7 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                     <div class="product-item-amount">
 
                                         <? if($actualItem['PRODUCT']['QUANTITY'] > 0 and $arResult['ITEM_HAS_IN_CART'] == false): ?>
-                                        <div class="counter_wrapp">
+                                        <div class="counter_wrapp" style="display:block">
                                             <div class="counter_block big_basket" data-item="<?=$actualItem['ID']?>">
                                                 <span class="minus" id="quant_down">-</span>
                                                 <input type="text" class="text" id="main_counter" name="quantity" value="1">
@@ -271,7 +267,7 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
 
                                             </div>
                                         </div>
-                                        <div class="button_wrap">
+                                        <div class="button_wrap" style="display:block">
                                             <div class="product-item-detail-info-container in-cart-button" id="buttonMain">
                                                 <button <?=$buyButtonClassName?> data-item="<?=$actualItem['ID']?>" data-count="1" class="button cart-button button-green" id="in_basket" title="<?=$arParams['MESS_BTN_BUY']?>">
                                                     <i class="fa fa-shopping-basket"></i>
@@ -279,8 +275,31 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                                 </button>
                                             </div>
                                         </div>
+
+                                            <div class="product-item-detail-info-container in-basket" style="display:none">
+                                                <a href="<?=$arParams['BASKET_URL']?>" id="to_basket" title="В корзине">
+                                                    <i class="fa fa-shopping-basket"></i>
+                                                    <span> В корзине </span>
+                                                </a>
+                                            </div>
                                         <? else: ?>
-                                            <div class="product-item-detail-info-container in-basket">
+                                            <div class="counter_wrapp" style="display:block">
+                                                <div class="counter_block big_basket" data-item="<?=$actualItem['ID']?>">
+                                                    <span class="minus" id="quant_down">-</span>
+                                                    <input type="text" class="text" id="main_counter" name="quantity" value="<?=$arResult['ITEM_QUANTITY']?>">
+                                                    <span class="plus" id="quant_up">+</span>
+                                                </div>
+                                            </div>
+                                            <div class="button_wrap" style="display:none">
+                                                <div class="product-item-detail-info-container in-cart-button" id="buttonMain">
+                                                    <button <?=$buyButtonClassName?> data-item="<?=$actualItem['ID']?>" data-count="1" class="button cart-button button-green" id="in_basket" title="<?=$arParams['MESS_BTN_BUY']?>">
+                                                        <i class="fa fa-shopping-basket"></i>
+                                                        <span><?=$arParams['MESS_BTN_BUY']?></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="product-item-detail-info-container in-basket" style="display:block">
                                                 <a href="<?=$arParams['BASKET_URL']?>" id="to_basket" title="В корзине">
                                                     <i class="fa fa-shopping-basket"></i>
                                                     <span> В корзине </span>
@@ -372,8 +391,8 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                 "altermax:section",
                 "sections_list_danil",
                 array(
-                    "IBLOCK_TYPE" => "xmlcatalog",
-                    "IBLOCK_ID" => "11",
+                    "IBLOCK_TYPE" => $arParams['IBLOCK_TYPE'],
+                    "IBLOCK_ID" => $arParams['IBLOCK_ID'],
                     "DISPLAY_PANEL" => '',
                     "CACHE_TYPE" => "A",
                     "CACHE_TIME" => 3600,
@@ -422,5 +441,6 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
         maxValue: '<?=$actualItem['PRODUCT']['QUANTITY']?>',
         iblockId: '<?=$arParams['IBLOCK_ID']?>',
         itemId: '<?=$actualItem['ID']?>',
+        find: '<?=$arParams['DETAIL_SHOW_POPULAR']?>'
     });
 </script>

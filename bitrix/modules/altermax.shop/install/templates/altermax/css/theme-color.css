@@ -138,6 +138,8 @@ button.button.pro-add-to-cart {
   border-color: #e67817;
 }
 .product-item .item-inner:hover .item-info .add-to-cart {
+  display: block;
+  width: 100%;
   background-color: #e67817;
   border-color: #e67817;
 }

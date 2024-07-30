@@ -53,14 +53,14 @@
                 <div class="col-sm-6">
                     <h5>Зарегистрироваться</h5>
                     <br>
+                    <form method="post" action="<?=$arParams['PROFILE_URL']?>">
+                        <button class="button button-orange"><i class="icon-login"></i>&nbsp; <span>Зарегистрироваться</span></button>
+                    </form>
+                    <br>
                     <p>Регистрация в интернет-магазине дает возможность быстрее оформлять заказы, а так же просматривать статус своих заказов.</p>
                     <br>
                     <p>Регистрация занимает 1-2 минуты.</p>
                     <br><br>
-                    <form method="post" action="/auth/registration">
-                        <input type="hidden" name="type" value="new">
-                        <button class="button button-orange"><i class="icon-login"></i>&nbsp; <span>Зарегистрироваться</span></button>
-                    </form>
                 </div>
             </div>
         </div>

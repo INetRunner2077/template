@@ -1,59 +1,34 @@
 <?php
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php"); ?>
 
-<div class="hello_form">
-<h2> Спасибо за регистрацию </h2>
-
-<p> На указанный Вами адрес электронной почты отправлено соответствующее уведомление. </p>
-
-    <div class="button_container">
-    <a href="/catalog" class="danil_button_target hello"  tabindex="10"><span>Перейти к подбору товаров</span></a>
-    <a href="/personal/private/" class="danil_button_non_target hello" rel="nofollow">
-        <span>Перейти в личный кабинет</span>
-    </a>
-    </div>
-</div>
-<style>
-    .hello_form h2 {
-        font-size: 25px;
-    }
-
-    .hello_form p {
-        font-size: 20px;
-    }
-
-    .hello_form {
-        display: flex;
-        flex-direction: column;
-        padding: 10px 20px 10px 20px;
-    }
-
-.hello {
-    text-align:center;
-}
-
-    @media (max-width:975px) {
-
-        .hello_form h2 {
-            text-align:center;
-            font-size: 24px;
-        }
-        .hello_form p {
-            text-align:center;
-            font-size: 18px;
-        }
-
-        .hello_form  .button_container {
-            display: flex;
-            flex-direction: column;
-            margin-top: 10px;
-        }
-        .danil_button_non_target {
-            margin-top:15px;
-        }
-
-    }
-
-</style>
+    <section class="main-container col2-right-layout">
+        <div class="main container">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="page-title">
+                        <h2 class="text-uppercase">Заказ завершен</h2>
+                    </div>
+                    <br>
+                    <h4>СПАСИБО ЗА РЕГИСТРАЦИЮ!</h4>
+                    <p>На указанный Вам адрес электронной почты отправлено соответствующее уведомление.</p>
+                </div>
+            </div><!-- .row -->
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button class="button subm-btm full-line-size" type="button" onclick="location.href='/catalog/'">
+                                <span>Перейти к подбору товаров</span></button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="button subm-btm button-green full-line-size" type="button" onclick="location.href='/account/'">
+                                <span>Перейти в личный кабинет</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- service section -->
+        </div>
+    </section>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

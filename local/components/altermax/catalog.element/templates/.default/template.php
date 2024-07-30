@@ -283,12 +283,11 @@ if(!empty($actualItem['DETAIL_PICTURE'])) {
                                                 </a>
                                             </div>
                                         <? else: ?>
-                                            <div class="counter_wrapp" style="display:none">
+                                            <div class="counter_wrapp" style="display:block">
                                                 <div class="counter_block big_basket" data-item="<?=$actualItem['ID']?>">
                                                     <span class="minus" id="quant_down">-</span>
-                                                    <input type="text" class="text" id="main_counter" name="quantity" value="1">
+                                                    <input type="text" class="text" id="main_counter" name="quantity" value="<?=$arResult['ITEM_QUANTITY']?>">
                                                     <span class="plus" id="quant_up">+</span>
-
                                                 </div>
                                             </div>
                                             <div class="button_wrap" style="display:none">

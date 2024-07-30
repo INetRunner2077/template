@@ -14,8 +14,8 @@ $APPLICATION->SetTitle("Новости");
                         "slider",
                         Array(
                             "GROUPS" => "",
-                            "IBLOCK_ID" => "41",
-                            "IBLOCK_TYPE" => "advertising"
+                            "IBLOCK_ID" => \Altermax\Shop\Tools\Content::getIBlockIdByCode( 'advertising', 'advertising'),
+                            "IBLOCK_TYPE" => "altermax_advertising"
                         )
                     );?>
                     <!-- service section -->
@@ -95,8 +95,8 @@ $APPLICATION->SetTitle("Новости");
                 "altermax:section",
                 "sections_list_danil",
                 array(
-                    "IBLOCK_TYPE" => "xmlcatalog",
-                    "IBLOCK_ID" => "11",
+                    "IBLOCK_TYPE" => "altermax_catalog",
+                    "IBLOCK_ID" =>  \Altermax\Shop\Tools\Content::getIBlockIdByCode( 'catalog_altermax', 'altermax_catalog'),
                     "DISPLAY_PANEL" => '',
                     "CACHE_TYPE" => "A",
                     "CACHE_TIME" => 3600,

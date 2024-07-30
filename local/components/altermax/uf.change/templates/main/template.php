@@ -314,14 +314,26 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-sm-4">
-                            <button class="button subm-btm button-green"
-                                    type="submit" name="save" value="Сохранить аккаунт">
+                        <? if(empty($_REQUEST['acc'])): ?>
+                            <div class="col-sm-4">
+                                <button class="button subm-btm button-green"
+                                        type="submit" name="save" value="Сохранить аккаунт">
                           <span>
                           Завершить регистрацию
                           </span>
-                            </button>
-                        </div>
+                                </button>
+                            </div>
+                        <? else: ?>
+                        <input type="hidden" name="acc" value="Y">
+                            <div class="col-sm-4">
+                                <button class="button subm-btm button-green"
+                                        type="submit" name="save" value="Сохранить аккаунт">
+                          <span>
+                          Сохранить аккаунт
+                          </span>
+                                </button>
+                            </div>
+                        <? endif; ?>
                     </div>
                 </div>
             </div>

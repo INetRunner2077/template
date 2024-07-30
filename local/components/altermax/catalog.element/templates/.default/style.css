@@ -8,3 +8,20 @@
     display: flex;
     justify-content: space-between;
 }
+.counter_block span {
+    padding: 7px 11px;
+    background-color: #eeeeee;
+    font-weight: 900;
+}
+#main_counter {
+    text-align: center;
+    max-width: 64px;
+    margin: 0 auto;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+    width: 50px;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding: 3px 13px;
+}

@@ -7,6 +7,7 @@ BX.namespace('BX.Sale.ItemComponent');
         maxValue: '',
         iblockId: '',
         itemId: '',
+        find: '',
 
         init: function(parameters)
         {
@@ -15,16 +16,21 @@ BX.namespace('BX.Sale.ItemComponent');
             this.maxValue = parameters.maxValue || '';
             this.iblockId = parameters.iblockId || '';
             this.itemId = parameters.itemId || '';
+            this.find = parameters.find || '';
 
             $('#countMain').data('item', this.itemId);
             $('#countMain').data('count', 1);
             $('#buttonMain').data('item', this.itemId);
 
-
             var ctx = this;
+
             BX(function(){
-                ctx.finder();
+            ctx.buttonItemAjax();
             });
+
+            if(this.find == 'Y') {
+              ctx.finder();
+           }
 
             BX.bind(BX('in_basket'), 'click', function() {ctx.inCart($(this), true)});
 
@@ -42,7 +48,7 @@ BX.namespace('BX.Sale.ItemComponent');
 
             BX.bindDelegate(BX('products-list'), 'click', {className: 'minus'}, function() {ctx.quantDown($(this),false)});
 
-            BX.bindDelegate(BX('products-list'), 'click', {className: 'in_basket'}, function() {ctx.inCart($(this))});
+            BX.bindDelegate(BX('products-list'), 'click', {className: 'in_basket'}, function() {ctx.inCart($(this), false)});
 
             BX.bindDelegate(BX('page'), 'click', {className: 'quick_view_popup-close'}, function() {ctx.deleteOneClick($(this))});
 
@@ -145,6 +151,10 @@ BX.namespace('BX.Sale.ItemComponent');
                         var max = $(e).parent().data('quantity');
                     }
 
+                    data = {};
+                    data.STATUS = 'NO';
+                    this.updateButton(data)
+
                     var input_val = $(e).parent().find('input[name="quantity"]');
                     var tmp_val =  parseInt(input_val.val(), 10);
                     var new_val = tmp_val + 1;
@@ -173,6 +183,10 @@ BX.namespace('BX.Sale.ItemComponent');
                     } else {
                         var max = $(e).parent().data('quantity');
                     }
+
+                    data = {};
+                    data.STATUS = 'NO';
+                    this.updateButton(data)
 
                     var input_val = $(e).parent().find('input[name="quantity"]');
                     var tmp_val =  parseInt(input_val.val(), 10);
@@ -264,6 +278,7 @@ BX.namespace('BX.Sale.ItemComponent');
                             '</div> \n' +
                             '                                            </td>\n' +
                             '                                            <td class="action">\n' +
+
                             '                                                <button data-item="" data-count="" \n' +
                             '                                                        class="button cart-request button-green in_basket"\n' +
                             '                                                        title="В корзину"\n' +
@@ -323,13 +338,52 @@ BX.namespace('BX.Sale.ItemComponent');
 
         },
 
-        inCart: function (e) {
+        inCart: function (e, main) {
+
+            if(main == true) {
+                var data = {};
+                data.quantity = $(e).data('count');
+                data.add_item = "Y";
+                data.item = e.data('item');
+                this.BasketUrl;
+                $.ajax({
+                    type: "POST",
+                    url: "/ajax/item.php",
+                    data: data,
+                    dataType: "json",
+                    success: function (data) {
+                        $('#minicart-ajax-rfsh').trigger('refreshcart');
+                        BX.Sale.ItemComponent.updateButton(data);
+                    }
+                });
+            }
+            if( main == false) {
+                var data = {};
+                data.quantity = $(e).data('count');
+                data.add_item = "Y";
+                data.item = e.data('item');
+                this.BasketUrl;
+                $.ajax({
+                    type: "POST",
+                    url: "/ajax/item.php",
+                    data: data,
+                    dataType: "json",
+                    success: function (data) {
+                        data.STATUS = 'MINI_CART';
+                        $('#minicart-ajax-rfsh').trigger('refreshcart');
+                        BX.Sale.ItemComponent.updateButton(data);
+                    }
+                });
+            }
+
+        },
+
+        buttonItemAjax: function () {
 
             var data = {};
-            data.quantity = $(e).data('count');
-            data.add_item = "Y";
-            data.item = $(e).data('item');
-           this.BasketUrl;
+            data.button_item = "Y";
+            data.item = this.itemId;
+            this.BasketUrl;
             $.ajax({
                 type: "POST",
                 url: "/ajax/item.php",
@@ -337,15 +391,22 @@ BX.namespace('BX.Sale.ItemComponent');
                 dataType: "json",
                 success: function (data) {
                     BX.Sale.ItemComponent.updateButton(data);
-                    $('#minicart-ajax-rfsh').trigger('refreshcart');
                 }
             });
-
-
         },
 
         updateButton : function (data) {
-            if(data.STATUS = "OK") {
+            if(data.STATUS == "OK") {
+                $('.product-cart-buy .counter_wrapp').css('display', 'block');
+                $('.product-cart-buy .button_wrap').css('display', 'none');
+                $('.product-cart-buy .in-basket').css('display', 'block');
+            }
+            if(data.STATUS == "NO") {
+                $('.product-cart-buy .counter_wrapp').css('display', 'block');
+                $('.product-cart-buy .button_wrap').css('display', 'block');
+                $('.product-cart-buy .in-basket').css('display', 'none');
+            }
+            if(data.STATUS == "MINI_CART") {
                 var button =   $('<div class="product-item-detail-info-container in-basket">\n' +
                     '<a href="#" id="to_basket" title="В корзине">\n' +
                     '<i class="fa fa-shopping-basket"></i>\n' +

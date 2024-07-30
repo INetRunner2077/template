@@ -16,6 +16,7 @@ $arResult['ITEM_HAS_IN_CART'] = false;
 foreach ($basketItems as $basketItem) {
     if ($basketItem->getField('PRODUCT_ID') == $arResult['ID'] && $basketItem->getField('ORDER_ID') === null && $basketItem->getField('DELAY') == 'N') {
         $arResult['ITEM_HAS_IN_CART'] = true;
+        $arResult['ITEM_QUANTITY'] = $basketItem->getQuantity();
         break;
     }
 }

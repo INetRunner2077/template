@@ -3,7 +3,9 @@
 
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\UI\Extension;
+use Bitrix\Main\Loader;
 CJSCore::Init(array("jquery"));
+Loader::includeModule('altermax.shop');
 ?>
     <!DOCTYPE html>
     <html lang="<?=LANGUAGE_ID?>"><head>

@@ -1354,13 +1354,7 @@ jQuery(document).ready(function(){
       headers:{5:{sorter:false},7:{sorter:false}}
     });
   });
-  //таблица сортировки для товаров малая
-  jQuery('.jq-sortertable_order_short').each(function(idx,el){
-    jQuery(el).tablesorter({
-      sortList:[[3,0]],
-      headers:{4:{sorter:false},5:{sorter:false}}
-    });
-  });
+
   //открытие окна с отправкой данных по ajax для его наполнения
   openHoverWindContentAjax('.open-win-get-ajax');
 

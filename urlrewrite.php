@@ -56,6 +56,14 @@ $arUrlRewrite=array (
     'PATH' => '/services/index.php',
     'SORT' => 100,
   ),
+  13 => 
+  array (
+    'CONDITION' => '#^/catalog/#',
+    'RULE' => '',
+    'ID' => 'altermax:catalog',
+    'PATH' => '/catalog/index.php',
+    'SORT' => 100,
+  ),
   4 => 
   array (
     'CONDITION' => '#^/themes/#',
@@ -94,6 +102,14 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => 'bitrix:blog',
     'PATH' => '/blogs/index.php',
+    'SORT' => 100,
+  ),
+  14 => 
+  array (
+    'CONDITION' => '#^\\??(.*)#',
+    'RULE' => '&$1',
+    'ID' => 'new:catalog.top',
+    'PATH' => '/test/index4.php',
     'SORT' => 100,
   ),
   3 => 
