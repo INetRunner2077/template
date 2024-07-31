@@ -11,15 +11,16 @@ if (!is_array($arrFilter))
     $arrFilter = array();
 $arrFilter['ID'] = array(33);
 
+
 $APPLICATION->IncludeComponent(
-	"new:catalog.top", 
-	".default", 
+	"new:catalog.top",
+	".default",
 	array(
 		"ACTION_VARIABLE" => "action",
 		"ADD_PICT_PROP" => "-",
 		"ADD_PROPERTIES_TO_BASKET" => "Y",
 		"ADD_TO_BASKET_ACTION" => "BUY",
-		"BASKET_URL" => "/basket/",
+		"BASKET_URL" => "/personal/basket.php",
 		"CACHE_FILTER" => "Y",
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "36000000",
@@ -77,7 +78,7 @@ $APPLICATION->IncludeComponent(
 			2 => "MATERIAL",
 		),
 		"ROTATE_TIMER" => "30",
-		"SECTION_URL" => "",
+		"SECTION_URL" => "/catalog/",
 		"SEF_MODE" => "Y",
 		"SHOW_CLOSE_POPUP" => "Y",
 		"SHOW_DISCOUNT_PERCENT" => "N",
@@ -97,7 +98,17 @@ $APPLICATION->IncludeComponent(
 		"SEF_RULE" => "",
 		"LABEL_PROP_MOBILE" => "",
 		"LABEL_PROP_POSITION" => "top-left",
-		"OFFER_ADD_PICT_PROP" => "-"
+		"OFFER_ADD_PICT_PROP" => "-",
+		"REPLACE" => $APPLICATION->GetCurPage(),
 	),
 	false
-);?><?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
+);?>
+
+<?php require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php"); ?>
+
+
+
+
+
+
+

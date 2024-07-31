@@ -119,7 +119,7 @@ if (isset($arResult['ITEM']))
 		{
 			include($file->getPath());
 		}
-
+		
 		if (!$haveOffers)
 		{
 			$jsParams = array(

@@ -41,7 +41,7 @@ else
 ?>
 
 
-
+<?= $arParams['~ADD_URL_TEMPLATE']; ?>
 <div id="productTabContent" class="product-list-area">
     <ul class="products-list" id="products-list">
         <li class="item no-image">
@@ -51,13 +51,13 @@ else
                     <tr>
                         <th style="width:20%;" class="header">Наименование</th>
                         <?if($showSkuBlock): ?>
-                        <th style="width:40%;" class="header">Харктеристики</th>
+                        <th style="width:30%;" class="header">Харктеристики</th>
                         <? endif; ?>
                         <th class="txt-trns-normal header">Наличие, шт.</th>
                         <th class="text-right txt-trns-normal header headerSortDown">
                             Цена, руб
                         </th>
-                        <th class="ord-summ txt-trns-normal">Нужное к-во, шт.
+                        <th class="ord-summ txt-trns-normal" style="width:20%;">Нужное к-во, шт.
                         </th>
                         <th class="action">
                             <i class="fa fa-shopping-basket"></i>
@@ -67,8 +67,8 @@ else
                     <tbody>
 
                     <tr>
-                        <td class="cart_description"  id="<?=$itemIds['PICT_SLIDER']?>">
-                            <p class="product-name" id="<?=$itemIds['PICT']?>">
+                        <td class="cart_description" >
+                            <p class="product-name">
                                 <? if ($itemHasDetailUrl): ?>
                                 <a href="<?=$item['DETAIL_PAGE_URL']?>" title="<?=$productTitle?>">
                                     <? endif; ?>
@@ -291,7 +291,7 @@ else
                             }
                             ?>
                         </td>
-                        <td class="action">
+                        <td class="action" data-item="<?=$arResult['ITEM']['ID']?>">
 
                             <?if (!$haveOffers)
 							{
@@ -386,23 +386,6 @@ else
 								}
 							}?>
 
-
-                            <form class="product-add hide-this to-order-ajax-form"
-                                  id="frm-by-one-click-165049327"
-                                  action="FSCQ0765RTYDTU.html" method="post">
-                                <input type="hidden" name="fnc-form"
-                                       value="order_cart">
-                                <input type="hidden" name="fnc-elem"
-                                       value="product_toclick">
-                                <input type="hidden" name="id"
-                                       value="165049327">
-                                <input type="hidden" name="name"
-                                       value="FSCQ0765RTYDTU">
-                                <input type="hidden" name="provider_id"
-                                       value="93">
-                                <input type="hidden" name="price"
-                                       value="187.50">
-                            </form>
                             <button form="frm-by-one-click-165049327"
                                     class="button cart-button by-one-click"
                                     type="submit">

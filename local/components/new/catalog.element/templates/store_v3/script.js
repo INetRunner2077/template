@@ -317,6 +317,7 @@
 
 		init: function()
 		{
+			this.finder();
 			this.buttonShow();
 			var i = 0,
 				j = 0,
@@ -685,6 +686,29 @@
 
 		},
 
+		finder: function () {
+
+			var finder = {};
+
+			finder.name = this.product.name;
+			finder.iblock = this.product.iblockId;
+			finder.itemId = this.product.id;
+			finder.currenturl = this.product.currentUrl;
+			finder.iblocktype = this.product.iblockType;
+
+			$.ajax({
+				type: "POST",
+				url: "/ajax/offer.php",
+				data: finder,
+				dataType: "html",
+				success: function (data) {
+                 $('.show_product_table').append(data);
+				}
+			})
+		},
+
+
+
 		initConfig: function()
 		{
 			if (this.params.PRODUCT_TYPE)
@@ -757,7 +781,6 @@
 		initProductData: function()
 		{
 			var j = 0;
-
 			if (this.params.PRODUCT && typeof this.params.PRODUCT === 'object')
 			{
 				if (this.config.showPrice)
@@ -808,6 +831,7 @@
 				{
 					this.product.addUrl = this.params.PRODUCT.ADD_URL;
 				}
+
 
 				if (this.params.PRODUCT.BUY_URL)
 				{
@@ -872,6 +896,9 @@
 					this.product.detailTextType = this.params.PRODUCT.DETAIL_TEXT_TYPE;
 					this.product.previewText = this.params.PRODUCT.PREVIEW_TEXT;
 					this.product.previewTextType = this.params.PRODUCT.PREVIEW_TEXT_TYPE;
+					this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
+					this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
+					this.product.currentUrl = this.params.PRODUCT.CURRENT_URL;
 				}
 			}
 			else

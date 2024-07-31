@@ -427,16 +427,6 @@
 				this.errorCode = -1;
 			}
 
-			this.obPict = BX(this.visual.PICT_ID);
-			if (!this.obPict)
-			{
-				this.errorCode = -2;
-			}
-
-			if (this.secondPict && this.visual.SECOND_PICT_ID)
-			{
-				this.obSecondPict = BX(this.visual.SECOND_PICT_ID);
-			}
 
 			//this.obPictSlider = BX(this.visual.PICT_SLIDER_ID);
 			//this.obPictSliderIndicator = BX(this.visual.PICT_SLIDER_ID + '_indicator');
@@ -558,8 +548,8 @@
 					}
 
 					// product slider events
-					BX.bind(this.obProduct, 'mouseenter', BX.proxy(this.cycleSlider, this));
-					BX.bind(this.obProduct, 'mouseleave', BX.proxy(this.stopSlider, this));
+					//BX.bind(this.obProduct, 'mouseenter', BX.proxy(this.cycleSlider, this));
+					//BX.bind(this.obProduct, 'mouseleave', BX.proxy(this.stopSlider, this));
 				}
 
 				if (this.bigData)
@@ -885,8 +875,9 @@
 
 		quantityUp: function()
 		{
+			debugger;
 			$('.buy_btn_altermax').css('display', 'block');
-			$('#to_basket').css('display', 'none');
+			$('.action[data-item="'+ this.product.id +'"] #to_basket').css('display', 'none');
 
 			var curValue = 0,
 				boolSet = true;
@@ -923,7 +914,7 @@
 		quantityDown: function()
 		{
 			$('.buy_btn_altermax').css('display', 'block');
-			$('#to_basket').css('display', 'none');
+			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
 
 			var curValue = 0,
 				boolSet = true;
@@ -1174,62 +1165,6 @@
 			}
 		},
 
-		initializeSlider: function()
-		{
-			var wrap = this.obPictSlider.getAttribute('data-slider-wrap');
-			if (wrap)
-			{
-				this.slider.options.wrap = wrap === 'true';
-			}
-			else
-			{
-				this.slider.options.wrap = this.defaultSliderOptions.wrap;
-			}
-
-			if (this.isTouchDevice)
-			{
-				this.slider.options.interval = false;
-			}
-			else
-			{
-				this.slider.options.interval = parseInt(this.obPictSlider.getAttribute('data-slider-interval')) || this.defaultSliderOptions.interval;
-				// slider interval must be more than 700ms because of css transitions
-				if (this.slider.options.interval < 700)
-				{
-					this.slider.options.interval = 700;
-				}
-
-				if (this.obPictSliderIndicator)
-				{
-					var controls = this.obPictSliderIndicator.querySelectorAll('[data-go-to]');
-					for (var i in controls)
-					{
-						if (controls.hasOwnProperty(i))
-						{
-							BX.bind(controls[i], 'click', BX.proxy(this.sliderClickHandler, this));
-						}
-					}
-				}
-
-				if (this.obPictSliderProgressBar)
-				{
-					if (this.slider.progress)
-					{
-						this.resetProgress();
-						this.cycleSlider();
-					}
-					else
-					{
-						this.slider.progress = new BX.easing({
-							transition: BX.easing.transitions.linear,
-							step: BX.delegate(function(state){
-								this.obPictSliderProgressBar.style.width = state.width / 10 + '%';
-							}, this)
-						});
-					}
-				}
-			}
-		},
 
 		checkTouch: function(event)
 		{
@@ -1269,163 +1204,7 @@
 			}
 		},
 
-		sliderClickHandler: function(event)
-		{
-			var target = BX.getEventTarget(event),
-				slideIndex = target.getAttribute('data-go-to');
 
-			if (slideIndex)
-			{
-				this.slideTo(slideIndex)
-			}
-
-			BX.PreventDefault(event);
-		},
-
-		slideNext: function()
-		{
-			if (this.slider.sliding)
-				return;
-
-			return this.slide('next');
-		},
-
-		slidePrev: function()
-		{
-			if (this.slider.sliding)
-				return;
-
-			return this.slide('prev');
-		},
-
-		slideTo: function(pos)
-		{
-			this.slider.active = BX.findChild(this.obPictSlider, {className: 'item active'}, true, false);
-			this.slider.progress && (this.slider.interval = true);
-
-			var activeIndex = this.getItemIndex(this.slider.active);
-
-			if (pos > (this.slider.items.length - 1) || pos < 0)
-				return;
-
-			if (this.slider.sliding)
-				return false;
-
-			if (activeIndex == pos)
-			{
-				this.stopSlider();
-				this.cycleSlider();
-				return;
-			}
-
-			return this.slide(pos > activeIndex ? 'next' : 'prev', this.eq(this.slider.items, pos));
-		},
-
-		slide: function(type, next)
-		{
-			var active = BX.findChild(this.obPictSlider, {className: 'item active'}, true, false),
-				isCycling = this.slider.interval,
-				direction = type === 'next' ? 'left' : 'right';
-
-			next = next || this.getItemForDirection(type, active);
-
-			if (BX.hasClass(next, 'active'))
-			{
-				return (this.slider.sliding = false);
-			}
-
-			this.slider.sliding = true;
-
-			isCycling && this.stopSlider();
-
-			if (this.obPictSliderIndicator)
-			{
-				BX.removeClass(this.obPictSliderIndicator.querySelector('.active'), 'active');
-				var nextIndicator = this.obPictSliderIndicator.querySelectorAll('[data-go-to]')[this.getItemIndex(next)];
-				nextIndicator && BX.addClass(nextIndicator, 'active');
-			}
-
-			if (BX.hasClass(this.obPictSlider, 'slide') && !BX.browser.IsIE())
-			{
-				var self = this;
-				BX.addClass(next, type);
-				next.offsetWidth; // force reflow
-				BX.addClass(active, direction);
-				BX.addClass(next, direction);
-				setTimeout(function() {
-					BX.addClass(next, 'active');
-					BX.removeClass(active, 'active');
-					BX.removeClass(active, direction);
-					BX.removeClass(next, type);
-					BX.removeClass(next, direction);
-					self.slider.sliding = false;
-				}, 700);
-			}
-			else
-			{
-				BX.addClass(next, 'active');
-				this.slider.sliding = false;
-			}
-
-			this.obPictSliderProgressBar && this.resetProgress();
-			isCycling && this.cycleSlider();
-		},
-
-		stopSlider: function(event)
-		{
-			event || (this.slider.paused = true);
-
-			this.slider.interval && clearInterval(this.slider.interval);
-
-			if (this.slider.progress)
-			{
-				this.slider.progress.stop();
-
-				var width = parseInt(this.obPictSliderProgressBar.style.width);
-
-				this.slider.progress.options.duration = this.slider.options.interval * width / 200;
-				this.slider.progress.options.start = {width: width * 10};
-				this.slider.progress.options.finish = {width: 0};
-				this.slider.progress.options.complete = null;
-				this.slider.progress.animate();
-			}
-		},
-
-		cycleSlider: function(event)
-		{
-			event || (this.slider.paused = false);
-
-			this.slider.interval && clearInterval(this.slider.interval);
-
-			if (this.slider.options.interval && !this.slider.paused)
-			{
-				if (this.slider.progress)
-				{
-					this.slider.progress.stop();
-
-					var width = parseInt(this.obPictSliderProgressBar.style.width);
-
-					this.slider.progress.options.duration = this.slider.options.interval * (100 - width) / 100;
-					this.slider.progress.options.start = {width: width * 10};
-					this.slider.progress.options.finish = {width: 1000};
-					this.slider.progress.options.complete = BX.delegate(function(){
-						this.slider.interval = true;
-						this.slideNext();
-					}, this);
-					this.slider.progress.animate();
-				}
-				else
-				{
-					this.slider.interval = setInterval(BX.proxy(this.slideNext, this), this.slider.options.interval);
-				}
-			}
-		},
-
-		resetProgress: function()
-		{
-			this.slider.progress && this.slider.progress.stop();
-			this.obPictSliderProgressBar.style.width = 0;
-		},
 
 		getItemForDirection: function(direction, active)
 		{
@@ -1774,7 +1553,7 @@
 		changeInfo: function()
 		{
 			$('.buy_btn_altermax').css('display', 'block');
-			$('#to_basket').css('display', 'none');
+			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
 			var i, j,
 				index = -1,
 				boolOneSearch = true,
@@ -2334,6 +2113,7 @@
 
 		sendToBasket: function()
 		{
+			debugger;
 			if (!this.canBuy)
 			{
 				return;
@@ -2400,6 +2180,7 @@
 
 		basketResult: function(arResult)
 		{
+			debugger;
 			var strContent = '',
 				strPict = '',
 				successful,

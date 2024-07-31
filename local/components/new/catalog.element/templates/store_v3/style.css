@@ -28,6 +28,7 @@
 .product-item-detail-quantity-container {
 	display: flex;
 	justify-content: flex-start;
+	align-items: center;
 }
 .product-item-detail-quantity-description {
 	text-align: left !important;
