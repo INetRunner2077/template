@@ -112,9 +112,7 @@ class Registry extends CBitrixComponent
 
                 $event = new CEvent;
                 $event->SendImmediate("NEW_USER", SITE_ID, $arEventFields, 'N', 1);
-                $event->SendImmediate("NEW_USER", SITE_ID, $arEventFields,'N',106);
-                if($bConfirmReq)
-                    $event->SendImmediate("NEW_USER_CONFIRM", SITE_ID, $arEventFields);
+
                 LocalRedirect($this->arParams["SUCCESS_PAGE"]);
             }
             else

@@ -104,14 +104,6 @@ $arUrlRewrite=array (
     'PATH' => '/blogs/index.php',
     'SORT' => 100,
   ),
-  14 => 
-  array (
-    'CONDITION' => '#^\\??(.*)#',
-    'RULE' => '&$1',
-    'ID' => 'new:catalog.top',
-    'PATH' => '/test/index4.php',
-    'SORT' => 100,
-  ),
   3 => 
   array (
     'CONDITION' => '#^/news/#',

@@ -40,8 +40,6 @@ else
 }
 ?>
 
-
-<?= $arParams['~ADD_URL_TEMPLATE']; ?>
 <div id="productTabContent" class="product-list-area">
     <ul class="products-list" id="products-list">
         <li class="item no-image">

@@ -8,7 +8,7 @@ Loader::IncludeModule('search');
 Loader::IncludeModule('sale');
 
 $arFilter = array (
-    'SITE_ID' => 's1',
+    'SITE_ID' => SITE_ID,
     'QUERY' => $_REQUEST['name'],
     'CHECK_DATES' => 'Y',
     'MODULE_ID' => 'iblock',
@@ -35,15 +35,27 @@ $obSearch->Search($arFilter, $aSort, $exFILTER);
 while($result = $obSearch->Fetch()) {
 
 if($result['ITEM_ID'] == $_REQUEST['itemId']) {
-   // continue;
+    continue;
 }
 $arrReturn[$result['ITEM_ID']] = $result;
 $ids[] = $result['ITEM_ID'];
+}
 
+if(empty($ids)) {
+    $arFilter['QUERY'] = $_REQUEST['categoryname'];
+    $obSearch->Search($arFilter, $aSort, $exFILTER);
+    while($result = $obSearch->Fetch()) {
+
+        if($result['ITEM_ID'] == $_REQUEST['itemId']) {
+            continue;
+        }
+        $arrReturn[$result['ITEM_ID']] = $result;
+        $ids[] = $result['ITEM_ID'];
+    }
 }
 
 
-
+/*
 Loader::includeModule('catalog');
 $arrCountProduct = \Bitrix\Catalog\ProductTable::getList(
     [
@@ -57,9 +69,10 @@ while ($CountProduct = $arrCountProduct->fetch()) {
 
 
 }
+*/
 
 
-if(empty($arrReturn)) {
+if(empty($ids)) {
         die();
 }
 
@@ -69,9 +82,9 @@ $arrPrice = Price::getList(
         'select' => array('PRICE', 'PRODUCT_ID'),
     )
 );
-
+$ids = array();
 while ($price = $arrPrice->fetch()) {
-        $arrReturn[$price['PRODUCT_ID']]['PRICE'] = $price['PRICE'];
+        $ids[] = $price['PRODUCT_ID'];
 }
 
 if(empty($arrReturn)) {
@@ -104,7 +117,7 @@ while ($arItemsBasket = $dbBasketItems->Fetch()) {
 GLOBAL $arrFilter, $APPLICATION;
 if (!is_array($arrFilter))
     $arrFilter = array();
-$arrFilter['ID'] = array(29,33);
+$arrFilter['ID'] = $ids;
 
 
 $APPLICATION->ShowAjaxHead();

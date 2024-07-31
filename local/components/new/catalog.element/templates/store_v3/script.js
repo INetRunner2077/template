@@ -695,6 +695,7 @@
 			finder.itemId = this.product.id;
 			finder.currenturl = this.product.currentUrl;
 			finder.iblocktype = this.product.iblockType;
+			finder.categoryname = this.product.categoryname;
 
 			$.ajax({
 				type: "POST",
@@ -899,6 +900,7 @@
 					this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
 					this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
 					this.product.currentUrl = this.params.PRODUCT.CURRENT_URL;
+					this.product.categoryname = this.params.PRODUCT.CATEGORY_NAME;
 				}
 			}
 			else
