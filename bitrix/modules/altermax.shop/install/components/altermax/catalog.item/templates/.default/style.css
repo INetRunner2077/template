@@ -1,4 +1,26 @@
+#products-list .action {
+	display:table-cell;
+}
+.product-item-info-container {
+	text-align: center!important;
+}
+.button.by-one-click {
+	width: 100%;
+	margin-top:10px
+}
+.product-item-button-container {
+	width:100%;
+}
+.buy_btn_altermax {
+	height:32px;
+}
+.cart_summary .action a {
+	line-height:19px!important;
+}
 
+.cart_description {
+	display: table-cell !important;
+}
 .product-item-container { position: relative; }
 
 .product-item-container.hover { z-index: 17; }

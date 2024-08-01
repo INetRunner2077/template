@@ -123,7 +123,7 @@ $arrFilter['ID'] = $ids;
 $APPLICATION->ShowAjaxHead();
 
 $APPLICATION->IncludeComponent(
-    "new:catalog.top",
+    "altermax:catalog.top",
     ".default",
     array(
         "ACTION_VARIABLE" => "action",

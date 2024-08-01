@@ -1,4 +1,5 @@
 
+
 (function (window){
 	'use strict';
 
@@ -145,6 +146,7 @@
 		this.obPrice = null;
 		this.obTree = null;
 		this.obBuyBtn = null;
+		this.obOrdBtn = null;
 		this.obBasketActions = null;
 		this.obNotAvail = null;
 		this.obSubscribe = null;
@@ -418,6 +420,7 @@
 	window.JCCatalogItem.prototype = {
 		init: function()
 		{
+
 			var i = 0,
 				treeItems = null;
 
@@ -427,24 +430,11 @@
 				this.errorCode = -1;
 			}
 
-			this.obPict = BX(this.visual.PICT_ID);
-			if (!this.obPict)
-			{
-				this.errorCode = -2;
-			}
 
-			if (this.secondPict && this.visual.SECOND_PICT_ID)
-			{
-				this.obSecondPict = BX(this.visual.SECOND_PICT_ID);
-			}
+			//this.obPictSlider = BX(this.visual.PICT_SLIDER_ID);
+			//this.obPictSliderIndicator = BX(this.visual.PICT_SLIDER_ID + '_indicator');
+			//this.obPictSliderProgressBar = BX(this.visual.PICT_SLIDER_ID + '_progress_bar');
 
-			this.obPictSlider = BX(this.visual.PICT_SLIDER_ID);
-			this.obPictSliderIndicator = BX(this.visual.PICT_SLIDER_ID + '_indicator');
-			this.obPictSliderProgressBar = BX(this.visual.PICT_SLIDER_ID + '_progress_bar');
-			if (!this.obPictSlider)
-			{
-				this.errorCode = -4;
-			}
 
 			this.obPrice = BX(this.visual.PRICE_ID);
 			this.obPriceOld = BX(this.visual.PRICE_OLD_ID);
@@ -514,6 +504,13 @@
 					this.obBuyBtn = BX(this.visual.BUY_ID);
 				}
 			}
+debugger;
+			if (this.visual.ORD_ID)
+			{
+				this.obOrdBtn = BX(this.visual.ORD_ID);
+			}
+
+
 
 			this.obNotAvail = BX(this.visual.NOT_AVAILABLE_MESS);
 
@@ -547,9 +544,9 @@
 				// product slider events
 				if (this.isTouchDevice)
 				{
-					BX.bind(this.obPictSlider, 'touchstart', BX.proxy(this.touchStartEvent, this));
-					BX.bind(this.obPictSlider, 'touchend', BX.proxy(this.touchEndEvent, this));
-					BX.bind(this.obPictSlider, 'touchcancel', BX.proxy(this.touchEndEvent, this));
+				//	BX.bind(this.obPictSlider, 'touchstart', BX.proxy(this.touchStartEvent, this));
+				//	BX.bind(this.obPictSlider, 'touchend', BX.proxy(this.touchEndEvent, this));
+				//	BX.bind(this.obPictSlider, 'touchcancel', BX.proxy(this.touchEndEvent, this));
 				}
 				else
 				{
@@ -561,8 +558,8 @@
 					}
 
 					// product slider events
-					BX.bind(this.obProduct, 'mouseenter', BX.proxy(this.cycleSlider, this));
-					BX.bind(this.obProduct, 'mouseleave', BX.proxy(this.stopSlider, this));
+					//BX.bind(this.obProduct, 'mouseenter', BX.proxy(this.cycleSlider, this));
+					//BX.bind(this.obProduct, 'mouseleave', BX.proxy(this.stopSlider, this));
 				}
 
 				if (this.bigData)
@@ -616,10 +613,7 @@
 					case 1: // product
 					case 2: // set
 					case 7: // service
-						if (parseInt(this.product.morePhotoCount) > 1 && this.obPictSlider)
-						{
-							this.initializeSlider();
-						}
+
 
 						this.checkQuantityControls();
 
@@ -639,10 +633,7 @@
 
 							this.setCurrent();
 						}
-						else if (parseInt(this.product.morePhotoCount) > 1 && this.obPictSlider)
-						{
-							this.initializeSlider();
-						}
+
 
 						break;
 				}
@@ -659,6 +650,14 @@
 					}
 				}
 
+				debugger;
+				if(this.obOrdBtn)
+				{
+
+					BX.bind(this.obOrdBtn, 'click', BX.proxy(this.OneClickBuy, this));
+
+				}
+
 				if (this.useCompare)
 				{
 					this.obCompare = BX(this.visual.COMPARE_LINK_ID);
@@ -670,6 +669,71 @@
 					BX.addCustomEvent('onCatalogDeleteCompare', BX.proxy(this.checkDeletedCompare, this));
 				}
 			}
+		},
+
+
+		OneClickBuy: function () {
+
+			debugger;
+
+
+			var popup = $('<div id="quick_view_popup-wrap" style="display: block; top: 222px;">\n' +
+				'        <div id="quick_view_popup-outer">\n' +
+				'            <div id="quick_view_popup-content">\n' +
+				'                <div style="width:auto;height:auto;overflow: auto;position:relative;">\n' +
+				'                    <div class="product-view-area">\n' +
+				'                        <div class="col-md-12 col-sm-12  col-xs-12"><p\n' +
+				'                                    class="h3">Купить в один клик</p>\n' +
+				'                            <form method="post" class="one-click-send_ajax">\n' +
+				'                            <input type="hidden" name="id_oneClick" value="165905193"> \n' +
+				'                              <label>Название</label>\n' +
+				'                                <input\n' +
+				'                                        type="text" class="form-control input"\n' +
+				'                                        name="name" id="name_oneClick" value=""\n' +
+				'                                        readonly="">\n' +
+				'                                <label>Цена</label>\n' +
+				'                                <input\n' +
+				'                                        type="text" class="form-control input"\n' +
+				'                                        name="price" id="price_oneClick" value="187.50" readonly="">\n' +
+				'                                <label>Количество</label>\n' +
+				'                                <input\n' +
+				'                                        type="number" min="0" step="1"\n' +
+				'                                        class="form-control input"\n' +
+				'                                        name="quantity" id="count_oneClick" value="1">\n' +
+				'                                <label>Полное имя*</label>\n' +
+				'                                <input type="text"\n' +
+				'                                                       class="form-control input"\n' +
+				'                                                       name="your-name" value=""\n' +
+				'                                                       required="">\n' +
+				'                                <label>Email*</label>\n' +
+				'                                <input\n' +
+				'                                        type="email" class="form-control input"\n' +
+				'                                        name="email" value=""\n' +
+				'                                        required="">\n' +
+				'                                <label>Телефон</label>\n' +
+				'                                <input\n' +
+				'                                        type="text"\n' +
+				'                                        class="form-control input phonemask"\n' +
+				'                                        name="phone" value="">\n' +
+				'                                <br>\n' +
+				'                                <button class="button" type="submit"><i\n' +
+				'                                            class="fas fa-paper-plane"></i>&nbsp;\n' +
+				'                                    <span>Отправить</span></button>\n' +
+				'                            </form>\n' +
+				'                        </div>\n' +
+				'                    </div>\n' +
+				'                </div>\n' +
+				'            </div>\n' +
+				'            <a style="display: inline;" class="quick_view_popup-close" id="quick_view_popup-close" href="#"><i\n' +
+				'                        class="icon pe-7s-close"></i></a></div>\n' +
+				'    </div>');
+
+
+
+			$('#page').append($('<div id="quick_view_popup-overlay"></div>'));
+			$('#page').append(popup);
+
+
 		},
 
 		setAnalyticsDataLayer: function(action)
@@ -894,6 +958,10 @@
 
 		quantityUp: function()
 		{
+			debugger;
+			$('.buy_btn_altermax').css('display', 'block');
+			$('.action[data-item="'+ this.product.id +'"] #to_basket').css('display', 'none');
+
 			var curValue = 0,
 				boolSet = true;
 
@@ -928,6 +996,9 @@
 
 		quantityDown: function()
 		{
+			$('.buy_btn_altermax').css('display', 'block');
+			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
+
 			var curValue = 0,
 				boolSet = true;
 
@@ -1177,62 +1248,6 @@
 			}
 		},
 
-		initializeSlider: function()
-		{
-			var wrap = this.obPictSlider.getAttribute('data-slider-wrap');
-			if (wrap)
-			{
-				this.slider.options.wrap = wrap === 'true';
-			}
-			else
-			{
-				this.slider.options.wrap = this.defaultSliderOptions.wrap;
-			}
-
-			if (this.isTouchDevice)
-			{
-				this.slider.options.interval = false;
-			}
-			else
-			{
-				this.slider.options.interval = parseInt(this.obPictSlider.getAttribute('data-slider-interval')) || this.defaultSliderOptions.interval;
-				// slider interval must be more than 700ms because of css transitions
-				if (this.slider.options.interval < 700)
-				{
-					this.slider.options.interval = 700;
-				}
-
-				if (this.obPictSliderIndicator)
-				{
-					var controls = this.obPictSliderIndicator.querySelectorAll('[data-go-to]');
-					for (var i in controls)
-					{
-						if (controls.hasOwnProperty(i))
-						{
-							BX.bind(controls[i], 'click', BX.proxy(this.sliderClickHandler, this));
-						}
-					}
-				}
-
-				if (this.obPictSliderProgressBar)
-				{
-					if (this.slider.progress)
-					{
-						this.resetProgress();
-						this.cycleSlider();
-					}
-					else
-					{
-						this.slider.progress = new BX.easing({
-							transition: BX.easing.transitions.linear,
-							step: BX.delegate(function(state){
-								this.obPictSliderProgressBar.style.width = state.width / 10 + '%';
-							}, this)
-						});
-					}
-				}
-			}
-		},
 
 		checkTouch: function(event)
 		{
@@ -1272,163 +1287,7 @@
 			}
 		},
 
-		sliderClickHandler: function(event)
-		{
-			var target = BX.getEventTarget(event),
-				slideIndex = target.getAttribute('data-go-to');
 
-			if (slideIndex)
-			{
-				this.slideTo(slideIndex)
-			}
-
-			BX.PreventDefault(event);
-		},
-
-		slideNext: function()
-		{
-			if (this.slider.sliding)
-				return;
-
-			return this.slide('next');
-		},
-
-		slidePrev: function()
-		{
-			if (this.slider.sliding)
-				return;
-
-			return this.slide('prev');
-		},
-
-		slideTo: function(pos)
-		{
-			this.slider.active = BX.findChild(this.obPictSlider, {className: 'item active'}, true, false);
-			this.slider.progress && (this.slider.interval = true);
-
-			var activeIndex = this.getItemIndex(this.slider.active);
-
-			if (pos > (this.slider.items.length - 1) || pos < 0)
-				return;
-
-			if (this.slider.sliding)
-				return false;
-
-			if (activeIndex == pos)
-			{
-				this.stopSlider();
-				this.cycleSlider();
-				return;
-			}
-
-			return this.slide(pos > activeIndex ? 'next' : 'prev', this.eq(this.slider.items, pos));
-		},
-
-		slide: function(type, next)
-		{
-			var active = BX.findChild(this.obPictSlider, {className: 'item active'}, true, false),
-				isCycling = this.slider.interval,
-				direction = type === 'next' ? 'left' : 'right';
-
-			next = next || this.getItemForDirection(type, active);
-
-			if (BX.hasClass(next, 'active'))
-			{
-				return (this.slider.sliding = false);
-			}
-
-			this.slider.sliding = true;
-
-			isCycling && this.stopSlider();
-
-			if (this.obPictSliderIndicator)
-			{
-				BX.removeClass(this.obPictSliderIndicator.querySelector('.active'), 'active');
-				var nextIndicator = this.obPictSliderIndicator.querySelectorAll('[data-go-to]')[this.getItemIndex(next)];
-				nextIndicator && BX.addClass(nextIndicator, 'active');
-			}
-
-			if (BX.hasClass(this.obPictSlider, 'slide') && !BX.browser.IsIE())
-			{
-				var self = this;
-				BX.addClass(next, type);
-				next.offsetWidth; // force reflow
-				BX.addClass(active, direction);
-				BX.addClass(next, direction);
-				setTimeout(function() {
-					BX.addClass(next, 'active');
-					BX.removeClass(active, 'active');
-					BX.removeClass(active, direction);
-					BX.removeClass(next, type);
-					BX.removeClass(next, direction);
-					self.slider.sliding = false;
-				}, 700);
-			}
-			else
-			{
-				BX.addClass(next, 'active');
-				this.slider.sliding = false;
-			}
-
-			this.obPictSliderProgressBar && this.resetProgress();
-			isCycling && this.cycleSlider();
-		},
-
-		stopSlider: function(event)
-		{
-			event || (this.slider.paused = true);
-
-			this.slider.interval && clearInterval(this.slider.interval);
-
-			if (this.slider.progress)
-			{
-				this.slider.progress.stop();
-
-				var width = parseInt(this.obPictSliderProgressBar.style.width);
-
-				this.slider.progress.options.duration = this.slider.options.interval * width / 200;
-				this.slider.progress.options.start = {width: width * 10};
-				this.slider.progress.options.finish = {width: 0};
-				this.slider.progress.options.complete = null;
-				this.slider.progress.animate();
-			}
-		},
-
-		cycleSlider: function(event)
-		{
-			event || (this.slider.paused = false);
-
-			this.slider.interval && clearInterval(this.slider.interval);
-
-			if (this.slider.options.interval && !this.slider.paused)
-			{
-				if (this.slider.progress)
-				{
-					this.slider.progress.stop();
-
-					var width = parseInt(this.obPictSliderProgressBar.style.width);
-
-					this.slider.progress.options.duration = this.slider.options.interval * (100 - width) / 100;
-					this.slider.progress.options.start = {width: width * 10};
-					this.slider.progress.options.finish = {width: 1000};
-					this.slider.progress.options.complete = BX.delegate(function(){
-						this.slider.interval = true;
-						this.slideNext();
-					}, this);
-					this.slider.progress.animate();
-				}
-				else
-				{
-					this.slider.interval = setInterval(BX.proxy(this.slideNext, this), this.slider.options.interval);
-				}
-			}
-		},
-
-		resetProgress: function()
-		{
-			this.slider.progress && this.slider.progress.stop();
-			this.obPictSliderProgressBar.style.width = 0;
-		},
 
 		getItemForDirection: function(direction, active)
 		{
@@ -1776,6 +1635,8 @@
 
 		changeInfo: function()
 		{
+			$('.buy_btn_altermax').css('display', 'block');
+			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
 			var i, j,
 				index = -1,
 				boolOneSearch = true,
@@ -1800,122 +1661,7 @@
 			}
 			if (index > -1)
 			{
-				if (parseInt(this.offers[index].MORE_PHOTO_COUNT) > 1 && this.obPictSlider)
-				{
-					// hide pict and second_pict containers
-					if (this.obPict)
-					{
-						this.obPict.style.display = 'none';
-					}
 
-					if (this.obSecondPict)
-					{
-						this.obSecondPict.style.display = 'none';
-					}
-
-					// clear slider container
-					BX.cleanNode(this.obPictSlider);
-
-					// fill slider container with slides
-					for (i in this.offers[index].MORE_PHOTO)
-					{
-						if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
-						{
-							this.obPictSlider.appendChild(
-								BX.create('SPAN', {
-									props: {className: 'product-item-image-slide item' + (i == 0 ? ' active' : '')},
-									style: {backgroundImage: 'url(\'' + this.offers[index].MORE_PHOTO[i].SRC + '\')'}
-								})
-							);
-						}
-					}
-
-					// fill slider indicator if exists
-					if (this.obPictSliderIndicator)
-					{
-						BX.cleanNode(this.obPictSliderIndicator);
-
-						for (i in this.offers[index].MORE_PHOTO)
-						{
-							if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
-							{
-								this.obPictSliderIndicator.appendChild(
-									BX.create('DIV', {
-										attrs: {'data-go-to': i},
-										props: {className: 'product-item-image-slider-control' + (i == 0 ? ' active' : '')}
-									})
-								);
-								this.obPictSliderIndicator.appendChild(document.createTextNode(' '));
-							}
-						}
-
-						this.obPictSliderIndicator.style.display = '';
-					}
-
-					if (this.obPictSliderProgressBar)
-					{
-						this.obPictSliderProgressBar.style.display = '';
-					}
-
-					// show slider container
-					this.obPictSlider.style.display = '';
-					this.initializeSlider();
-				}
-				else
-				{
-					// hide slider container
-					if (this.obPictSlider)
-					{
-						this.obPictSlider.style.display = 'none';
-					}
-
-					if (this.obPictSliderIndicator)
-					{
-						this.obPictSliderIndicator.style.display = 'none';
-					}
-
-					if (this.obPictSliderProgressBar)
-					{
-						this.obPictSliderProgressBar.style.display = 'none';
-					}
-
-					// show pict and pict_second containers
-					if (this.obPict)
-					{
-						if (this.offers[index].PREVIEW_PICTURE)
-						{
-							BX.adjust(this.obPict, {style: {backgroundImage: 'url(\'' + this.offers[index].PREVIEW_PICTURE.SRC + '\')'}});
-						}
-						else
-						{
-							BX.adjust(this.obPict, {style: {backgroundImage: 'url(\'' + this.defaultPict.pict.SRC + '\')'}});
-						}
-
-						this.obPict.style.display = '';
-					}
-
-					if (this.secondPict && this.obSecondPict)
-					{
-						if (this.offers[index].PREVIEW_PICTURE_SECOND)
-						{
-							BX.adjust(this.obSecondPict, {style: {backgroundImage: 'url(\'' + this.offers[index].PREVIEW_PICTURE_SECOND.SRC + '\')'}});
-						}
-						else if (this.offers[index].PREVIEW_PICTURE.SRC)
-						{
-							BX.adjust(this.obSecondPict, {style: {backgroundImage: 'url(\'' + this.offers[index].PREVIEW_PICTURE.SRC + '\')'}});
-						}
-						else if (this.defaultPict.secondPict)
-						{
-							BX.adjust(this.obSecondPict, {style: {backgroundImage: 'url(\'' + this.defaultPict.secondPict.SRC + '\')'}});
-						}
-						else
-						{
-							BX.adjust(this.obSecondPict, {style: {backgroundImage: 'url(\'' + this.defaultPict.pict.SRC + '\')'}});
-						}
-
-						this.obSecondPict.style.display = '';
-					}
-				}
 
 				if (this.showSkuProps && this.obSkuProps)
 				{
@@ -2450,6 +2196,7 @@
 
 		sendToBasket: function()
 		{
+			debugger;
 			if (!this.canBuy)
 			{
 				return;
@@ -2516,6 +2263,7 @@
 
 		basketResult: function(arResult)
 		{
+			debugger;
 			var strContent = '',
 				strPict = '',
 				successful,
@@ -2536,7 +2284,12 @@
 
 			if (successful && this.basketAction === 'BUY')
 			{
-				this.basketRedirect();
+				$('.buy_btn_altermax').css('display', 'none');
+				var buttonInCart = $('<a href="/basket/" id="to_basket" title="В корзине">\n' +
+					'<i class="fa fa-shopping-basket"></i>\n' +
+					'<span> В корзине </span>\n' +
+					'</a>\n');
+				$('.product-item-button-container').append(buttonInCart);
 			}
 			else
 			{

@@ -111,10 +111,8 @@ class Registry extends CBitrixComponent
                 //unset($arEventFields["CONFIRM_PASSWORD"]);
 
                 $event = new CEvent;
-                $event->SendImmediate("NEW_USER", SITE_ID, $arEventFields, 'N', 1);
-                $event->SendImmediate("NEW_USER", SITE_ID, $arEventFields,'N',106);
-                if($bConfirmReq)
-                    $event->SendImmediate("NEW_USER_CONFIRM", SITE_ID, $arEventFields);
+                $event->SendImmediate("NEW_USER", SITE_ID, $arEventFields, 'Y', COption::GetOptionInt("altermax.shop", "EMAIL_NEW_USER"));
+
                 LocalRedirect($this->arParams["SUCCESS_PAGE"]);
             }
             else

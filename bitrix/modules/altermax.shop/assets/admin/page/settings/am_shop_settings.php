@@ -6,6 +6,7 @@ CUtil::InitJSCore();
 use Bitrix\Main\IO;
 use Bitrix\Intranet;
 use Bitrix\Main\ModuleManager;
+use \Bitrix\Main\Config\Option;
 
 global $APPLICATION, $USER;
 
@@ -32,17 +33,57 @@ $APPLICATION->SetTitle('Основные настройки');
 $APPLICATION->SetAdditionalCss("/bitrix/components/bitrix/desktop/templates/admin/style.css");
 
 
-$siteTitle = trim(\Bitrix\Main\Config\Option::get("bitrix24", "site_title", ""));
+$siteTitle = trim(Option::get("bitrix24", "site_title", ""));
 if ($siteTitle == '')
 {
     $siteTitle =
         ModuleManager::isModuleInstalled("bitrix24")
             ? GetMessage('BITRIX24_SITE_TITLE_DEFAULT')
-            : \Bitrix\Main\Config\Option::get("main", "site_name", "")
+            : Option::get("main", "site_name", "")
     ;
 }
 
 $siteTitle = htmlspecialcharsbx($siteTitle);
+
+
+$timeWork =  Option::get("altermax.shop", "site_time_work", "9:00 — 18.00 МСК//");
+if(empty($timeWork)) {
+    $timeWork = "9:00 — 18.00 МСК";
+}
+$timeWork = htmlspecialcharsbx($timeWork);
+
+$adress_cor =  Option::get("altermax.shop", "adress_cor", "350059, г. Краснодар, ул. Новороссийская, д. 172, помещ. 206");
+if(empty($adress_cor)) {
+    $adress_cor = "350059, г. Краснодар, ул. Новороссийская, д. 172, помещ. 206";
+}
+$adress_cor = htmlspecialcharsbx($adress_cor);
+
+
+
+
+
+$email_work =  Option::get("altermax.shop", "email_work", "mail@energoflot.ru");
+if(empty($email_work)) {
+    $email_work = "mail@energoflot.ru";
+}
+$email_work = htmlspecialcharsbx($email_work);
+
+
+$phone_work =  Option::get("altermax.shop", "phone_work", "+7(861) 205-03-77");
+if(empty($phone_work)) {
+    $phone_work = "+7(861) 205-03-77";
+}
+$phone_work = htmlspecialcharsbx($phone_work);
+
+
+
+$logo = trim(Option::get("altermax.shop", "client_logo_retina"));
+if(!empty($logo)) {
+    $rsFile = CFile::GetByID($logo);
+    $siteLogo['logo'] = $rsFile->Fetch()['SRC'];
+}
+
+//Option::get()
 ?>
     <div class="bx-gadgets-container-new">
 
@@ -71,11 +112,37 @@ $siteTitle = htmlspecialcharsbx($siteTitle);
                                 <table class="bx-gadgets-info-site-table" cellspacing="0">
                                     <tbody>
                                     <tr>
-                                        <td width="40%">Наименование портала</td>
+                                        <td width="40%">Наименование Сайта</td>
                                         <td width="60%">
-                                            <input type="text" valign="middle" size="60" name="SITE_NAME" value="<?=$siteTitle?>" placeholder="pass">
+                                            <input type="text" valign="middle" size="60" name="SITE_NAME" value="<?=$siteTitle?>" placeholder="Имя портала">
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td width="40%">Время работы</td>
+                                        <td width="60%">
+                                            <input type="text" valign="middle" size="60" name="TIME_WORK" value="<?=$timeWork?>" placeholder="9:00 — 18.00 МСК">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Адрес для кореспондееции</td>
+                                        <td width="60%">
+                                            <input type="text" valign="middle" size="60" name="ADRESS_COR" value="<?=$adress_cor?>" placeholder="350059, г. Краснодар, ул. Новороссийская, д. 172, помещ. 206">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Email</td>
+                                        <td width="60%">
+                                            <input type="text" valign="middle" size="60" name="EMAIL_WORK" value="<?=$email_work?>" placeholder="mail@energoflot.ru">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Рабочий телефон</td>
+                                        <td width="60%">
+                                            <input type="text" valign="middle" size="60" name="PHONE_WORK" value="<?=$phone_work?>" placeholder="+7(861) 205-03-77">
+                                        </td>
+                                    </tr>
+
+
                                     <tr>
                                         <td width="40%">Логотип</td>
                                         <td width="60%">
@@ -105,7 +172,7 @@ $siteTitle = htmlspecialcharsbx($siteTitle);
                                     </tr>
                                     <tr>
                                         <td colspan="2" align="center">
-                                            <input type="button" onclick="return __MCART_SEND('bx-mcart_create_new_type')" name="execute" value="Сохранить" class="adm-btn-save send_req_user_one">
+                                            <input type="button" onclick="return __ALT_SEND('bx-mcart_create_new_type')" name="execute" value="Сохранить" class="adm-btn-save send_req_user_one">
                                             <div class="status-send"></div>
                                         </td>
                                     </tr>
@@ -133,7 +200,7 @@ $siteTitle = htmlspecialcharsbx($siteTitle);
     </div>
 
     <script>
-        function __MCART_SEND($blockID)
+        function __ALT_SEND($blockID)
         {
             var ob = BX($blockID);
 

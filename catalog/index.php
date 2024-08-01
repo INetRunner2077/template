@@ -5,8 +5,8 @@ $APPLICATION->IncludeComponent(
 	".default", 
 	array(
 		"COMPONENT_TEMPLATE" => ".default",
-		"IBLOCK_TYPE" => "catalog",
-		"IBLOCK_ID" => "2",
+		"IBLOCK_TYPE" => "altermax_catalog",
+		"IBLOCK_ID" => "44",
 		"HIDE_NOT_AVAILABLE" => "N",
 		"HIDE_NOT_AVAILABLE_OFFERS" => "N",
 		"TEMPLATE_THEME" => "blue",
@@ -29,7 +29,7 @@ $APPLICATION->IncludeComponent(
 		"USER_CONSENT_ID" => "0",
 		"USER_CONSENT_IS_CHECKED" => "Y",
 		"USER_CONSENT_IS_LOADED" => "N",
-		"SEF_MODE" => "Y",
+		"SEF_MODE" => "N",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_JUMP" => "N",
 		"AJAX_OPTION_STYLE" => "Y",
@@ -203,8 +203,7 @@ $APPLICATION->IncludeComponent(
 			0 => "",
 			1 => "",
 		),
-		"LIST_PROPERTY_CODE_MOBILE" => array(
-		),
+		"LIST_PROPERTY_CODE_MOBILE" => "",
 		"LIST_OFFERS_FIELD_CODE" => array(
 			0 => "",
 			1 => "",
@@ -213,10 +212,8 @@ $APPLICATION->IncludeComponent(
 			0 => "",
 			1 => "",
 		),
-		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => array(
-		),
-		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => array(
-		),
+		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => "",
+		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => "",
 		"OFFERS_SORT_FIELD" => "sort",
 		"OFFERS_SORT_ORDER" => "asc",
 		"OFFERS_SORT_FIELD2" => "id",
@@ -224,17 +221,9 @@ $APPLICATION->IncludeComponent(
 		"DETAIL_SLIDER_INTERVAL" => "5000",
 		"DETAIL_SLIDER_PROGRESS" => "N",
 		"SEF_FOLDER" => "/catalog/",
-		"SEF_URL_TEMPLATES" => array(
-			"sections" => "",
-			"section" => "#SECTION_ID#/",
-			"element" => "#SECTION_ID#/#ELEMENT_ID#/",
-			"compare" => "compare.php?action=#ACTION_CODE#",
-			"smart_filter" => "#SECTION_ID#/filter/#SMART_FILTER_PATH#/apply/",
-		),
 		"VARIABLE_ALIASES" => array(
-			"compare" => array(
-				"ACTION_CODE" => "action",
-			),
+			"ELEMENT_ID" => "ELEMENT_ID",
+			"SECTION_ID" => "SECTION_ID",
 		)
 	),
 	false

@@ -79,8 +79,9 @@
 }
 #to_basket {
     background: red;
-    padding: 7px;
+    padding: 6px 16px;
     color: white;
+    width: 100%;
 }
 .product-item-detail-info-container {
     margin-bottom:0px !important;

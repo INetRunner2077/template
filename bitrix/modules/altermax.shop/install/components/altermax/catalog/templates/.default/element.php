@@ -206,7 +206,7 @@ $isSidebar = ($arParams['SIDEBAR_DETAIL_SHOW'] == 'Y' && !empty($arParams['SIDEB
 
 		$elementId = $APPLICATION->IncludeComponent(
 			'altermax:catalog.element',
-			'',
+			'store_v3',
 			$componentElementParams,
 			$component
 		);

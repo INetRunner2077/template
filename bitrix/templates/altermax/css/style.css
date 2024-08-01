@@ -715,8 +715,9 @@ color: #333333;
 }
 #search button {
 	line-height: 34px;
-	padding: 4px 15px 0px;
+	padding: 0px 15px 0px;
 	display: inline-block;
+	height:100%;
 	background: #e83f33;
 	border: none;
 	color: #fff;

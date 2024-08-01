@@ -56,14 +56,6 @@ $arUrlRewrite=array (
     'PATH' => '/services/index.php',
     'SORT' => 100,
   ),
-  15 => 
-  array (
-    'CONDITION' => '#^/catalog/#',
-    'RULE' => '',
-    'ID' => 'altermax:catalog',
-    'PATH' => '/catalog/index.php',
-    'SORT' => 100,
-  ),
   4 => 
   array (
     'CONDITION' => '#^/themes/#',
