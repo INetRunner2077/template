@@ -1,3 +1,13 @@
+.product-item figure img {
+    min-height:250px;
+    max-height: 250px;
+    min-width: 250px;
+    max-width:250px;
+}
+.flex-viewport .previews-list img {
+    max-height: 65px;
+    min-height: 65px;
+}
 
 .captcha_reload::after {
     background: rgba(0, 0, 0, 0) url(/bitrix/templates/altermax/img/icons_wish.svg) repeat scroll -67px -82px;

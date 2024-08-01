@@ -674,7 +674,33 @@
 
 		OneClickBuy: function () {
 
+debugger;
+			var i, j,
+				index = -1,
+				boolOneSearch = true,
+				quantityChanged;
 
+			for (i = 0; i < this.offers.length; i++)
+			{
+				boolOneSearch = true;
+				for (j in this.selectedValues)
+				{
+					if (this.selectedValues[j] !== this.offers[i].TREE[j])
+					{
+						boolOneSearch = false;
+						break;
+					}
+				}
+				if (boolOneSearch)
+				{
+					index = i;
+					break;
+				}
+			}
+
+				var itemName = this.product.name;
+				var itemPrice = $(this.obPrice).text().replace(/\s+/g, '');
+				var ItemQ = $(this.obQuantity).val();
 
 			var popup = $('<div id="quick_view_popup-wrap" style="display: block;">\n' +
 				'        <div id="quick_view_popup-outer">\n' +
@@ -723,6 +749,10 @@
 				'</div>\n' +
 				'    </div>');
 
+			popup.find('#name_oneClick').val(itemName);
+			popup.find('#price_oneClick').val(itemPrice);
+			popup.find('#count_oneClick').val(ItemQ);
+
 			var addAnswer = new BX.PopupWindow("my_answer", null, {
 				content: BX('quick_view_popup-wrap'),
 				closeIcon: {right: "20px", top: "10px"},
@@ -735,9 +765,8 @@
 						text: "Отправить",
 						className: "popup-window-button-accept",
 						events: {click: function(){
-								BX.ajax.submit(BX("myForm"), function(data){ // отправка данных из формы с id="myForm" в файл из action="..."
-									BX( 'ajax-add-answer').innerHTML = data;
-								});
+								$('#quick_view_popup-wrap').empty();
+								$('#quick_view_popup-wrap').append('<h3> Отправлено </h3>')
 							}}
 					}),
 					new BX.PopupWindowButton({
@@ -750,15 +779,10 @@
 					})
 				]
 			});
+			addAnswer.close(); // закрытие окна
+			$('#quick_view_popup-wrap').empty();
 			$('#quick_view_popup-wrap').append(popup);
 			addAnswer.show();
-
-
-
-		//	$('#page').append($('<div id="quick_view_popup-overlay"></div>'));
-			//$('#page').append(popup);
-
-
 		},
 
 		setAnalyticsDataLayer: function(action)
@@ -1660,6 +1684,7 @@
 
 		changeInfo: function()
 		{
+			debugger;
 			$('.buy_btn_altermax').css('display', 'block');
 			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
 			var i, j,
