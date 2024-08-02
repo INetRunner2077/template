@@ -1936,3 +1936,5 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 ?><script type="application/ld+json"><?=json_encode($arrayData, JSON_UNESCAPED_UNICODE ), "\n\n";?></script><?php
 
 unset($actualItem, $itemIds, $jsParams);
+?>
+<div id="quick_view_popup-wrap"></div>

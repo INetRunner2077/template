@@ -37,18 +37,8 @@ if (!empty($arResult['ITEMS']))
 	);
 	unset($currencyList, $templateLibrary);
 
-	switch ($arParams['VIEW_MODE'])
-	{
-		case 'BANNER':
-			include($fullPath.'/banner/template.php');
-			break;
-		case 'SLIDER':
-			include($fullPath.'/slider/template.php');
-			break;
-		case 'SECTION':
 			include($fullPath.'/section/template.php');
-			break;
-	}
+
 	?>
 	<script type='text/javascript'>
 	   BX.message({

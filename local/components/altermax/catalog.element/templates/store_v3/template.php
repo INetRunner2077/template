@@ -15,6 +15,21 @@ use Bitrix\Main\Localization\Loc;
 * @var string $templateFolder
 */
 
+
+$request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
+
+$uri = new \Bitrix\Main\Web\Uri($request->getRequestUri());
+
+$uri->addParams(array("action"=>"ADD2BASKET","id"=>"#ID#"));
+
+$arParams['ADD2BASKET_BUY'] = $uri->getUri();
+
+$uri->deleteParams(array("action"=>"ADD2BASKET","id"=>"#ID#"));
+
+$uri->addParams(array("action"=>"BUY","id"=>"#ID#"));
+
+$arParams['BUY_URL'] = $uri->getUri();
+
 $this->setFrameMode(true);
 
 $templateLibrary = array('popup', 'fx');
@@ -1511,7 +1526,8 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				'PRODUCT' => array(
                     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
                     'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
-                    'CURRENT_URL' => $APPLICATION->GetCurPage(),
+                    'REPLACE_BUY' => $arParams['BUY_URL'],
+                    'REPLACE_ADD' => $arParams['ADD2BASKET_BUY'],
                     'CATEGORY_NAME' => $arResult['SECTION']['NAME'],
 					'ID' => $arResult['ID'],
 					'ACTIVE' => $arResult['ACTIVE'],
@@ -1665,6 +1681,7 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				];
 			}
 
+
 			$jsParams = array(
 				'CONFIG' => array(
 					'USE_CATALOG' => $arResult['CATALOG'],
@@ -1698,7 +1715,8 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				'PRODUCT' => array(
                     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
                     'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
-                    'CURRENT_URL' => $APPLICATION->GetCurPage(),
+                    'REPLACE_BUY' => $arParams['BUY_URL'],
+                    'REPLACE_ADD' => $arParams['ADD2BASKET_BUY'],
                     'CATEGORY_NAME' => $arResult['SECTION']['NAME'],
 					'ID' => $arResult['ID'],
 					'ACTIVE' => $arResult['ACTIVE'],

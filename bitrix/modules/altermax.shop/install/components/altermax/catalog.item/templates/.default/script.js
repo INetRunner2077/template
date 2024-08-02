@@ -504,7 +504,7 @@
 					this.obBuyBtn = BX(this.visual.BUY_ID);
 				}
 			}
-debugger;
+
 			if (this.visual.ORD_ID)
 			{
 				this.obOrdBtn = BX(this.visual.ORD_ID);
@@ -650,7 +650,7 @@ debugger;
 					}
 				}
 
-				debugger;
+				
 				if(this.obOrdBtn)
 				{
 
@@ -674,13 +674,38 @@ debugger;
 
 		OneClickBuy: function () {
 
-			debugger;
+debugger;
+			var i, j,
+				index = -1,
+				boolOneSearch = true,
+				quantityChanged;
 
+			for (i = 0; i < this.offers.length; i++)
+			{
+				boolOneSearch = true;
+				for (j in this.selectedValues)
+				{
+					if (this.selectedValues[j] !== this.offers[i].TREE[j])
+					{
+						boolOneSearch = false;
+						break;
+					}
+				}
+				if (boolOneSearch)
+				{
+					index = i;
+					break;
+				}
+			}
 
-			var popup = $('<div id="quick_view_popup-wrap" style="display: block; top: 222px;">\n' +
+				var itemName = this.product.name;
+				var itemPrice = $(this.obPrice).text().replace(/\s+/g, '');
+				var ItemQ = $(this.obQuantity).val();
+
+			var popup = $('<div id="quick_view_popup-wrap" style="display: block;">\n' +
 				'        <div id="quick_view_popup-outer">\n' +
 				'            <div id="quick_view_popup-content">\n' +
-				'                <div style="width:auto;height:auto;overflow: auto;position:relative;">\n' +
+				'                <div style="">\n' +
 				'                    <div class="product-view-area">\n' +
 				'                        <div class="col-md-12 col-sm-12  col-xs-12"><p\n' +
 				'                                    class="h3">Купить в один клик</p>\n' +
@@ -716,24 +741,48 @@ debugger;
 				'                                        class="form-control input phonemask"\n' +
 				'                                        name="phone" value="">\n' +
 				'                                <br>\n' +
-				'                                <button class="button" type="submit"><i\n' +
-				'                                            class="fas fa-paper-plane"></i>&nbsp;\n' +
-				'                                    <span>Отправить</span></button>\n' +
 				'                            </form>\n' +
 				'                        </div>\n' +
 				'                    </div>\n' +
 				'                </div>\n' +
 				'            </div>\n' +
-				'            <a style="display: inline;" class="quick_view_popup-close" id="quick_view_popup-close" href="#"><i\n' +
-				'                        class="icon pe-7s-close"></i></a></div>\n' +
+				'</div>\n' +
 				'    </div>');
 
+			popup.find('#name_oneClick').val(itemName);
+			popup.find('#price_oneClick').val(itemPrice);
+			popup.find('#count_oneClick').val(ItemQ);
 
-
-			$('#page').append($('<div id="quick_view_popup-overlay"></div>'));
-			$('#page').append(popup);
-
-
+			var addAnswer = new BX.PopupWindow("my_answer", null, {
+				content: BX('quick_view_popup-wrap'),
+				closeIcon: {right: "20px", top: "10px"},
+				zIndex: 99,
+				offsetLeft: 0,
+				offsetTop: 0,
+				draggable: {restrict: false},
+				buttons: [
+					new BX.PopupWindowButton({
+						text: "Отправить",
+						className: "popup-window-button-accept",
+						events: {click: function(){
+								$('#quick_view_popup-wrap').empty();
+								$('#quick_view_popup-wrap').append('<h3> Отправлено </h3>')
+							}}
+					}),
+					new BX.PopupWindowButton({
+						text: "Закрыть",
+						className: "webform-button-link-cancel",
+						events: {click: function(){
+								this.popupWindow.close(); // закрытие окна
+								$('#quick_view_popup-wrap').empty();
+							}}
+					})
+				]
+			});
+			addAnswer.close(); // закрытие окна
+			$('#quick_view_popup-wrap').empty();
+			$('#quick_view_popup-wrap').append(popup);
+			addAnswer.show();
 		},
 
 		setAnalyticsDataLayer: function(action)
@@ -958,7 +1007,7 @@ debugger;
 
 		quantityUp: function()
 		{
-			debugger;
+			
 			$('.buy_btn_altermax').css('display', 'block');
 			$('.action[data-item="'+ this.product.id +'"] #to_basket').css('display', 'none');
 
@@ -1635,6 +1684,7 @@ debugger;
 
 		changeInfo: function()
 		{
+			debugger;
 			$('.buy_btn_altermax').css('display', 'block');
 			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
 			var i, j,
@@ -2196,7 +2246,7 @@ debugger;
 
 		sendToBasket: function()
 		{
-			debugger;
+			
 			if (!this.canBuy)
 			{
 				return;
@@ -2263,7 +2313,7 @@ debugger;
 
 		basketResult: function(arResult)
 		{
-			debugger;
+			
 			var strContent = '',
 				strPict = '',
 				successful,
@@ -2284,12 +2334,13 @@ debugger;
 
 			if (successful && this.basketAction === 'BUY')
 			{
-				$('.buy_btn_altermax').css('display', 'none');
+				$(this.obBuyBtn).css('display', 'none')
 				var buttonInCart = $('<a href="/basket/" id="to_basket" title="В корзине">\n' +
 					'<i class="fa fa-shopping-basket"></i>\n' +
 					'<span> В корзине </span>\n' +
 					'</a>\n');
-				$('.product-item-button-container').append(buttonInCart);
+				$(this.obBasketActions).append(buttonInCart);
+				$('#minicart-ajax-rfsh').trigger('refreshcart');
 			}
 			else
 			{

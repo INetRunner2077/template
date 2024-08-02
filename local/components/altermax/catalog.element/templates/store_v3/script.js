@@ -688,14 +688,18 @@
 
 		finder: function () {
 
+			debugger;
 			var finder = {};
 
 			finder.name = this.product.name;
 			finder.iblock = this.product.iblockId;
 			finder.itemId = this.product.id;
-			finder.currenturl = this.product.currentUrl;
 			finder.iblocktype = this.product.iblockType;
 			finder.categoryname = this.product.categoryname;
+
+			finder.buyUrl = this.product.replaceUrl;
+			finder.addBasket = this.product.replaceaddBasket;
+
 
 			$.ajax({
 				type: "POST",
@@ -794,8 +798,10 @@
 
 				this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
 				this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
-				this.product.currentUrl = this.params.PRODUCT.CURRENT_URL;
 				this.product.categoryname = this.params.PRODUCT.CATEGORY_NAME;
+
+				this.product.replaceUrl = this.params.PRODUCT.REPLACE_BUY;
+				this.product.replaceaddBasket = this.params.PRODUCT.REPLACE_ADD;
 
 				if (this.config.showQuantity)
 				{
@@ -903,7 +909,11 @@
 					this.product.previewTextType = this.params.PRODUCT.PREVIEW_TEXT_TYPE;
 					this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
 					this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
-					this.product.currentUrl = this.params.PRODUCT.CURRENT_URL;
+
+
+					this.product.replaceUrl = this.params.PRODUCT.REPLACE_BUY;
+					this.product.replaceaddBasket = this.params.PRODUCT.REPLACE_ADD;
+
 					this.product.categoryname = this.params.PRODUCT.CATEGORY_NAME;
 				}
 			}

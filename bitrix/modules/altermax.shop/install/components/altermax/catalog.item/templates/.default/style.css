@@ -1,3 +1,6 @@
+.valign-middle th {
+	text-align:center;
+}
 #products-list .action {
 	display:table-cell;
 }
@@ -13,6 +16,7 @@
 }
 .buy_btn_altermax {
 	height:32px;
+	width:100%;
 }
 .cart_summary .action a {
 	line-height:19px!important;

@@ -4,6 +4,8 @@
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\UI\Extension;
 use Bitrix\Main\Loader;
+use \Bitrix\Main\Config\Option;
+
 CJSCore::Init(array("jquery"));
 Loader::includeModule('altermax.shop');
 ?>
@@ -174,7 +176,7 @@ Loader::includeModule('altermax.shop');
                                 <!-- Header Logo -->
                                 <div class="logo">
                                     <a title="Энергофлот" href="/">
-                                        <img alt="Изделия электронной техники" title="Изделия электронной техники" src="<?=CFile::GetPath( \Bitrix\Main\Config\Option::get("bitrix24", "client_logo_retina"))?>">
+                                        <img alt="Изделия электронной техники" title="Изделия электронной техники" src="<?=CFile::GetPath( \Bitrix\Main\Config\Option::get("altermax.shop", "client_logo_retina"))?>">
                                     </a>
                                 </div>
                             </div>
@@ -213,9 +215,6 @@ Loader::includeModule('altermax.shop');
                             <div class="col-xs-12 col-md-5 col-sm-6 top-cart">
                                 <div class="link-wishlist text-uppercase button-el seach-copy">
                                     <button class="button-green" type="submit" form="main-seach-bx"><span> Поиск</span></button>
-                                </div>
-                                <div class="link-wishlist text-uppercase strok-bx button-orange">
-                                    <a href="/askbyfile">Загрузить<br>файлом</a>
                                 </div>
                                 <!-- top cart -->
                                 <div id="minicart-ajax-rfsh" class="top-cart-contain">
@@ -295,7 +294,7 @@ Loader::includeModule('altermax.shop');
                                 <li class="mt-root">
                                     <div class="mt-root-item">
                                         <a href="#">
-                                            <div class="title title_font"><span class="title-text"><i class="fa fa-phone"></i> <span id="geo-phone">+7(861)205-03-77</span></span></div>
+                                            <div class="title title_font"><span class="title-text"><i class="fa fa-phone"></i> <span id="geo-phone"><?=\Bitrix\Main\Config\Option::get("altermax.shop", "phone_work",'+7(861)205-03-77')?></span></span></div>
                                         </a>
                                     </div>
                                 </li>

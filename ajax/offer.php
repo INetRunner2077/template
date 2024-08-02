@@ -209,7 +209,8 @@ $APPLICATION->IncludeComponent(
         "LABEL_PROP_MOBILE" => "",
         "LABEL_PROP_POSITION" => "top-left",
         "OFFER_ADD_PICT_PROP" => "-",
-        "REPLACE" => $_REQUEST['currenturl'],
+        'REPLACE_BUY' => $_REQUEST['buyUrl'],
+        'REPLACE_ADD' => $_REQUEST['addBasket'],
     ),
     false
 );?>

@@ -90,16 +90,11 @@ $containerName = 'catalog-top-container';
 <?php
 
 
-$arResult['~ADD_URL_TEMPLATE'] = str_replace(
-    '/ajax/offer.php',
-    $arParams['REPLACE'],
-    $arResult['~ADD_URL_TEMPLATE']
-);
-$arResult['~BUY_URL_TEMPLATE'] = str_replace(
-    '/ajax/offer.php',
-    $arParams['REPLACE'],
-    $arResult['~ADD_URL_TEMPLATE']
-);
+$arResult['~ADD_URL_TEMPLATE'] = urldecode($arParams['REPLACE_ADD']);
+
+$arResult['~BUY_URL_TEMPLATE'] = urldecode($arParams['REPLACE_BUY']);
+
+
 ?>
 <div class="catalog-top bx-<?= $arParams['TEMPLATE_THEME'] ?>"
      data-entity="<?= $containerName ?>">

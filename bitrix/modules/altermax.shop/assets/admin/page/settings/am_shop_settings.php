@@ -45,6 +45,12 @@ if ($siteTitle == '')
 
 $siteTitle = htmlspecialcharsbx($siteTitle);
 
+$en_name =  Option::get("altermax.shop", "en_name", "altermax.ru");
+if(empty($en_name)) {
+    $en_name = "altermax.ru";
+}
+$en_name = htmlspecialcharsbx($en_name);
+
 
 $timeWork =  Option::get("altermax.shop", "site_time_work", "9:00 — 18.00 МСК//");
 if(empty($timeWork)) {
@@ -115,6 +121,12 @@ if(!empty($logo)) {
                                         <td width="40%">Наименование Сайта</td>
                                         <td width="60%">
                                             <input type="text" valign="middle" size="60" name="SITE_NAME" value="<?=$siteTitle?>" placeholder="Имя портала">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="40%">Домен сайта</td>
+                                        <td width="60%">
+                                            <input type="text" valign="middle" size="60" name="SITE_NAME_EN" value="<?=$en_name?>" placeholder="altermax.ru">
                                         </td>
                                     </tr>
                                     <tr>

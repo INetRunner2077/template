@@ -29,7 +29,7 @@ if($USER->IsAdmin() && check_bitrix_sessid() && in_array($arPostList['BX_TYPE'],
     function am_save_logo_file($arFile, $arRestriction = Array(), $mode = "")
     {
         Loader::includeModule('iblock');
-        $oldFileID = \Bitrix\Main\Config\Option::get("bitrix24", "client_logo".($mode == "retina" ? "_retina" : ""), "");
+        $oldFileID = \Bitrix\Main\Config\Option::get("altermax.shop", "client_logo".($mode == "retina" ? "_retina" : ""), "");
 
         $arFile = array_merge(
                 \CIBlock::makeFileArray($arFile),
@@ -66,7 +66,21 @@ if($USER->IsAdmin() && check_bitrix_sessid() && in_array($arPostList['BX_TYPE'],
     {
         case 'MCPORTAL_SETTINGS':
 
-            \Bitrix\Main\Config\Option::set("main", "site_name", $arPostList['SITE_NAME'], 's1');
+            \Bitrix\Main\Config\Option::set("main", "site_name", $arPostList['SITE_NAME']);
+
+            \Bitrix\Main\Config\Option::set("altermax.shop", "en_name", $arPostList['SITE_NAME_EN']);
+
+            \Bitrix\Main\Config\Option::set("altermax.shop", "phone_work", $arPostList['PHONE_WORK']);
+
+            \Bitrix\Main\Config\Option::set("altermax.shop", "site_time_work", $arPostList['TIME_WORK']);
+
+            \Bitrix\Main\Config\Option::set("altermax.shop", "adress_cor", $arPostList['ADRESS_COR']);
+
+            \Bitrix\Main\Config\Option::set("altermax.shop", "email_work", $arPostList['EMAIL_WORK']);
+
+            \Bitrix\Main\Config\Option::set("altermax.shop", "phone_work", $arPostList['PHONE_WORK']);
+
+
 
             if (isset($arPostList["client_logo_retina_del"]) && $arPostList["client_logo_retina_del"] == "Y")
             {
@@ -89,7 +103,7 @@ if($USER->IsAdmin() && check_bitrix_sessid() && in_array($arPostList['BX_TYPE'],
 
                 if (intval($fileID))
                 {
-                    \Bitrix\Main\Config\Option::set("bitrix24", "client_logo_retina", $fileID);
+                    \Bitrix\Main\Config\Option::set("altermax.shop", "client_logo_retina", $fileID);
 
                     $arReturn = [
                         'status' => 'success',

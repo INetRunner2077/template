@@ -4,10 +4,7 @@
 #OtherProduct {
 	display: none;
 }
-#products-list .action {
-	display: flex;
-	justify-content: space-between;
-}
+
 .counter_block .plus, .minus {
 	padding: 7px 11px!important;
 	background-color: #eeeeee!important;

@@ -169,7 +169,7 @@ else
 								)
 								{
 									?>
-                            <div class="product-item-info-container product-item-hidden" id="<?=$itemIds['QUANTITY_LIMIT']?>">
+                            <div class="product-item-info-container" id="<?=$itemIds['QUANTITY_LIMIT']?>">
                                 <div class="product-item-info-container-title">
                                     <?=$arParams['MESS_SHOW_MAX_QUANTITY']?>:
                                     <span class="product-item-quantity" data-entity="quantity-limit-value">

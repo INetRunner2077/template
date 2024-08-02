@@ -704,6 +704,7 @@
 				dataType: "html",
 				success: function (data) {
                  $('.show_product_table').append(data);
+                 $('#related-product-area').css('display', 'block');
 				}
 			})
 		},
@@ -790,6 +791,11 @@
 					this.currentQuantityRanges = this.params.PRODUCT.ITEM_QUANTITY_RANGES;
 					this.currentQuantityRangeSelected = this.params.PRODUCT.ITEM_QUANTITY_RANGE_SELECTED;
 				}
+
+				this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
+				this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
+				this.product.currentUrl = this.params.PRODUCT.CURRENT_URL;
+				this.product.categoryname = this.params.PRODUCT.CATEGORY_NAME;
 
 				if (this.config.showQuantity)
 				{

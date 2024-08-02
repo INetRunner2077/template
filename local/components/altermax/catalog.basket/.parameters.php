@@ -2,8 +2,8 @@
 
 $arComponentParameters = array(
 	"PARAMETERS" => array(
-		"SUCCESS_PAGE"=>array(
-			"NAME" => "Путь после регистрации",
+		"BASKET_PAGE"=>array(
+			"NAME" => "Cтраница заказа",
 			"TYPE" => "STRING",
 			"MULTIPLE" => "N",
 			"DEFAULT" => array(),

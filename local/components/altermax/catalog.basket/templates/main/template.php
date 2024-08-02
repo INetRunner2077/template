@@ -119,7 +119,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                     href="#"><i class="fa fa-check"></i>
                                 Обновить Данные
                             </button>
-                            <a class="checkout-btn" href="/checkout?step=1"><i
+                            <a class="checkout-btn" href="<?=$arParams['BASKET_PAGE']?>"><i
                                         class="fa fa-check"></i> Оформить заказ</a>
                         </div>
                     </div>

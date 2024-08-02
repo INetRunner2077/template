@@ -6,7 +6,7 @@ body.hover-window {
   overflow: hidden;
 }
 #quick_view_popup-wrap {
-  position: fixed;
+ /* position: fixed; */
 }
 .text-post {
   box-sizing: border-box;
