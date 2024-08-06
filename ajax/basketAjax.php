@@ -71,7 +71,7 @@ if (Loader::IncludeModule("sale")) {
         $basketItems = $basket->getBasketItems();
         $addResult = array(
             'STATUS'      => 'BASKET',
-            'FINAL_PRICE' => $basket->getPrice(),
+            'FINAL_PRICE' => number_format($basket->getPrice(), 2, '.', ''),
         );
         echo json_encode($addResult);
     }
@@ -148,8 +148,8 @@ if (Loader::IncludeModule("sale")) {
                     <p class="product-name"><a
                             href="<?=$item['DETAIL_PAGE_URL']?>"
                             target="_blank"><?=$item['NAME']?></a></p>
-                    <strong><?=(int)$item['QUANTITY']?></strong> x <span class="price"><?=$item['BASE_PRICE']?></span> =
-                    <span class="price"><?=$item['BASE_PRICE'] * (int)$item['QUANTITY'].' '?><span
+                    <strong><?=(int)$item['QUANTITY']?></strong> x <span class="price"><?=number_format($item['BASE_PRICE'], 2, '.', '')?></span> =
+                    <span class="price"><?=number_format($item['BASE_PRICE']* (int)$item['QUANTITY'],2, '.', '')  .' '?><span
                             class="lwr-case"><?=$item['CURRENCY']?></span></span>
                 </div>
             </li>
@@ -157,7 +157,7 @@ if (Loader::IncludeModule("sale")) {
         endforeach;?>
             </ul>
             <div class="top-subtotal"><span class="text-uppercase">Итого</span>,
-                руб: <span class="price"><?=$basket->getPrice()?></span></div>
+                руб: <span class="price"><?=number_format($basket->getPrice(), 2, '.', '')?></span></div>
             <div class="actions">
                 <button class="btn-checkout" type="button" onClick="location.href='/ord/'"><i
                         class="fa fa-check"></i> <span>Оформить</span>

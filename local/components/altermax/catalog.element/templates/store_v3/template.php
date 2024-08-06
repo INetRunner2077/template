@@ -457,11 +457,13 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 						}
 						?>
 					</div>
+
 					<?php
 				}
 				//endregion
 
 				?>
+
 				<div class="d-flex w-100 justify-content-between align-items-center mb-2">
 					<?php //region PRICE ?>
 					<div class="price-box">
@@ -773,6 +775,31 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				//endregion
 
 				?>
+
+                <div class="property-area">
+
+                    <?
+                    foreach ($arResult['PROPERTIES'] as $key => $property): ?>
+
+                        <?if ($key == "MANUFACTURER" and !empty($property['VALUE'])): ?>
+                            <div class="property_line">
+                                <div class="name_prop"> <?=$property['NAME']?>: </div>
+                                <a href="<?=$APPLICATION->GetCurDir()?>?q=<?=$property['VALUE']?>&s=Поиск"> <?= $property['VALUE'] ?> </a>
+                            </div>
+                        <?  elseif($key == "VENDOR" and !empty($property['VALUE'])): ?>
+
+                            <div class="property_line">
+                                <div class="name_prop"> <?=$property['NAME']?>: </div>
+                                <a href="<?=$APPLICATION->GetCurDir()?>?q=<?=$property['VALUE']?>&s=Поиск"> <?= $property['VALUE'] ?> </a>
+                            </div>
+                        <? else: ?>
+                            <? continue; ?>
+                        <? endif; ?>
+                    <? endforeach; ?>
+
+                </div>
+
+
 			</div>
 
 		</div>
@@ -1524,6 +1551,7 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 					'DETAIL_PICTURE' => $arResult['DEFAULT_PICTURE']
 				),
 				'PRODUCT' => array(
+                    'PRICE_CODE' => $arParams['PRICE_CODE'],
                     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
                     'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
                     'REPLACE_BUY' => $arParams['BUY_URL'],
@@ -1713,6 +1741,7 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				'VISUAL' => $itemIds,
 				'PRODUCT_TYPE' => $arResult['PRODUCT']['TYPE'],
 				'PRODUCT' => array(
+				    'PRICE_CODE' => $arParams['~PRICE_CODE'],
                     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
                     'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
                     'REPLACE_BUY' => $arParams['BUY_URL'],

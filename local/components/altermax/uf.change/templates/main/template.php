@@ -35,6 +35,15 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
                 </div>
             <?
             endif; ?>
+
+            <?
+            if (!empty($_REQUEST['acc'])): ?>
+                <div class="success">
+                    <strong class="alert-success">Аккаунт успешно подтвержден !</strong>
+                </div>
+            <?
+            endif; ?>
+
             <div class="first-row">
                 <div class="first-row-left">
                     <div class="type_of_buyer">
@@ -453,7 +462,7 @@ endif; ?>
     $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').mask("999999999999999");
 
 
-    (function () {
+ /*   (function () {
 
         var $address = $('.input_container input[name="UF_LEGAL_ADRESS_ALTERMAX"]');
 
@@ -461,6 +470,8 @@ endif; ?>
             oneString: true,
         });
     })();
+
+  */
 
 </script>
 

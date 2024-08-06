@@ -2,7 +2,7 @@
 	require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 	$APPLICATION->SetTitle("Сменить пароль");
 	
-	if(!$USER->IsAuthorized())
+	if($USER->IsAuthorized())
 	{
 		$arParams = [
 			"AUTH_URL" => $arParams["SEF_FOLDER"],

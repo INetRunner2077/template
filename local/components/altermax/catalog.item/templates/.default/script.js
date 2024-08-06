@@ -25,6 +25,7 @@
 
 	window.JCCatalogItem = function (arParams)
 	{
+		debugger;
 		this.productType = 0;
 		this.showQuantity = true;
 		this.showAbsent = true;
@@ -420,7 +421,7 @@
 	window.JCCatalogItem.prototype = {
 		init: function()
 		{
-
+debugger;
 			var i = 0,
 				treeItems = null;
 
@@ -1853,7 +1854,8 @@ debugger;
 			{
 				if (price)
 				{
-					BX.adjust(this.obPrice, {html: BX.Currency.currencyFormat(price.RATIO_PRICE, price.CURRENCY, true)});
+					BX.adjust(this.obPrice, {html: price.RATIO_PRICE});
+					//BX.adjust(this.obPrice, {html: BX.Currency.currencyFormat(price.RATIO_PRICE, price.CURRENCY, true)});
 				}
 				else
 				{

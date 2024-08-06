@@ -106,7 +106,6 @@
 }
 .errorCust {
     position: absolute;
-    width: 100%;
     text-align: right;
     color: red!important;
     right: 24px;
@@ -122,4 +121,15 @@
     background-color: #f2dede;
     border-color: #ebccd1;
     margin-bottom: 20px;
+}
+
+.success {
+    padding: 15px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #dff0d8;
+    margin-bottom: 20px;
+}
+.mt-root-item-call .title-text {
+    color:black;
 }

@@ -96,6 +96,14 @@ $arUrlRewrite=array (
     'PATH' => '/blogs/index.php',
     'SORT' => 100,
   ),
+  13 => 
+  array (
+    'CONDITION' => '#^\\??(.*)#',
+    'RULE' => '&$1',
+    'ID' => 'altermax:catalog.top',
+    'PATH' => '/test/index5.php',
+    'SORT' => 100,
+  ),
   3 => 
   array (
     'CONDITION' => '#^/news/#',

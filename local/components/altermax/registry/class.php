@@ -8,9 +8,9 @@ class Registry extends CBitrixComponent
     public function DoRegister() {
         global $APPLICATION, $DB, $USER;
 
-       /* if (!$APPLICATION->CaptchaCheckCode($this->request->get("captcha_word"), $this->request->get("captcha_sid"))) {
+        if (!$APPLICATION->CaptchaCheckCode($this->request->get("captcha_word"), $this->request->get("captcha_sid"))) {
             $this->arResult["ERRORS"][] = 'Капча не верная';
-        } */
+        }
 
         if(empty($this->arResult["ERRORS"]))
         {
@@ -29,6 +29,9 @@ class Registry extends CBitrixComponent
                 return;
             }
 
+            if($this->arParams['EMAIL_REQ'] == 'Y') {
+                $arResult["USE_EMAIL_CONFIRMATION"] = 'Y';
+            }
             /* Присваиваем дефолтное значение пользовательскому полю с типом покупателя (частное лицо) */
             $obEnum = new \CUserFieldEnum;
             $rsEnum = $obEnum->GetList(array(), array("USER_FIELD_NAME" => 'UF_TYPE_OF_BUYER_ALTERMAX', 'XML_ID' => 'PRIVATE'));
@@ -59,10 +62,15 @@ class Registry extends CBitrixComponent
             if($def_group != "")
                 $this->arResult['VALUES']["GROUP_ID"] = explode(",", $def_group);
 
+            $bConfirmReq = ($arResult["USE_EMAIL_CONFIRMATION"] === "Y");
 
+            $active = ($bConfirmReq ? "N": "Y");
+
+
+            $this->arResult['VALUES']["CONFIRM_CODE"] = ($bConfirmReq ? Random::getString(8) : "");
             $this->arResult['VALUES']["CHECKWORD"] = Random::getString(32);
             $this->arResult['VALUES']["~CHECKWORD_TIME"] = $DB->CurrentTimeFunction();
-            $this->arResult['VALUES']["ACTIVE"] = 'Y';
+            $this->arResult['VALUES']["ACTIVE"] = $active;
             $this->arResult['VALUES']["LID"] = SITE_ID;
             $this->arResult['VALUES']["LANGUAGE_ID"] = LANGUAGE_ID;
 
@@ -112,8 +120,18 @@ class Registry extends CBitrixComponent
 
                 $event = new CEvent;
                 $event->SendImmediate("NEW_USER", SITE_ID, $arEventFields, 'Y', COption::GetOptionInt("altermax.shop", "EMAIL_NEW_USER"));
+                if($bConfirmReq) {
 
-                LocalRedirect($this->arParams["SUCCESS_PAGE"]);
+                        $event->SendImmediate("NEW_USER_CONFIRM", SITE_ID, $arEventFields);
+                        $this->arResult["ALLERT"][0] = 'На указанный в форме email придет запрос на подтверждение регистрации.';
+                } else {
+
+                    LocalRedirect($this->arParams["SUCCESS_PAGE"]);
+
+                }
+
+
+
             }
             else
             {
@@ -144,7 +162,7 @@ class Registry extends CBitrixComponent
         }
         !empty($_REQUEST['email']) ? $this->arResult["VALUES"]['EMAIL'] = $_REQUEST['email']: '';
         !empty($_REQUEST['pass']) ? $this->arResult["VALUES"]['PASS'] = $_REQUEST['pass']: '';
-        //$this->arResult["CAPTCHA_CODE"] = htmlspecialcharsbx($APPLICATION->CaptchaGetCode());
+        $this->arResult["CAPTCHA_CODE"] = htmlspecialcharsbx($APPLICATION->CaptchaGetCode());
 
 
         $this->includeComponentTemplate();

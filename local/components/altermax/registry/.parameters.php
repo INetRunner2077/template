@@ -8,6 +8,11 @@ $arComponentParameters = array(
 			"MULTIPLE" => "N",
 			"DEFAULT" => array(),
 		),
+        "EMAIL_REQ"=> array(
+            "NAME" => "Подтверждение регистрации по E-MAIL",
+            "PARENT"    =>  "BASE",
+            "TYPE"      =>  "CHECKBOX",
+        ),
 	),
 );
 ?>

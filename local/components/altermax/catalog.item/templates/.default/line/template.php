@@ -51,9 +51,15 @@ else
                         <?if($showSkuBlock): ?>
                         <th style="width:30%;" class="header">Харктеристики</th>
                         <? endif; ?>
+                        <? if(!empty($actualItem['PROP']['MANUFACTURER'])): ?>
+                        <th style="width:10%;" class="header">Производитель</th>
+                        <? endif; ?>
+                        <? if(!empty($actualItem['PROP']['VENDOR'])): ?>
+                        <th style="width:10%;" class="header">Артикул</th>
+                        <? endif; ?>
                         <th class="txt-trns-normal header">Наличие, шт.</th>
                         <th class="text-right txt-trns-normal header headerSortDown">
-                            Цена, руб
+                            Цена, <?=$item['ITEM_PRICES'][0]['CURRENCY']?>
                         </th>
                         <th class="ord-summ txt-trns-normal" style="width:20%;">Нужное к-во, шт.
                         </th>
@@ -139,6 +145,16 @@ else
                             </div>
                         </td>
                          <? endif; ?>
+                         <? if(!empty($actualItem['PROP']['MANUFACTURER'])): ?>
+                        <td>
+                           <?=$actualItem['PROP']['MANUFACTURER']['VALUE']?>
+                        </td>
+                        <? endif; ?>
+                        <? if(!empty($actualItem['PROP']['VENDOR'])): ?>
+                        <td>
+                            <?=$actualItem['PROP']['VENDOR']['VALUE']?>
+                        </td>
+                        <? endif; ?>
                         <td class="availability">
                           <?  if ($arParams['SHOW_MAX_QUANTITY'] !== 'N')
                             {
@@ -171,7 +187,6 @@ else
 									?>
                             <div class="product-item-info-container" id="<?=$itemIds['QUANTITY_LIMIT']?>">
                                 <div class="product-item-info-container-title">
-                                    <?=$arParams['MESS_SHOW_MAX_QUANTITY']?>:
                                     <span class="product-item-quantity" data-entity="quantity-limit-value">
 												<?
                                                 if ($arParams['SHOW_MAX_QUANTITY'] === 'M')
@@ -187,7 +202,7 @@ else
                                                 }
                                                 else
                                                 {
-                                                    echo $actualItem['CATALOG_QUANTITY'].' '.$actualItem['ITEM_MEASURE']['TITLE'];
+                                                    echo $actualItem['CATALOG_QUANTITY'];
                                                 }
                                                 ?>
 											</span>
@@ -229,7 +244,7 @@ else
                                     }
                                     else
                                     {
-                                        echo $price['PRINT_RATIO_PRICE'];
+                                        echo $price['RATIO_PRICE'];
                                     }
                                 }
                                 ?>
@@ -299,6 +314,7 @@ else
 									<div class="product-item-button-container" id="<?=$itemIds['BASKET_ACTIONS']?>">
 										<a class="button cart-button button-green btn-link buy_btn_altermax <?=$buttonSizeClass?>" id="<?=$itemIds['BUY_LINK']?>"
 											href="javascript:void(0)" rel="nofollow">
+                                            <i class="fa fa-shopping-basket"></i>
 											<?=($arParams['ADD_TO_BASKET_ACTION'] === 'BUY' ? $arParams['MESS_BTN_BUY'] : $arParams['MESS_BTN_ADD_TO_BASKET'])?>
 										</a>
 									</div>

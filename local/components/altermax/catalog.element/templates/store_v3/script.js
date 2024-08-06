@@ -699,6 +699,7 @@
 
 			finder.buyUrl = this.product.replaceUrl;
 			finder.addBasket = this.product.replaceaddBasket;
+			finder.pricecode = this.product.priceCode;
 
 
 			$.ajax({
@@ -796,6 +797,8 @@
 					this.currentQuantityRangeSelected = this.params.PRODUCT.ITEM_QUANTITY_RANGE_SELECTED;
 				}
 
+				debugger;
+				this.product.priceCode = this.params.PRODUCT.PRICE_CODE;
 				this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
 				this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
 				this.product.categoryname = this.params.PRODUCT.CATEGORY_NAME;
@@ -898,6 +901,7 @@
 					this.defaultPict.detail = this.params.DEFAULT_PICTURE.DETAIL_PICTURE;
 				}
 
+				debugger;
 				if (this.params.PRODUCT && typeof this.params.PRODUCT === 'object')
 				{
 					this.product.id = parseInt(this.params.PRODUCT.ID, 10);
@@ -909,7 +913,7 @@
 					this.product.previewTextType = this.params.PRODUCT.PREVIEW_TEXT_TYPE;
 					this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
 					this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
-
+					this.product.priceCode = this.params.PRODUCT.PRICE_CODE;
 
 					this.product.replaceUrl = this.params.PRODUCT.REPLACE_BUY;
 					this.product.replaceaddBasket = this.params.PRODUCT.REPLACE_ADD;

@@ -559,8 +559,8 @@ function changePriceByValueSum(classBx){
         jQuery(inpLookSum).change(function(){
           var val=this.value;
           clearTimeout(timer_q);
-          timer_q  = setTimeout(() => { OpenAjaxResponse('Q', jQuery(elem).data('item'), val) }, 1000);
-          timer_b  = setTimeout(() => { OpenAjaxResponse('B', 1,1) }, 2000);
+          timer_q  = setTimeout(() => { OpenAjaxResponse('Q', jQuery(elem).data('item'), val) }, 500);
+          timer_b  = setTimeout(() => { OpenAjaxResponse('B', 1,1) }, 1000);
           //для исключения ошибок в строку, для замены
           onePrice=String(onePrice);
           var price=onePrice.replace(',','.');
@@ -699,7 +699,7 @@ function authUserCartAdd(classBtm,delClassParent){
         //jQuery(inputCtrl).val(0).change();
         //добавим класс родителю
         OpenAjaxResponse('D', jQuery(btm).data('item'), 1)
-        timer_b  = setTimeout(() => { OpenAjaxResponse('B', 1,1) }, 2000);
+        timer_b  = setTimeout(() => { OpenAjaxResponse('B', 1,1) }, 1000);
         var parent=jQuery(btm).closest(parentEl);
         if(parent){
           jQuery(parent).addClass(delClassParent);

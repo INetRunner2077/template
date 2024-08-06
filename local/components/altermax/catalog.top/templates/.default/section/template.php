@@ -89,10 +89,12 @@ $containerName = 'catalog-top-container';
 ?>
 <?php
 
-
-$arResult['~ADD_URL_TEMPLATE'] = urldecode($arParams['REPLACE_ADD']);
-
-$arResult['~BUY_URL_TEMPLATE'] = urldecode($arParams['REPLACE_BUY']);
+if(!empty($arParams['REPLACE_ADD'])) {
+    $arResult['~ADD_URL_TEMPLATE'] = urldecode($arParams['REPLACE_ADD']);
+}
+if(!empty($arParams['REPLACE_BUY'])) {
+    $arResult['~BUY_URL_TEMPLATE'] = urldecode($arParams['REPLACE_BUY']);
+}
 
 
 ?>

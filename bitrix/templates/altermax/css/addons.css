@@ -305,7 +305,7 @@ table.jq-sortertable_order th.header:hover,
 table.jq-sortertable th.header:hover {
   color: #e83f33;
 }
-table.jq-sortertable_order_short th.header:after,
+/*table.jq-sortertable_order_short th.header:after,
 table.jq-sortertable_order th.header:after,
 table.jq-sortertable th.header:after {
   display: inline-block;
@@ -316,12 +316,12 @@ table.jq-sortertable th.header:after {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   padding-left: 4px;
-}
-table.jq-sortertable_order_short th.header.headerSortDown:after,
+}*/
+/*table.jq-sortertable_order_short th.header.headerSortDown:after,
 table.jq-sortertable_order th.header.headerSortDown:after,
 table.jq-sortertable th.header.headerSortDown:after {
   content: "\f161";
-}
+}*/
 table.jq-sortertable_order_short th.header.action:after,
 table.jq-sortertable_order th.header.action:after,
 table.jq-sortertable th.header.action:after {

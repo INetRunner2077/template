@@ -1,10 +1,20 @@
+.property-area {
+width:50%;
+}
+.property-area .property_line {
+	display: flex;
+	justify-content: space-between;
+}
+.property-area .property_line a {
+	border-bottom: 1px dashed;
+}
+
 #related-product-area {
 	display:none;
 }
 #OtherProduct {
 	display: none;
 }
-
 .counter_block .plus, .minus {
 	padding: 7px 11px!important;
 	background-color: #eeeeee!important;

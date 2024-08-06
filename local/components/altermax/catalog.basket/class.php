@@ -18,10 +18,10 @@ class Registry extends CBitrixComponent
             $arrBasketItems = $basketItem->toArray();
             $idProduct[] = $arrBasketItems['PRODUCT_ID'];
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['NAME'] = $arrBasketItems['NAME'];
-            $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['BASE_PRICE'] = $arrBasketItems['BASE_PRICE'];
+            $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['BASE_PRICE'] = number_format($arrBasketItems['BASE_PRICE'], 2, '.', '');
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['QUANTITY'] = (int)$arrBasketItems['QUANTITY'];
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['NAME'] = $arrBasketItems['NAME'];
-            $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['COST_ITEM'] = (int)$arrBasketItems['QUANTITY'] * (float)$arrBasketItems['BASE_PRICE'];
+            $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['COST_ITEM'] = number_format((int)$arrBasketItems['QUANTITY'] * (float)$arrBasketItems['BASE_PRICE'], 2, '.', '');
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['DETAIL_PAGE_URL'] = $arrBasketItems['DETAIL_PAGE_URL'];
 
             }
@@ -50,7 +50,7 @@ class Registry extends CBitrixComponent
         $discounts = $order->getDiscount();
         $discounts->getApplyResult();
 
-        $arResult['TOTAL_COST'] = $basket->getPrice();
+        $arResult['TOTAL_COST'] = number_format($basket->getPrice(), 2, '.', '');
         $this->arResult = $arResult;
         $this->includeComponentTemplate();
         }
