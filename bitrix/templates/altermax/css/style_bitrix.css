@@ -133,3 +133,9 @@
 .mt-root-item-call .title-text {
     color:black;
 }
+font.errortext {
+    color:#a94442!important;
+}
+.del_order {
+    cursor:pointer;
+}

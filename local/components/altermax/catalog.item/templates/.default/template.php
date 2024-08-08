@@ -185,6 +185,10 @@ if (isset($arResult['ITEM']))
 					'SUBSCRIBE_ID' => $itemIds['SUBSCRIBE_LINK']
 				)
 			);
+            if($USER->IsAuthorized()) {
+                $jsParams['USER']['NAME'] = $USER->GetFullName();
+                $jsParams['USER']['EMAIL'] = $USER->GetEmail();
+            }
 		}
 		else
 		{
@@ -255,6 +259,11 @@ if (isset($arResult['ITEM']))
 				'OFFER_SELECTED' => 0,
 				'TREE_PROPS' => array()
 			);
+
+            if($USER->IsAuthorized()) {
+                $jsParams['USER']['NAME'] = $USER->GetFullName();
+                $jsParams['USER']['EMAIL'] = $USER->GetEmail();
+            }
 
 			if ($arParams['PRODUCT_DISPLAY_MODE'] === 'Y' && !empty($item['OFFERS_PROP']))
 			{

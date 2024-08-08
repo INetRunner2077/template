@@ -29,3 +29,4 @@ if (!empty($arResult['OFFERS']) && is_array($arResult['OFFERS']))
 	}
 	unset($item);
 }
+

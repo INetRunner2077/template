@@ -119,7 +119,6 @@ if (!is_array($arrFilter))
     $arrFilter = array();
 $arrFilter['ID'] = $ids;
 
-
 $APPLICATION->ShowAjaxHead();
 
 $APPLICATION->IncludeComponent(

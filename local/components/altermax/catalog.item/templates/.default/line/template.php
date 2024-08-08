@@ -343,7 +343,7 @@ else
 										}
 										?>
 										<a class="button cart-button button-green btn-link buy_btn_altermax <?=$buttonSizeClass?>" id="<?=$itemIds['NOT_AVAILABLE_MESS']?>"
-											href="javascript:void(0)" rel="nofollow">
+											href="javascript:void(0)" rel="nofollow" style="display:none">
 											<?=$arParams['MESS_NOT_AVAILABLE']?>
 										</a>
 									</div>
@@ -399,12 +399,13 @@ else
 									<?
 								}
 							}?>
-
+                            <? if ($actualItem['CAN_BUY'] == false): ?>
                             <button form="frm-by-one-click-165049327"
                                     class="button cart-button by-one-click"
                                     type="submit" id="<?=$areaId.'_ord_link'?>">
                                 <i class="fa fa-shopping-cart"></i><span>Заявка</span>
                             </button>
+                            <? endif; ?>
                         </td>
                     </tr>
                     </tbody>

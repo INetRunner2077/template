@@ -13,7 +13,8 @@ Loader::includeModule('altermax.shop');
     <html lang="<?=LANGUAGE_ID?>"><head>
         <meta charset="<?=LANG_CHARSET?>">
         <?$APPLICATION->ShowHead();?>
-        <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/style.css"); ?>
+    <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.maskedinput.min.js'); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/style.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/style_bitrix.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/addons.css"); ?>
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/theme-color.css"); ?>
@@ -129,21 +130,6 @@ Loader::includeModule('altermax.shop');
                             <div class="col-sm-4 col-md-4 col-xs-12">
                                 <!-- Default Welcome Message -->
                                 <!-- Language &amp; Currency wrapper -->
-                                <div class="language-currency-wrapper">
-                                    <div class="inner-cl">
-                                        <div class="block us-select-bx">
-                                            <div class="us-sity-slk">
-                                                <div class="elem-text">
-                                                    <a href="#" class="change_user_sity-js open-win-get-ajax" data-fnc="cityget">
-                                                        Ваш населенный пункт:
-                                                        <span id="user-siti-select-ymap" class="user-sity-sl">Выберите Город</span>
-                                                        <span class="link-s small" data-fnc="cityget">(изменить)</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <!-- top links -->
@@ -285,6 +271,36 @@ Loader::includeModule('altermax.shop');
                                         </a>
                                     </div>
                                 </li>
+                                <li class="mt-root">
+                                    <div class="mt-root-item">
+                                        <a href="/dostavka_tovara">
+                                            <div class="title title_font"><span class="title-text">Доставка</span></div>
+                                        </a>
+                                    </div>
+                                </li>
+                                <li class="mt-root mt-robot-call">
+                                    <div class="mt-root-item mt-root-item-call">
+                                        <a href="/call">
+                                            <div class="title title_font"><span class="title-text">Перезвонить мне</span></div>
+                                        </a>
+                                    </div>
+                                </li>
+                                <?$APPLICATION->IncludeComponent(
+                                    "bitrix:menu",
+                                    "altermax",
+                                    Array(
+                                        "ALLOW_MULTI_SELECT" => "N",
+                                        "CHILD_MENU_TYPE" => "left",
+                                        "DELAY" => "N",
+                                        "MAX_LEVEL" => "1",
+                                        "MENU_CACHE_GET_VARS" => array(""),
+                                        "MENU_CACHE_TIME" => "3600",
+                                        "MENU_CACHE_TYPE" => "Y",
+                                        "MENU_CACHE_USE_GROUPS" => "Y",
+                                        "ROOT_MENU_TYPE" => "left",
+                                        "USE_EXT" => "N"
+                                    )
+                                );?>
                             </ul>
                         </div>
                     </div>

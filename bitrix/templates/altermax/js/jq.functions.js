@@ -1366,7 +1366,7 @@ jQuery(document).ready(function(){
   //связываем два селекта, чтобы при смене родительского, в дочернем сменялось или заменялось значение
   selectCommonOnChange('.chng-comm-select',true);
 
-  //календарь всплывающий
+  jQuery(".phone-inp-mask").mask("+7(999)999-99-99");
 
 
   //анимация добавить в корзину

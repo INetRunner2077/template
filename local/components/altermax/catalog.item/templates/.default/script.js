@@ -25,7 +25,7 @@
 
 	window.JCCatalogItem = function (arParams)
 	{
-		debugger;
+
 		this.productType = 0;
 		this.showQuantity = true;
 		this.showAbsent = true;
@@ -68,6 +68,7 @@
 			buyUrl: ''
 		};
 
+        this.user = {};
 		this.basketMode = '';
 		this.basketData = {
 			useProps: false,
@@ -259,6 +260,14 @@
 							this.product.rcmId = arParams.PRODUCT.RCM_ID;
 						}
 
+						debugger;
+						if (arParams.USER && typeof arParams.USER === 'object') {
+
+							this.user.name = arParams.USER['NAME'];
+							this.user.email = arParams.USER['EMAIL'];
+
+						}
+
 						this.canBuy = this.product.canBuy;
 						this.product.name = arParams.PRODUCT.NAME;
 						this.product.pict = arParams.PRODUCT.PICT;
@@ -300,6 +309,14 @@
 						{
 							this.product.rcmId = arParams.PRODUCT.RCM_ID;
 						}
+					}
+
+					debugger;
+					if (arParams.USER && typeof arParams.USER === 'object') {
+
+						this.user.name = arParams.USER['NAME'];
+						this.user.email = arParams.USER['EMAIL'];
+
 					}
 
 					if (arParams.OFFERS && BX.type.isArray(arParams.OFFERS))
@@ -421,7 +438,7 @@
 	window.JCCatalogItem.prototype = {
 		init: function()
 		{
-debugger;
+
 			var i = 0,
 				treeItems = null;
 
@@ -675,7 +692,7 @@ debugger;
 
 		OneClickBuy: function () {
 
-debugger;
+			debugger;
 			var i, j,
 				index = -1,
 				boolOneSearch = true,
@@ -711,16 +728,16 @@ debugger;
 				'                        <div class="col-md-12 col-sm-12  col-xs-12"><p\n' +
 				'                                    class="h3">Купить в один клик</p>\n' +
 				'                            <form method="post" class="one-click-send_ajax">\n' +
-				'                            <input type="hidden" name="id_oneClick" value="165905193"> \n' +
+				'                            <input type="hidden" class="form-control input" name="template" value="REQUEST_PRODUCT">'+
 				'                              <label>Название</label>\n' +
 				'                                <input\n' +
 				'                                        type="text" class="form-control input"\n' +
-				'                                        name="name" id="name_oneClick" value=""\n' +
+				'                                        name="nameProduct" id="name_oneClick" value=""\n' +
 				'                                        readonly="">\n' +
 				'                                <label>Цена</label>\n' +
 				'                                <input\n' +
 				'                                        type="text" class="form-control input"\n' +
-				'                                        name="price" id="price_oneClick" value="187.50" readonly="">\n' +
+				'                                        name="price" id="price_oneClick"  readonly="">\n' +
 				'                                <label>Количество</label>\n' +
 				'                                <input\n' +
 				'                                        type="number" min="0" step="1"\n' +
@@ -729,17 +746,17 @@ debugger;
 				'                                <label>Полное имя*</label>\n' +
 				'                                <input type="text"\n' +
 				'                                                       class="form-control input"\n' +
-				'                                                       name="your-name" value=""\n' +
+				'                                                       name="your-name" id="fullname_oneclick" value=""\n' +
 				'                                                       required="">\n' +
 				'                                <label>Email*</label>\n' +
 				'                                <input\n' +
 				'                                        type="email" class="form-control input"\n' +
-				'                                        name="email" value=""\n' +
+				'                                        name="email" id="email_oneclick" value=""\n' +
 				'                                        required="">\n' +
 				'                                <label>Телефон</label>\n' +
 				'                                <input\n' +
 				'                                        type="text"\n' +
-				'                                        class="form-control input phonemask"\n' +
+				'                                        class="form-control input phone-inp-mask"\n' +
 				'                                        name="phone" value="">\n' +
 				'                                <br>\n' +
 				'                            </form>\n' +
@@ -753,6 +770,9 @@ debugger;
 			popup.find('#name_oneClick').val(itemName);
 			popup.find('#price_oneClick').val(itemPrice);
 			popup.find('#count_oneClick').val(ItemQ);
+			debugger;
+			popup.find('#fullname_oneclick').val(this.user.name);
+			popup.find('#email_oneclick').val(this.user.email);
 
 			var addAnswer = new BX.PopupWindow("my_answer", null, {
 				content: BX('quick_view_popup-wrap'),
@@ -766,6 +786,20 @@ debugger;
 						text: "Отправить",
 						className: "popup-window-button-accept",
 						events: {click: function(){
+								$('.one-click-send_ajax').serialize();
+								$.ajax({
+									type: "POST",
+									url: "/ajax/formSend.php",
+									data: $('.one-click-send_ajax').serialize(),
+									dataType: "json",
+									success: function (data) {
+										if(data.STATUS == "OK") {
+											$('.alert').remove();
+											$('#call').remove();
+											$('.form_div').prepend('<div class="alert success"><strong class="alert-success">Форма успешна отправлена</strong> </div>');
+										}
+									}
+								})
 								$('#quick_view_popup-wrap').empty();
 								$('#quick_view_popup-wrap').append('<h3> Отправлено </h3>')
 							}}
@@ -1685,7 +1719,7 @@ debugger;
 
 		changeInfo: function()
 		{
-			debugger;
+
 			$('.buy_btn_altermax').css('display', 'block');
 			$('#to_basket[data-item="'+ this.product.id +'"]').css('display', 'none');
 			var i, j,

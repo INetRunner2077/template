@@ -29,6 +29,8 @@
     list-style:none;
 }
 
+
+
 .first-row .input_container input {
     display: block !important;
     width: 100% !important;
@@ -50,10 +52,10 @@
 }
 .first-row .input_container {
     margin-bottom:10px;
-    position: relative;
+    position: relative!important;
 }
 label.error:not(#captcha_word-error) {
-    top: 23px!important;
+    top: 39px!important;
 }
 .enumeration-select select {
     background-color: #fff !important;
@@ -68,13 +70,17 @@ label.error:not(#captcha_word-error) {
 .input_container .field-wrap {
     position:relative;
 }
-.input_container .field-wrap .error {
+.input_container  .error {
     position: absolute;
-    top: 0;
-    right: 0px;
-    color: #e67817!important;
-    margin-top: 1%;
-    margin-right: 1%
+    text-align: right;
+    color: red !important;
+    right: 24px;
+    top: 9px;
+    font-size: 11px;
+    padding: 0px !important;
+    background-color: transparent !important;
+    margin-bottom: 0px !important;
+    display: block;
 }
 
 .checklist--style {

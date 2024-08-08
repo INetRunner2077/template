@@ -3639,7 +3639,7 @@ nav a:hover {
 	text-transform: uppercase;
 	margin-right: 1px;
 	background: none !important;
-	margin-right: 30px;
+	margin-right: 20px;
 }
 .mtmegamenu>ul>li.demo_custom_link_cms {
 	position: relative;
@@ -5618,8 +5618,8 @@ ul.products-list {
 	margin: auto;
 }
 ul.products-list .cart-button i {
-	font-size: 16px;
-	vertical-align: -1px;
+	font-size: 11px;
+	vertical-align: 0px;
 }
 .products-list .product-shop .actions ul li i {
 	font-size: 16px;

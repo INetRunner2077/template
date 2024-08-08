@@ -1,5 +1,10 @@
 .property-area {
 width:50%;
+margin-top: 20px;
+}
+.button.by-one-click {
+	width: 100%;
+	margin-top:10px
 }
 .property-area .property_line {
 	display: flex;

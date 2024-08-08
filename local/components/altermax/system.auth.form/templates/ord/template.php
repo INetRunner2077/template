@@ -13,8 +13,12 @@
     <?if(!$USER->isAuthorized()):?>
         <div class="row">
             <div class="col col-sm-12 col-xs-12">
-                <?if($arResult['SHOW_ERRORS'] == 'Y'):?>
-                    <?ShowMessage($arResult['ERROR_MESSAGE']);?>
+
+                <?if($arResult['SHOW_ERRORS'] == 'Y' and !empty($arResult['ERROR_MESSAGE'])):?>
+                    <div class="alert alert-danger">
+                        <strong>Ошибка!</strong>
+                        <?=ShowMessage($arResult['ERROR_MESSAGE']);?>
+                    </div>
                 <?endif;?>
                 <div class="col-sm-6">
                     <h5>Вход</h5>
@@ -45,7 +49,7 @@
                         <?endif?>
 
                         <p>
-                            <a href="/account?passwordforgot" class="form-link">Забыли пароль?</a>
+                            <a href="/auth/forgot-password/" class="form-link">Забыли пароль?</a>
                         </p>
                         <button class="button button-green"><i class="icon-login"></i>&nbsp; <span>Вход</span></button>
                     </form>

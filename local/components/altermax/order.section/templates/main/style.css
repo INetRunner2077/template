@@ -3,3 +3,7 @@
     border: 1px dashed red;
     padding: 20px 20px
 }
+.sale-order-list-button {
+    text-decoration: underline;
+    color: red;
+}

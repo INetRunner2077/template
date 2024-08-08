@@ -3,7 +3,6 @@
 use Bitrix\Main\Context;
 use Bitrix\Main\Loader;
 use Bitrix\Sale;
-use Bitrix\Sale\Cashbox\CheckManager;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
@@ -164,9 +163,20 @@ class OrderSection extends CBitrixComponent
         $paymentIdList = array();
         $paymentList = array();
 
+        $cachedData['PAYSYS'] = array();
+
+        $paySystemsList = Sale\PaySystem\Manager::getList(array());
+
+        while ($paySystem = $paySystemsList->fetch())
+        {
+            $paySystem['NAME'] = htmlspecialcharsbx($paySystem['NAME']);
+            $cachedData['PAYSYS'][$paySystem["ID"]] = $paySystem;
+        }
+
+        $this->dbResult['PAYSYS'] = $cachedData['PAYSYS'];
+
         while ($payment = $listPayments->fetch()) {
-            $paySystemFields
-                = $this->dbResult['PAYSYS'][$payment['PAY_SYSTEM_ID']];
+            $paySystemFields = $this->dbResult['PAYSYS'][$payment['PAY_SYSTEM_ID']];
             $payment['PAY_SYSTEM_NAME'] = htmlspecialcharsbx(
                 $payment['PAY_SYSTEM_NAME']
             );
@@ -189,6 +199,19 @@ class OrderSection extends CBitrixComponent
 
     }
 
+    public function GetStatus() {
+
+        $statusResult = CSaleStatus::GetList(array(),array(),false,false,array());
+
+        while ($arstatus = $statusResult->fetch()) {
+            if($arstatus['NAME'] == 'Принят, ожидается оплата' or $arstatus['ID'] = 'AA') {
+                $this->arResult['STATUS_TEMPLATE'] = true;
+                print_r($arstatus);
+            }
+        }
+
+    }
+
     public function executeComponent()
     {
         global $USER;
@@ -202,6 +225,7 @@ class OrderSection extends CBitrixComponent
             self::getOrder($this->orderId);
             self::GetProductsOrder($this->OrderIds);
             self::GetShipment($this->OrderIds);
+           // self::GetStatus();
         }
         else {
             self::getOrder();

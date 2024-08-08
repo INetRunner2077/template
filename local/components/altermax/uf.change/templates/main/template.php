@@ -8,7 +8,6 @@ $this->addExternalJs('/bitrix/templates/aspro_mshop/js/fias-api/src/js/fias.js')
 $this->addExternalJs('/bitrix/templates/aspro_mshop/js/fias-api/src/js/fias_zip.js');
 $this->addExternalCss('/bitrix/templates/aspro_mshop/js/fias-api/src/css/style.css');
 */
-$this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.maskedinput.min.js');
 $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
 ?>
 <section class="main-container col2-right-layout">
@@ -37,7 +36,7 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
             endif; ?>
 
             <?
-            if (!empty($_REQUEST['acc'])): ?>
+            if (empty($_REQUEST['acc'])): ?>
                 <div class="success">
                     <strong class="alert-success">Аккаунт успешно подтвержден !</strong>
                 </div>
@@ -205,7 +204,7 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
                                 <label>Телефон</label>
                                 <input type="text" name="PERSONAL_PHONE"
                                        placeholder="+7 (___) ___-__-__"
-                                       class="phone" maxlength="255" value="<?
+                                       class="phone-inp-mask" maxlength="255" value="<?
                                 echo $arResult["arUser"]["PERSONAL_PHONE"] ?>"/>
                             </div>
                             <?

@@ -52,7 +52,7 @@
 			title: '',
 			magnifierZoomPercent: 200
 		};
-
+        this.user = {};
 		this.checkQuantity = false;
 		this.maxQuantity = 0;
 		this.minQuantity = 0;
@@ -648,6 +648,10 @@
 						break;
 				}
 
+
+
+				this.obNotAvail && BX.bind(this.obNotAvail, 'click', BX.proxy(this.OneClickBuyMain, this));
+
 				this.obBuyBtn && BX.bind(this.obBuyBtn, 'click', BX.proxy(this.buyBasket, this));
 				this.smallCardNodes.buyButton && BX.bind(this.smallCardNodes.buyButton, 'click', BX.proxy(this.buyBasket, this));
 
@@ -688,7 +692,7 @@
 
 		finder: function () {
 
-			debugger;
+			
 			var finder = {};
 
 			finder.name = this.product.name;
@@ -724,6 +728,13 @@
 			if (this.params.CONFIG.USE_CATALOG !== 'undefined' && BX.type.isBoolean(this.params.CONFIG.USE_CATALOG))
 			{
 				this.config.useCatalog = this.params.CONFIG.USE_CATALOG;
+			}
+
+			if (this.params.USER && typeof this.params.USER === 'object') {
+
+				this.user.name = this.params.USER['NAME'];
+				this.user.email = this.params.USER['EMAIL'];
+
 			}
 
 			this.config.showQuantity = this.params.CONFIG.SHOW_QUANTITY;
@@ -797,7 +808,7 @@
 					this.currentQuantityRangeSelected = this.params.PRODUCT.ITEM_QUANTITY_RANGE_SELECTED;
 				}
 
-				debugger;
+				
 				this.product.priceCode = this.params.PRODUCT.PRICE_CODE;
 				this.product.iblockId = this.params.PRODUCT.IBLOCK_ID;
 				this.product.iblockType = this.params.PRODUCT.IBLOCK_TYPE;
@@ -901,7 +912,11 @@
 					this.defaultPict.detail = this.params.DEFAULT_PICTURE.DETAIL_PICTURE;
 				}
 
-				debugger;
+				if (this.params.USER && typeof this.params.USER === 'object') {
+
+					this.user.name = this.params.USER['NAME'];
+					this.user.email = this.params.USER['EMAIL'];
+				}
 				if (this.params.PRODUCT && typeof this.params.PRODUCT === 'object')
 				{
 					this.product.id = parseInt(this.params.PRODUCT.ID, 10);
@@ -3557,6 +3572,152 @@
 			BX.addClass(this.obBuyBtn, "btn-wait");
 			this.basketMode = 'BUY';
 			this.basket();
+		},
+
+		OneClickBuyMain: function()
+		{
+
+			if(this.offers.length > 0) {
+				var index = -1,
+					j = 0,
+					boolOneSearch = true,
+					eventData = {
+						currentId: (this.offerNum > -1 ? this.offers[this.offerNum].ID : 0),
+						newId: 0
+					};
+
+				var i, offerGroupNode;
+
+				for (i = 0; i < this.offers.length; i++) {
+					boolOneSearch = true;
+
+					for (j in this.selectedValues) {
+						if (this.selectedValues[j] !== this.offers[i].TREE[j]) {
+							boolOneSearch = false;
+							break;
+						}
+					}
+
+					if (boolOneSearch) {
+						index = i;
+						break;
+					}
+				}
+
+				if (index > -1) {
+					if (index != this.offerNum) {
+						this.isGift = false;
+					}
+				}
+				var itemPrice = this.offers[index].ITEM_PRICES[this.currentPriceSelected].RATIO_PRICE
+			}
+			else {
+
+			var itemPrice = this.currentPrices[this.currentPriceSelected]['RATIO_PRICE'];
+
+			}
+			
+			var ItemQ = $(this.obQuantity).val();
+			var itemName = this.product.name;
+
+			var popup = $('<div id="quick_view_popup-wrap" style="display: block;">\n' +
+				'        <div id="quick_view_popup-outer">\n' +
+				'            <div id="quick_view_popup-content">\n' +
+				'                <div style="">\n' +
+				'                    <div class="product-view-area">\n' +
+				'                        <div class="col-md-12 col-sm-12  col-xs-12"><p\n' +
+				'                                    class="h3">Купить в один клик</p>\n' +
+				'                            <form method="post" class="one-click-send_ajax">\n' +
+				'                            <input type="hidden" class="form-control input" name="template" value="REQUEST_PRODUCT">'+
+				'                              <label>Название</label>\n' +
+				'                                <input\n' +
+				'                                        type="text" class="form-control input"\n' +
+				'                                        name="nameProduct" id="name_oneClick" value=""\n' +
+				'                                        readonly="">\n' +
+				'                                <label>Цена</label>\n' +
+				'                                <input\n' +
+				'                                        type="text" class="form-control input"\n' +
+				'                                        name="price" id="price_oneClick"  readonly="">\n' +
+				'                                <label>Количество</label>\n' +
+				'                                <input\n' +
+				'                                        type="number" min="0" step="1"\n' +
+				'                                        class="form-control input"\n' +
+				'                                        name="quantity" id="count_oneClick" value="1">\n' +
+				'                                <label>Полное имя*</label>\n' +
+				'                                <input type="text"\n' +
+				'                                                       class="form-control input"\n' +
+				'                                                       name="your-name" id="fullname_oneclick" value=""\n' +
+				'                                                       required="">\n' +
+				'                                <label>Email*</label>\n' +
+				'                                <input\n' +
+				'                                        type="email" class="form-control input"\n' +
+				'                                        name="email" id="email_oneclick" value=""\n' +
+				'                                        required="">\n' +
+				'                                <label>Телефон</label>\n' +
+				'                                <input\n' +
+				'                                        type="text"\n' +
+				'                                        class="form-control input phone-inp-mask"\n' +
+				'                                        name="phone" value="">\n' +
+				'                                <br>\n' +
+				'                            </form>\n' +
+				'                        </div>\n' +
+				'                    </div>\n' +
+				'                </div>\n' +
+				'            </div>\n' +
+				'</div>\n' +
+				'    </div>');
+
+			popup.find('#name_oneClick').val(itemName);
+			popup.find('#price_oneClick').val(itemPrice);
+			popup.find('#count_oneClick').val(ItemQ);
+
+			popup.find('#fullname_oneclick').val(this.user.name);
+			popup.find('#email_oneclick').val(this.user.email);
+
+			var addAnswerMain = new BX.PopupWindow("my_answer", null, {
+				content: BX('quick_view_popup-wrap'),
+				closeIcon: {right: "20px", top: "10px"},
+				zIndex: 99,
+				offsetLeft: 0,
+				offsetTop: 0,
+				draggable: {restrict: false},
+				buttons: [
+					new BX.PopupWindowButton({
+						text: "Отправить",
+						className: "popup-window-button-accept",
+						events: {click: function(){
+								$('.one-click-send_ajax').serialize();
+								$.ajax({
+									type: "POST",
+									url: "/ajax/formSend.php",
+									data: $('.one-click-send_ajax').serialize(),
+									dataType: "json",
+									success: function (data) {
+										if(data.STATUS == "OK") {
+											$('.alert').remove();
+											$('#call').remove();
+											$('.form_div').prepend('<div class="alert success"><strong class="alert-success">Форма успешна отправлена</strong> </div>');
+										}
+									}
+								})
+								$('#quick_view_popup-wrap').empty();
+								$('#quick_view_popup-wrap').append('<h3> Отправлено </h3>')
+							}}
+					}),
+					new BX.PopupWindowButton({
+						text: "Закрыть",
+						className: "webform-button-link-cancel",
+						events: {click: function(){
+								addAnswerMain.close(); // закрытие окна
+							}}
+					})
+				]
+			});
+			addAnswerMain.close(); // закрытие окна
+			$('#quick_view_popup-wrap').empty();
+			$('#quick_view_popup-wrap').append(popup);
+			addAnswerMain.show();
+			jQuery(".phone-inp-mask").mask("+7(999)999-99-99");
 		},
 
 		basket: function()

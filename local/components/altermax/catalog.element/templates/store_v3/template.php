@@ -41,6 +41,7 @@ if (!empty($arResult['CURRENCIES']))
 	$currencyList = CUtil::PhpToJSObject($arResult['CURRENCIES'], false, true, true);
 }
 
+
 $haveOffers = !empty($arResult['OFFERS']);
 
 $templateData = [
@@ -662,7 +663,9 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				}
 				?>
 				<div class="mb-3" id="<?=$itemIds['NOT_AVAILABLE_MESS']?>" style="display: <?=(!$actualItem['CAN_BUY'] ? '' : 'none')?>;">
-					<a class="product-item-detail-buy-button btn btn-primary disabled rounded-pill" href="javascript:void(0)" rel="nofollow"><?=$arParams['MESS_NOT_AVAILABLE']?></a>
+                    <button class="button cart-button by-one-click" type="submit">
+                        <i class="fa fa-shopping-cart"></i><span> Заявка </span>
+                    </button>
 				</div>
 				<?php //endregion
 
@@ -1577,6 +1580,12 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 				'OFFER_SELECTED' => $arResult['OFFERS_SELECTED'],
 				'TREE_PROPS' => $skuProps
 			);
+
+            if($USER->IsAuthorized()) {
+                $jsParams['USER']['NAME'] = $USER->GetFullName();
+                $jsParams['USER']['EMAIL'] = $USER->GetEmail();
+            }
+
 		}
 		else
 		{
@@ -1779,6 +1788,10 @@ $themeClass = isset($arParams['TEMPLATE_THEME']) ? ' bx-'.$arParams['TEMPLATE_TH
 					'BUY_URL_TEMPLATE' => $arResult['~BUY_URL_TEMPLATE']
 				)
 			);
+            if($USER->IsAuthorized()) {
+                $jsParams['USER']['NAME'] = $USER->GetFullName();
+                $jsParams['USER']['EMAIL'] = $USER->GetEmail();
+            }
 			unset($emptyProductProperties, $resizedSlider, $xResizedImage, $x2ResizedImage);
 		}
 

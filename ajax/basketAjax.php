@@ -103,7 +103,6 @@ if (Loader::IncludeModule("sale")) {
 
             $res_delete = Sale\Order::delete($orderId);
 
-            echo $res_delete;
             if ($res_delete->isSuccess()) {
                 $addResult = array('STATUS' => 'OK', 'ORDER_ID' => $orderId);
                 echo json_encode($addResult);

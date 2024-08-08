@@ -11,7 +11,10 @@ $db_props = CIBlockElement::GetProperty($arResult['ITEM']['IBLOCK_ID'], $arResul
 while($ar_props = $db_props->Fetch()) {
     if($ar_props['CODE'] == "VENDOR" or $ar_props['CODE'] == "MANUFACTURER") {
 
-        $arResult['ITEM']['PROP'][$ar_props['CODE']]['VALUE'] =  $ar_props['VALUE'];
+        if($ar_props['VALUE'] != null) {
+            $arResult['ITEM']['PROP'][$ar_props['CODE']]['VALUE']
+                = $ar_props['VALUE'];
+        }
 
     } else {
         continue;

@@ -18,6 +18,7 @@
                                     <p><?=$arResult['ALLERT'][0]?></p>
                                 </div>
                             <? endif; ?>
+                            <?if(empty($arResult['ALLERT'])):?>
                             <form method="post" autocomplete="off" id='registraion-page-form' action="<?=$_SERVER['REQUEST_URI']?>">
                                 <div class="row">
                                     <div class="col-md-3 text-left">
@@ -56,12 +57,11 @@
                                     </div>
                                     <div class="iblock text_block"></div>
                                 </div>
-
-
                                 <p class="text-right">
                                     <button class="button button-green h4-size" name="save" value="Y" type="submit"><span>Регистрация</span></button>
                                 </p>
                             </form>
+                            <? endif; ?>
                         </div><!-- .price-col -->
                     </div>
                 </div>
