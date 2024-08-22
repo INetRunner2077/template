@@ -112,6 +112,13 @@ if($arResult["~LAST_LOGIN"] <> '')
 		$userId = $profile["ID"];
 	}
 }
+
+if($APPLICATION->arAuthResult['TYPE'] == 'OK') {
+    $USER->Login($arResult['LAST_LOGIN'], $arResult['USER_PASSWORD'], "Y");
+    $arResult['HREF_ACCOUNT'] = "OK";
+}
+
+
 $arResult["GROUP_POLICY"] = CUser::GetGroupPolicy($userId);
 
 $arResult["SECURE_AUTH"] = false;

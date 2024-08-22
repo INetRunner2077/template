@@ -79,6 +79,27 @@ class OrderSection extends CBitrixComponent
         }
     }
 
+    public function GetOrderHistory($ordId) {
+
+        $ordId = array_shift($ordId);
+        $this->arResult['ORDERS'][$ordId]['SHOW_PAY'] = "N";
+        $result = \Bitrix\Sale\Internals\OrderChangeTable::getList(
+            array(
+                'order' => array('DATE_CREATE' => 'DESC', 'ID' => 'DESC'),
+                'filter' => array('ORDER_ID' => $ordId),
+            )
+        );
+        while ($historyItem = $result->fetch()) {
+            $historyInfo  = \CSaleOrderChange::GetRecordDescription($historyItem["TYPE"], $historyItem["DATA"]);
+
+            $historyInfo = unserialize($historyItem["DATA"]);
+            if(($historyInfo['STATUS_ID'] == "AA") or (CSaleStatus::GetByID($historyInfo['STATUS_ID'])['NAME'] == "Принят, ожидается оплата")) {
+                $this->arResult['ORDERS'][$ordId]['SHOW_PAY'] = "Y";
+            }
+
+        }
+    }
+
     public function GetShipment($ordId) {
 
         $this->registry = Sale\Registry::getInstance(
@@ -225,7 +246,7 @@ class OrderSection extends CBitrixComponent
             self::getOrder($this->orderId);
             self::GetProductsOrder($this->OrderIds);
             self::GetShipment($this->OrderIds);
-           // self::GetStatus();
+            self::GetOrderHistory($this->OrderIds);
         }
         else {
             self::getOrder();

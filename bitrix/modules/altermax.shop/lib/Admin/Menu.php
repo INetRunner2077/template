@@ -39,6 +39,11 @@ class Menu
                         'title' => 'Основные',
                         'url' => 'am_shop_settings.php',
                     ],
+                    [
+                        'text' => 'Импорт Exel',
+                        'title' => 'Импорт Exel',
+                        'url' => 'am_shop_exel.php',
+                    ]
                 ]
             ];
 

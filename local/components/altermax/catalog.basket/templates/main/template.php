@@ -99,6 +99,15 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
                                     </td>
                                     <td></td>
                                 </tr>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td colspan="2" class="text-right"><strong>Итого,руб.:</strong>
+                                    </td>
+                                    <td class="text-right"><strong><span
+                                                    class="hide-on-change"><?= $arResult['TOTAL_COST'] ?></span></strong>
+                                    </td>
+                                    <td></td>
+                                </tr>
                                 </tfoot>
                             </table>
                         </div>

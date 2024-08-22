@@ -32,7 +32,7 @@ if ($arParams['USE_SEARCH_RESULT_ORDER'] === 'N')
 if (Loader::includeModule('search'))
 {
 	$arElements = $APPLICATION->IncludeComponent(
-		"bitrix:search.page",
+		"altermax:search.page",
 		".default",
 		[
 			"RESTART" => $arParams["RESTART"],
@@ -227,3 +227,6 @@ if (!empty($searchFilter) && is_array($searchFilter))
 		]
 	);
 }
+?>
+</div>
+</div>

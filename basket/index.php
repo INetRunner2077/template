@@ -5,9 +5,9 @@ $APPLICATION->SetTitle("Корзина"); ?><?$APPLICATION->IncludeComponent(
 Array()
 );?><br>
  <?$APPLICATION->IncludeComponent(
-	"bitrix:sale.basket.basket",
-	"",
-	Array(
+	"bitrix:sale.basket.basket", 
+	".default", 
+	array(
 		"ACTION_VARIABLE" => "basketAction",
 		"ADDITIONAL_PICT_PROP_11" => "-",
 		"ADDITIONAL_PICT_PROP_2" => "-",
@@ -17,8 +17,22 @@ Array()
 		"ADDITIONAL_PICT_PROP_9" => "-",
 		"AUTO_CALCULATION" => "Y",
 		"BASKET_IMAGES_SCALING" => "adaptive",
-		"COLUMNS_LIST_EXT" => array("PREVIEW_PICTURE","DISCOUNT","DELETE","DELAY","TYPE","SUM"),
-		"COLUMNS_LIST_MOBILE" => array("PREVIEW_PICTURE","DISCOUNT","DELETE","DELAY","TYPE","SUM"),
+		"COLUMNS_LIST_EXT" => array(
+			0 => "PREVIEW_PICTURE",
+			1 => "DISCOUNT",
+			2 => "DELETE",
+			3 => "DELAY",
+			4 => "TYPE",
+			5 => "SUM",
+		),
+		"COLUMNS_LIST_MOBILE" => array(
+			0 => "PREVIEW_PICTURE",
+			1 => "DISCOUNT",
+			2 => "DELETE",
+			3 => "DELAY",
+			4 => "TYPE",
+			5 => "SUM",
+		),
 		"COMPATIBLE_MODE" => "Y",
 		"CORRECT_RATIO" => "Y",
 		"DEFERRED_REFRESH" => "N",
@@ -39,10 +53,11 @@ Array()
 		"GIFTS_SHOW_OLD_PRICE" => "N",
 		"GIFTS_TEXT_LABEL_GIFT" => "Подарок",
 		"HIDE_COUPON" => "N",
-		"LABEL_PROP" => array(),
+		"LABEL_PROP" => array(
+		),
 		"PATH_TO_ORDER" => "/personal/order/make/",
 		"PRICE_DISPLAY_MODE" => "Y",
-		"PRICE_VAT_SHOW_VALUE" => "N",
+		"PRICE_VAT_SHOW_VALUE" => "Y",
 		"PRODUCT_BLOCKS_ORDER" => "props,sku,columns",
 		"QUANTITY_FLOAT" => "Y",
 		"SET_TITLE" => "Y",
@@ -50,11 +65,16 @@ Array()
 		"SHOW_FILTER" => "Y",
 		"SHOW_RESTORE" => "Y",
 		"TEMPLATE_THEME" => "blue",
-		"TOTAL_BLOCK_DISPLAY" => array("top"),
+		"TOTAL_BLOCK_DISPLAY" => array(
+			0 => "top",
+		),
 		"USE_DYNAMIC_SCROLL" => "Y",
 		"USE_ENHANCED_ECOMMERCE" => "N",
 		"USE_GIFTS" => "Y",
 		"USE_PREPAYMENT" => "N",
-		"USE_PRICE_ANIMATION" => "Y"
-	)
+		"USE_PRICE_ANIMATION" => "Y",
+		"COMPONENT_TEMPLATE" => ".default",
+		"ADDITIONAL_PICT_PROP_45" => "-"
+	),
+	false
 );?><br><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

@@ -386,7 +386,7 @@ if ($this->startResultCache(
 			"LEFT_MARGIN" => "ASC",
 		);
 	}
-
+    //$sectionFilter['<=DEPTH_LEVEL'] = 2;
 	//EXECUTE
     $arSelect = array("UF_BX_ELEMENT_CNT");
 	$rsSections = CIBlockSection::GetList($arSort, $sectionFilter, false, $arSelect);

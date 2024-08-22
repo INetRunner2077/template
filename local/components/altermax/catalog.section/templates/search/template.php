@@ -198,28 +198,6 @@ if (!empty($arResult['ITEMS'])): ?>
             <div class="page-title">
                 <h2><?= $arResult['NAME'] ?></h2>
             </div>
-            <div class="toolbar">
-                <div class="sorter" style="display:none;">
-                    <div class="short-by">
-                        <label>Sort By:</label>
-                        <select>
-                            <option selected="selected">Position</option>
-                            <option>Name</option>
-                            <option>Price</option>
-                            <option>Size</option>
-                        </select>
-                    </div>
-                    <div class="short-by page">
-                        <label>Show:</label>
-                        <select>
-                            <option selected="selected">9</option>
-                            <option>12</option>
-                            <option>16</option>
-                            <option>30</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
             <div class="product-grid-area">
                 <style>
                     .product-grid-area > .products-grid > .item {

@@ -12,6 +12,9 @@
                                 $this->AddEditAction($arItems['ID'], $arItems['EDIT_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "ELEMENT_EDIT"));
                                 $this->AddDeleteAction($arItems['ID'], $arItems['DELETE_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                                 ?>
+                                    <?
+                                    !empty($arItems['PICTURE']['SRC']) ? $picture_src = $arItems['PICTURE']['SRC'] : $picture_src = SITE_TEMPLATE_PATH.'/img/altermax_logo.jpg';
+                                    ?>
                                 <li class="item col-lg-4 col-md-4 col-sm-6 col-xs-6" id="<?=$this->GetEditAreaId($arItems['ID']);?>">
                                     <div class="product-item">
                                         <div class="item-inner">

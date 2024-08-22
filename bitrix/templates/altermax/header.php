@@ -32,7 +32,8 @@ Loader::includeModule('altermax.shop');
     <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/pe-icon-7-stroke.min.css"); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jq.functions.js'); ?>
     <? Asset::getInstance()->addJs(SITE_TEMPLATE_PATH.'/js/jquery.flexslider.js'); ?>
-    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/flexslider.css"); ?>
+    <?// Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/owl.transitions.css"); ?>
+    <? Asset::getInstance()->addCss(SITE_TEMPLATE_PATH."/css/owl.carousel.css"); ?>
 
 
         <title>Поставщик промышленной электроники, электротехники, КИПиА - Компания «ЭНЕРГОФЛОТ» - Краснодар</title>
@@ -321,3 +322,14 @@ Loader::includeModule('altermax.shop');
             </div>
         </nav>
 
+<?$APPLICATION->IncludeComponent(
+	"altermax:breadcrumb",
+	".default", 
+	array(
+		"PATH" => "",
+		"SITE_ID" => "s1",
+		"START_FROM" => "0",
+		"COMPONENT_TEMPLATE" => ".default"
+	),
+	false
+);?>

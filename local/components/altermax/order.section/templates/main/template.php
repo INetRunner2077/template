@@ -63,14 +63,18 @@ global $APPLICATION;
                                                 <?=$arResult['PAYMENT']['PAY_SYSTEM_NAME']?>
                                             </td>
                                         </tr>
-                                        <? if(($arResult['ORDERS'][$arResult['ID']]['STATUS']['ID'] == 'AA') or ($arResult['ORDERS'][$arResult['ID']]['STATUS']['NAME'] == 'Принят, ожидается оплата')): ?>
+                                        <?
+
+                                        $arResult['ORDER'] = array_shift($arResult['ORDERS']);
+                                        $orderAccountNumber = $arResult['ORDER']['ACCOUNT_NUMBER'];
+                                        ?>
+                                        <? if($arResult['ORDER']['SHOW_PAY'] == 'Y'): ?>
                                             <tr>
                                                 <td class="order-pay">Оплатить заказ</td>
 
-                                                <?
-                                                if ($arResult['PAYMENT']['NEW_WINDOW'] == 'Y'): ?>
+                                                <? if ($arResult['PAYMENT']['NEW_WINDOW'] == 'Y'): ?>
                                                     <td>
-                                                        <a class="sale-order-list-button" target="_blank" href="<?= $arResult['PAYMENT']['PSA_ACTION_FILE'] ?>">
+                                                        <a class="sale-order-list-button" target="_blank" href="<?=$arParams["PATH_TO_PAYMENT"]."?ORDER_ID=".$orderAccountNumber."&pdf=1&DOWNLOAD=Y"?>">
                                                             Оплатить
                                                         </a>
                                                     </td>
@@ -112,7 +116,7 @@ global $APPLICATION;
                                     </thead>
                                     <tbody>
                                     <? $number = 1; ?>
-                                    <? foreach ($arResult['ORDERS'][$arResult['ID']]['PRODUCTS'] as $product): ?>
+                                    <? foreach ($arResult['ORDER']['PRODUCTS'] as $product): ?>
                                         <tr>
                                             <td class="text-center"><?=$number?></td>
                                             <td>

@@ -69,9 +69,15 @@ if (Loader::IncludeModule("sale")) {
     if ($action == 'B') {
         $basket = Sale\Basket::loadItemsForFUser($fUser, $siteId);
         $basketItems = $basket->getBasketItems();
+
+        $order = Sale\Order::create($siteId, $fUser);
+        $order->setPersonTypeId(1);
+        $order->setBasket($basket);
+
         $addResult = array(
             'STATUS'      => 'BASKET',
             'FINAL_PRICE' => number_format($basket->getPrice(), 2, '.', ''),
+            'TAX_PRICE' => number_format($order->getTaxValue(), 2, '.', ''),
         );
         echo json_encode($addResult);
     }

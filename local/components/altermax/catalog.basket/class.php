@@ -23,9 +23,21 @@ class Registry extends CBitrixComponent
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['NAME'] = $arrBasketItems['NAME'];
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['COST_ITEM'] = number_format((int)$arrBasketItems['QUANTITY'] * (float)$arrBasketItems['BASE_PRICE'], 2, '.', '');
             $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['DETAIL_PAGE_URL'] = $arrBasketItems['DETAIL_PAGE_URL'];
-
             }
 
+        $productInfo = CIBlockElement::GetByID($arrBasketItems['PRODUCT_ID'])->Fetch();
+
+        $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['PREVIEW_TEXT'] = $productInfo['PREVIEW_TEXT'];
+        $res = CIBlockElement::GetProperty($productInfo['IBLOCK_ID'], $arrBasketItems['PRODUCT_ID'], "sort", "asc", array("CODE" => "MANUFACTURER"));
+        if ($ob = $res->GetNext())
+        {
+            $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['MANUFACTURER'] = $ob['VALUE'];
+        }
+        $res = CIBlockElement::GetProperty($productInfo['IBLOCK_ID'], $arrBasketItems['PRODUCT_ID'], "sort", "asc", array("CODE" => "VENDOR_ALTERMAX"));
+        if ($ob = $res->GetNext())
+        {
+            $arResult['BASKET'][$arrBasketItems['PRODUCT_ID']]['VENDOR_ALTERMAX'] = $ob['VALUE'];
+        }
 
         $arrCountProduct = \Bitrix\Catalog\ProductTable::getList(
             [
@@ -51,6 +63,8 @@ class Registry extends CBitrixComponent
         $discounts->getApplyResult();
 
         $arResult['TOTAL_COST'] = number_format($basket->getPrice(), 2, '.', '');
+        $arResult['TOTAL_TAX'] = number_format($order->getTaxValue(), 2, '.', '');
+        $arResult['TOTAL_COST_NOT_TAX'] = number_format(($basket->getPrice() - $order->getTaxValue()), 2, '.', '');
         $this->arResult = $arResult;
         $this->includeComponentTemplate();
         }

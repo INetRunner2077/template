@@ -2249,7 +2249,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				);
 			}
 
-			node.appendChild(
+		/*	node.appendChild(
 				BX.create('DIV', {
 					props: {className: 'row bx-soa-more'},
 					children: [
@@ -2259,7 +2259,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 						})
 					]
 				})
-			);
+			); */
 		},
 
 		getNewContainer: function(notFluid)
@@ -2475,6 +2475,12 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 			this.showErrors(this.result.ERROR, false);
 			this.showWarnings();
+			var editSteps = this.orderBlockNode.querySelectorAll('.bx-soa-editstep'), i;
+			for (i in editSteps) {
+				if (editSteps.hasOwnProperty(i)) {
+					BX.remove(editSteps[i]);
+				}
+			}
 		},
 
 		/**
@@ -2490,11 +2496,11 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			else if (section.id != this.pickUpBlockNode.id)
 				section.style.display = '';
 
-			var active = section.id == this.activeSectionId,
+			var active = true,
 				titleNode = section.querySelector('.bx-soa-section-title-container'),
 				editButton, errorContainer;
 
-			BX.unbindAll(titleNode);
+		/*	BX.unbindAll(titleNode);
 			if (this.result.SHOW_AUTH)
 			{
 				BX.bind(titleNode, 'click', BX.delegate(function(){
@@ -2507,7 +2513,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				BX.bind(titleNode, 'click', BX.proxy(this.showByClick, this));
 				editButton = titleNode.querySelector('.bx-soa-editstep');
 				editButton && BX.bind(editButton, 'click', BX.proxy(this.showByClick, this));
-			}
+			} */
 
 			errorContainer = section.querySelector('.alert.alert-danger');
 			this.hasErrorSection[section.id] = errorContainer && errorContainer.style.display != 'none';
@@ -4279,8 +4285,9 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 				this.getProfilesControl(regionNodeCol);
 
-				this.getDeliveryLocationInput(regionNodeCol);
-
+				//this.getDeliveryLocationInput(regionNodeCol);
+				$('#bx-soa-region').remove();
+				this.initFirstSection()
 				if (!this.result.SHOW_AUTH)
 				{
 					if (this.regionBlockNotEmpty)
@@ -4696,7 +4703,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				node = input;
 			}
 
-			if (personTypesCount > 2)
+			if (personTypesCount > 3)
 			{
 				for (i in this.result.PERSON_TYPE)
 				{
@@ -4724,7 +4731,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 				this.regionBlockNotEmpty = true;
 			}
-			else if (personTypesCount == 2)
+			else if (personTypesCount == 3)
 			{
 				for (i in this.result.PERSON_TYPE)
 				{
@@ -6706,6 +6713,7 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 				propsItemsContainer = this.propsBlockNode.querySelector('.col-sm-12.bx-soa-customer');
 
 			this.getPersonTypeControl(propsItemsContainer);
+			this.getDeliveryLocationInput(propsItemsContainer);
 
 			while (group = groupIterator())
 			{
@@ -6727,12 +6735,12 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 
 		getPropertyRowNode: function(property, propsItemsContainer, disabled)
 		{
-			//this.getPersonTypeControl(propsItemsContainer);
 			var propsItemNode = BX.create('DIV'),
 				textHtml = '',
 				propertyType = property.getType() || '',
 				propertyDesc = property.getDescription() || '',
 				label;
+
 
 			if (disabled)
 			{
@@ -6783,6 +6791,10 @@ BX.namespace('BX.Sale.OrderAjaxComponent');
 			}
 
 			propsItemsContainer.appendChild(propsItemNode);
+			if(propertyDesc == 'HIDDEN') {
+				propsItemNode.style.display = 'none';
+			}
+			console.log(propsItemNode);
 		},
 
 		insertLocationProperty: function(property, propsItemNode, disabled)

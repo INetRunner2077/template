@@ -362,7 +362,7 @@ $arComponentParameters = array(
 			"PARENT" => "LIST_SETTINGS",
 			"NAME" => GetMessage("IBLOCK_PAGE_ELEMENT_COUNT"),
 			"TYPE" => "STRING",
-			'HIDDEN' => isset($templateProperties['LIST_PRODUCT_ROW_VARIANTS']) ? 'Y' : 'N',
+			'HIDDEN' =>  'N',
 			"DEFAULT" => "30",
 		),
 		"LINE_ELEMENT_COUNT" => array(

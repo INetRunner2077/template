@@ -3827,11 +3827,20 @@ class SaleOrderAjax extends \CBitrixComponent
 	 */
 	protected function initPersonType(Order $order)
 	{
+        $personTypes = PersonType::load($this->getSiteId());
+        if(!empty($this->arUserResult['UF_TYPE_OF_BUYER_ALTERMAX']) and $this->action == 'processOrder') {
+
+            foreach ($personTypes as $personType) {
+                if($personType['CODE'] == $this->arUserResult['UF_TYPE_OF_BUYER_ALTERMAX']) {
+                    $this->arUserResult['PERSON_TYPE_ID'] = $personType['ID'];
+                }
+            }
+        }
+
 		$arResult =& $this->arResult;
 		$personTypeId = intval($this->arUserResult['PERSON_TYPE_ID']);
 		$personTypeIdOld = intval($this->arUserResult['PERSON_TYPE_OLD']);
 
-		$personTypes = PersonType::load($this->getSiteId());
 		foreach ($personTypes as $personType)
 		{
 			if ($personTypeId === intval($personType["ID"]) || !array_key_exists($personTypeId, $personTypes))
@@ -4761,7 +4770,6 @@ class SaleOrderAjax extends \CBitrixComponent
 	protected function refreshOrderAjaxAction()
 	{
 		global $USER;
-
 		$error = false;
 		$this->request->set($this->request->get('order'));
 		if ($this->checkSession)
@@ -5110,6 +5118,7 @@ class SaleOrderAjax extends \CBitrixComponent
 			}
 		}
 
+
 		if (!empty($arr['groups']) && !empty($arr['properties']))
 		{
 			$arr['groups'] = array_values($arr['groups']);
@@ -5147,6 +5156,33 @@ class SaleOrderAjax extends \CBitrixComponent
 		$result['STORE_LIST'] = $arResult['STORE_LIST'];
 		$result['BUYER_STORE'] = $arResult['BUYER_STORE'];
 
+
+        if($USER->IsAuthorized()) {
+        $arUser = CUser::GetList(array(), ($order="desc"), array('ID'=> $USER->GetID()))->fetch();
+        foreach ($arResult['JS_DATA']['ORDER_PROP']['properties'] as $id => $prop) {
+
+            if($prop['CODE'] == 'EMAIL') {
+
+                    $arResult['JS_DATA']['ORDER_PROP']['properties'][$id]['VALUE'][0] = $arUser['EMAIL'];
+
+            } elseif($prop['CODE'] == 'CONTACT_PERSON' or $prop['CODE'] == 'FIO') {
+
+                    $arResult['JS_DATA']['ORDER_PROP']['properties'][$id]['VALUE'][0] = $USER->GetFullName();
+
+            } elseif ($prop['CODE'] == 'COMPANY') {
+
+                if($this->action == "processOrder") {
+                    $arResult['JS_DATA']['ORDER_PROP']['properties'][$id]['VALUE'][0]
+                        = $arUser['UF_NAME_ORGANIZATION_ALTERMAX'];
+                }
+            } elseif ($prop['CODE'] == 'IP_FIO') {
+
+                $arResult['JS_DATA']['ORDER_PROP']['properties'][$id]['VALUE'][0]
+                    = $USER->GetFullName();
+
+            }
+          }
+        }
 		$result['COUPON_LIST'] = [];
 		$arCoupons = DiscountCouponsManager::get(true, [], true, true);
 		if (!empty($arCoupons))
@@ -5539,6 +5575,22 @@ class SaleOrderAjax extends \CBitrixComponent
 			"USE_PRELOAD" => $this->arParams['USE_PRELOAD'] === 'Y',
 			'BUYER_STORE' => 0,
 		];
+
+        global $USER;
+        if($this->action == 'processOrder') {
+            $arFilter = array("ID" => $USER->GetID());
+            $arParams["SELECT"] = array("UF_TYPE_OF_BUYER_ALTERMAX");
+            $arUser = CUser::GetList(array(),($order="desc"),$arFilter,$arParams)->fetch();
+
+        $obEnum = new \CUserFieldEnum;
+        $rsEnum = $obEnum->GetList(array(), array("USER_FIELD_NAME" => 'UF_TYPE_OF_BUYER_ALTERMAX', 'ID' => $arUser['UF_TYPE_OF_BUYER_ALTERMAX']));
+        $enum = array();
+        if($arEnum = $rsEnum->Fetch())
+        {
+            $arUserResult['UF_TYPE_OF_BUYER_ALTERMAX'] = $arEnum['XML_ID'];
+        }
+
+        }
 
 		if ($request->isPost())
 		{

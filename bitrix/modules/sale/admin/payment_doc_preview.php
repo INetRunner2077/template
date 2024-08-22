@@ -40,7 +40,7 @@ if ($order > 0)
 		$service = $payment->getPaySystem();
 		if ($service && $service->isAffordPdf())
 		{
-			$result = $service->initiatePay($payment, $context->getRequest());
+			$result = $service->initiatePay($payment, $request);
 		}
 	}
 }

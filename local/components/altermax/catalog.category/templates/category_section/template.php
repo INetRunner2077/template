@@ -5,43 +5,43 @@
                 <div class="center_column">
                     <div class="shop-inner">
                         <div class="page-title">
-                            <h2>Каталог</h2>
+                            <h2><?=$arResult["SECTION"]['NAME']?></h2>
                         </div>
                         <div class="product-grid-area">
                             <ul class="products-grid category-grid">
-                                <?foreach( $arResult["SECTIONS"] as $arItems ):
+                                <?foreach($arResult["SECTIONS"] as $arItems):
                                 $this->AddEditAction($arItems['ID'], $arItems['EDIT_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "ELEMENT_EDIT"));
                                 $this->AddDeleteAction($arItems['ID'], $arItems['DELETE_LINK'], CIBlock::GetArrayByID($arItems["IBLOCK_ID"], "ELEMENT_DELETE"), array("CONFIRM" => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
                                 ?>
                                 <?
                                  !empty($arItems['PICTURE']['SRC']) ? $picture_src = $arItems['PICTURE']['SRC'] : $picture_src = SITE_TEMPLATE_PATH.'/img/altermax_logo.jpg';
                                 ?>
-                                <li class="item col-lg-4 col-md-4 col-sm-6 col-xs-6" id="<?=$this->GetEditAreaId($arItems['ID']);?>">
-                                    <div class="product-item">
-                                        <div class="item-inner">
-                                            <div class="product-thumbnail">
-                                                <div class="pr-img-area">
-                                                    <a title="<?=$arItems['NAME']?>" href="<?=$arItems['SECTION_PAGE_URL']?>">
-                                                        <figure>
-                                                            <img class="first-img" src="<?=$picture_src?>" alt="<?=$arItems['NAME']?>">
-                                                            <img class="hover-img" src="<?=$picture_src?>" alt="<?=$arItems['NAME']?>">
-                                                        </figure>
-                                                    </a>
+                                    <li class="item col-lg-4 col-md-4 col-sm-6 col-xs-6" id="<?=$this->GetEditAreaId($arItems['ID']);?>">
+                                        <div class="product-item">
+                                            <div class="item-inner has_imgcat">
+                                                <div class="product-thumbnail">
+                                                    <div class="pr-img-area">
+                                                        <a title="<?=$arItems['NAME']?>" href="<?=$arItems['SECTION_PAGE_URL']?>">
+                                                            <figure>
+                                                                <img class="first-img" src="<?=$picture_src?>" alt="<?=$arItems['NAME']?>">
+                                                                <img class="hover-img" src="<?=$picture_src?>" alt="<?=$arItems['NAME']?>">
+                                                            </figure>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="item-info">
-                                                <div class="info-inner">
-                                                    <div class="item-title"> <a title="<?=$arItems['NAME']?>" href="<?=$arItems['SECTION_PAGE_URL']?>"><?=$arItems['NAME']?></a> </div>
-                                                    <div class="item-content">
-                                                        <div class="pro-action">
-                                                            <button type="button" class="add-to-cart hashref" data-href="<?=$arItems['SECTION_PAGE_URL']?>"><span> Показать</span> </button>
+                                                <div class="item-info">
+                                                    <div class="info-inner">
+                                                        <div class="item-title"> <a title="<?=$arItems['NAME']?>" href="<?=$arItems['SECTION_PAGE_URL']?>"><?=$arItems['NAME']?></a> </div>
+                                                        <div class="item-content">
+                                                            <div class="pro-action">
+                                                                <button type="button" class="add-to-cart hashref" data-href="/category/tranzistory"><span> Показать</span> </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
                                <? endforeach; ?>
                             </ul><!-- .products-grid -->
                         </div><!-- .product-grid-area -->

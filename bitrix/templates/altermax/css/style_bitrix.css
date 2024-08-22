@@ -1,9 +1,4 @@
-.product-item figure img:not(.litle) {
-    min-height:250px;
-    max-height: 250px;
-    min-width: 250px;
-    max-width:250px;
-}
+
 #title-search .btn-search {
     height:100%;
 }

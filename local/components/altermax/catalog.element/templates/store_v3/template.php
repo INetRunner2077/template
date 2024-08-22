@@ -15,7 +15,6 @@ use Bitrix\Main\Localization\Loc;
 * @var string $templateFolder
 */
 
-
 $request = \Bitrix\Main\Application::getInstance()->getContext()->getRequest();
 
 $uri = new \Bitrix\Main\Web\Uri($request->getRequestUri());
@@ -160,6 +159,35 @@ if ($haveOffers)
 }
 else
 {
+
+    if(empty($arResult['PROPERTIES']['MORE_PHOTO']['VALUE'])) {
+
+        if(!empty($arResult['DETAIL_PICTURE']['ID'])) {
+            $rsFile = CFile::GetByID($arResult['DETAIL_PICTURE']['ID']);
+            $rsFile = CFile::GetByID($photo);
+            $arFile = $rsFile->Fetch();
+            $arResult['MORE_PHOTO'][] =
+                [
+                    'ID' => $arFile['ID'],
+                    'SRC' => $arFile['SRC'],
+                    'WIDTH' => $arFile['WIDTH'],
+                    'HEIGHT' => $arFile['HEIGHT'],
+                ];
+        } elseif($arResult['PREVIEW_PICTURE']['ID']) {
+
+            $rsFile = CFile::GetByID($arResult['PREVIEW_PICTURE']['ID']);
+            $rsFile = CFile::GetByID($photo);
+            $arFile = $rsFile->Fetch();
+            $arResult['MORE_PHOTO'][] =
+                [
+                    'ID' => $arFile['ID'],
+                    'SRC' => $arFile['SRC'],
+                    'WIDTH' => $arFile['WIDTH'],
+                    'HEIGHT' => $arFile['HEIGHT'],
+                ];
+
+        }
+    }
 
     foreach ($arResult['PROPERTIES']['MORE_PHOTO']['VALUE'] as $photo) {
         $rsFile = CFile::GetByID($photo);

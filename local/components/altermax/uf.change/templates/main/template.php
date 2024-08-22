@@ -285,9 +285,7 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
             </div>
 
             <div class="row terms-submit-line">
-                <div class="col-sm-6">
-                    <div class="row">
-                        <div class="col-sm-8">
+                <div class="left_solutions">
                             <ul class="form-terms-checkbox">
                                 <li>
                                     <label>
@@ -322,6 +320,7 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
                                 </li>
                             </ul>
                         </div>
+                 <div class="right_solutions">
                         <? if(empty($_REQUEST['acc'])): ?>
                             <div class="col-sm-4">
                                 <button class="button subm-btm button-green"
@@ -333,17 +332,14 @@ $this->addExternalJs(SITE_TEMPLATE_PATH.'/js/jquery.validate.js');
                             </div>
                         <? else: ?>
                         <input type="hidden" name="acc" value="Y">
-                            <div class="col-sm-4">
                                 <button class="button subm-btm button-green"
                                         type="submit" name="save" value="Сохранить аккаунт">
                           <span>
                           Сохранить аккаунт
                           </span>
                                 </button>
-                            </div>
                         <? endif; ?>
-                    </div>
-                </div>
+                 </div>
             </div>
 
         </form>
@@ -420,8 +416,8 @@ endif; ?>
             });
 
         } else if ($(this).attr("data-xml") == 'INDIVIDUAL') {
-            $('.input_container input[name="UF_POST_ALTERMAX"]').val('').parents('.input_container').css('display', 'none');
-            $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').val('').parents('.input_container').css('display', 'block');
+            $('.input_container input[name="UF_POST_ALTERMAX"]').parents('.input_container').css('display', 'none');
+            $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').parents('.input_container').css('display', 'block');
             $('.buyer_details').css('display', 'none');
             $('.input_container input[name="UF_OWNERSHIP_ALTERMAX"]').prop('required', false);
             $('.input_container input[name="UF_NAME_ORGANIZATION_ALTERMAX"]').prop('required', false);
@@ -436,8 +432,8 @@ endif; ?>
 
 
         } else if ($(this).attr("data-xml") == 'PRIVATE') {
-            $('.input_container input[name="UF_POST_ALTERMAX"]').val('').parents('.input_container').css('display', 'block');
-            $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').val('').parents('.input_container').css('display', 'none');
+            $('.input_container input[name="UF_POST_ALTERMAX"]').parents('.input_container').css('display', 'block');
+            $('.input_container input[name="UF_OGRNIP_ALTERMAX"]').parents('.input_container').css('display', 'none');
             $('.buyer_details').css('display', 'none');
             $('.input_container input[name="UF_OWNERSHIP_ALTERMAX"]').prop('required', false);
             $('.input_container input[name="UF_NAME_ORGANIZATION_ALTERMAX"]').prop('required', false);

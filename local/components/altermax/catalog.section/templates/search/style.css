@@ -1,3 +1,7 @@
+.product-item .item-inner {
+	max-height: 88px;
+}
+
 .litle-list {
 	display: flex;
 	flex-direction: column;
