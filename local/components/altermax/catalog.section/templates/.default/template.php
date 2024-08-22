@@ -1,6 +1,5 @@
 <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) die();
-
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Catalog\ProductTable;
 
@@ -138,6 +137,46 @@ $containerName = 'container-'.$navParams['NavNum'];
             ];
         }
 
+$generalParams = [
+    'SHOW_DISCOUNT_PERCENT' => $arParams['SHOW_DISCOUNT_PERCENT'],
+    'PRODUCT_DISPLAY_MODE' => $arParams['PRODUCT_DISPLAY_MODE'],
+    'SHOW_MAX_QUANTITY' => $arParams['SHOW_MAX_QUANTITY'],
+    'RELATIVE_QUANTITY_FACTOR' => $arParams['RELATIVE_QUANTITY_FACTOR'],
+    'MESS_SHOW_MAX_QUANTITY' => $arParams['~MESS_SHOW_MAX_QUANTITY'],
+    'MESS_RELATIVE_QUANTITY_MANY' => $arParams['~MESS_RELATIVE_QUANTITY_MANY'],
+    'MESS_RELATIVE_QUANTITY_FEW' => $arParams['~MESS_RELATIVE_QUANTITY_FEW'],
+    'SHOW_OLD_PRICE' => $arParams['SHOW_OLD_PRICE'],
+    'USE_PRODUCT_QUANTITY' => $arParams['USE_PRODUCT_QUANTITY'],
+    'PRODUCT_QUANTITY_VARIABLE' => $arParams['PRODUCT_QUANTITY_VARIABLE'],
+    'ADD_TO_BASKET_ACTION' => $arParams['ADD_TO_BASKET_ACTION'],
+    'ADD_PROPERTIES_TO_BASKET' => $arParams['ADD_PROPERTIES_TO_BASKET'],
+    'PRODUCT_PROPS_VARIABLE' => $arParams['PRODUCT_PROPS_VARIABLE'],
+    'SHOW_CLOSE_POPUP' => $arParams['SHOW_CLOSE_POPUP'],
+    'DISPLAY_COMPARE' => $arParams['DISPLAY_COMPARE'],
+    'COMPARE_PATH' => $arParams['COMPARE_PATH'],
+    'COMPARE_NAME' => $arParams['COMPARE_NAME'],
+    'PRODUCT_SUBSCRIPTION' => $arParams['PRODUCT_SUBSCRIPTION'],
+    'PRODUCT_BLOCKS_ORDER' => $arParams['PRODUCT_BLOCKS_ORDER'],
+    'LABEL_POSITION_CLASS' => $labelPositionClass,
+    'DISCOUNT_POSITION_CLASS' => $discountPositionClass,
+    'SLIDER_INTERVAL' => $arParams['SLIDER_INTERVAL'],
+    'SLIDER_PROGRESS' => $arParams['SLIDER_PROGRESS'],
+    '~BASKET_URL' => $arParams['~BASKET_URL'],
+    '~ADD_URL_TEMPLATE' => $arResult['~ADD_URL_TEMPLATE'],
+    '~BUY_URL_TEMPLATE' => $arResult['~BUY_URL_TEMPLATE'],
+    '~COMPARE_URL_TEMPLATE' => $arResult['~COMPARE_URL_TEMPLATE'],
+    '~COMPARE_DELETE_URL_TEMPLATE' => $arResult['~COMPARE_DELETE_URL_TEMPLATE'],
+    'TEMPLATE_THEME' => $arParams['TEMPLATE_THEME'],
+    'USE_ENHANCED_ECOMMERCE' => $arParams['USE_ENHANCED_ECOMMERCE'],
+    'DATA_LAYER_NAME' => $arParams['DATA_LAYER_NAME'],
+    'BRAND_PROPERTY' => $arParams['BRAND_PROPERTY'],
+    'MESS_BTN_BUY' => $arParams['~MESS_BTN_BUY'],
+    'MESS_BTN_DETAIL' => $arParams['~MESS_BTN_DETAIL'],
+    'MESS_BTN_COMPARE' => $arParams['~MESS_BTN_COMPARE'],
+    'MESS_BTN_SUBSCRIBE' => $arParams['~MESS_BTN_SUBSCRIBE'],
+    'MESS_BTN_ADD_TO_BASKET' => $arParams['~MESS_BTN_ADD_TO_BASKET'],
+];
+
 ?>
 
 
@@ -151,28 +190,6 @@ $containerName = 'container-'.$navParams['NavNum'];
                         <div class="page-title">
                             <h2><?=$arResult['NAME']?></h2>
                         </div>
-                        <div class="toolbar">
-                            <div class="sorter" style="display:none;">
-                                <div class="short-by">
-                                    <label>Sort By:</label>
-                                    <select>
-                                        <option selected="selected">Position</option>
-                                        <option>Name</option>
-                                        <option>Price</option>
-                                        <option>Size</option>
-                                    </select>
-                                </div>
-                                <div class="short-by page">
-                                    <label>Show:</label>
-                                    <select>
-                                        <option selected="selected">9</option>
-                                        <option>12</option>
-                                        <option>16</option>
-                                        <option>30</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
                         <div class="product-grid-area">
                             <style>
                                 .product-grid-area > .products-grid > .item{
@@ -182,44 +199,161 @@ $containerName = 'container-'.$navParams['NavNum'];
 
                                 }
                             </style>
-                            <ul class="products-grid">
-                                <? foreach ($arResult['ITEMS'] as $item): ?>
-                                <li class="item col-lg-4 col-sm-6">
-                                    <div class="product-item" id="<?=$areaIds[$item['ID']]?>" >
-                                        <div class="item-inner">
-                                            <div class="icon-sale-label sale-left">  </div>
-                                            <div class="product-thumbnail">
-                                                <div class="pr-img-area">
-                                                    <a title="<?=$item['NAME']?>" href="<?=$item['DETAIL_PAGE_URL']?>">
-                                                        <figure>
-                                                            <img class="first-img" src="<?=$item['PREVIEW_PICTURE']['SRC']?>" alt="<?=$item['NAME']?>">
-                                                            <img class="hover-img" src="<?=$item['PREVIEW_PICTURE']['SRC']?>" alt="<?=$item['NAME']?>">
-                                                        </figure>
-                                                    </a>
-                                                </div>
-                                                <div class="pr-info-area">
-                                                </div>
+                             <?
+                if (($_REQUEST['show'] == 'list')): ?>
+                    <ul class="products-grid litle-list">
+
+
+                        <?
+                        foreach ($arResult['ITEM_ROWS'] as $rowData)
+                        {
+                        $rowItems = array_splice(
+                            $arResult['ITEMS'],
+                            0,
+                            $rowData['COUNT']
+                        );
+                        ?>
+                        <div class="row <?= $rowData['CLASS'] ?>"
+                             data-entity="items-row">
+                            <?
+                            foreach ($rowItems as $item) {
+                                ?>
+
+                                <?
+                                $APPLICATION->IncludeComponent(
+                                    'altermax:catalog.item',
+                                    'catalog',
+                                    array(
+                                        'RESULT' => array(
+                                            'ITEM'                 => $item,
+                                            'AREA_ID'              => $areaIds[$item['ID']],
+                                            'TYPE'                 => $rowData['TYPE'],
+                                            'BIG_LABEL'            => 'N',
+                                            'BIG_DISCOUNT_PERCENT' => 'N',
+                                            'BIG_BUTTONS'          => 'N',
+                                            'SCALABLE'             => 'N',
+                                        ),
+                                        'PARAMS' => $generalParams
+                                            + $itemParameters[$item['ID']],
+                                    ),
+                                    $component,
+                                    array('HIDE_ICONS' => 'Y')
+                                );
+                                ?>
+
+                                <?
+                            }
+                            }
+
+                            ?>
+
+
+                    </ul>
+
+                <?
+                elseif ((($_REQUEST['show'] == 'tile'))
+                    or (empty($_REQUEST['show']))
+                ): ?>
+                    <ul class="products-grid">
+                        <div class="products_show">
+                            <a href="<?= $APPLICATION->GetCurPageParam(
+                                "show=list",
+                                array('show')
+                            ) ?>">
+                                <i class="fa fa-list" aria-hidden="true"></i>
+                            </a>
+                            <a href="<?= $APPLICATION->GetCurPageParam(
+                                "show=tile",
+                                array('show')
+                            ) ?>">
+                                <i class="fa fa-table" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <?
+                        foreach ($arResult['ITEMS'] as $item): ?>
+
+                                <?
+                                if(!empty($item['PREVIEW_PICTURE']['ID'])) {
+
+                                    $img = CFile::ResizeImageGet(
+                                        $item['PREVIEW_PICTURE']['ID'],
+                                        array('width' => 250, 'height' => 250),
+                                        BX_RESIZE_IMAGE_EXACT,
+                                        true
+                                    );
+                                    $picture['SRC'] = $img['src'];
+
+                                } elseif ($item['DETAIL_PICTURE']['ID']) {
+
+                                    $img = CFile::ResizeImageGet(
+                                        $item['DETAIL_PICTURE']['ID'],
+                                        array('width' => 250, 'height' => 250),
+                                        BX_RESIZE_IMAGE_EXACT,
+                                        true
+                                    );
+                                    $picture['SRC'] = $img['src'];
+
+                                } else {
+                                    $picture['SRC'] = SITE_TEMPLATE_PATH.'/img/altermax_logo.jpg';
+                                }
+                                ?>
+
+                            <li class="item col-lg-4 col-sm-6">
+                                <div class="product-item"
+                                     id="<?= $areaIds[$item['ID']] ?>">
+                                    <div class="item-inner">
+                                        <div class="icon-sale-label sale-left"></div>
+                                        <div class="product-thumbnail">
+                                            <div class="pr-img-area">
+                                                <a title="<?= $item['NAME'] ?>"
+                                                   href="<?= $item['DETAIL_PAGE_URL'] ?>">
+                                                    <figure>
+                                                        <img class="first-img"
+                                                             src="<?= $picture['SRC']  ?>"
+                                                             alt="<?= $item['NAME'] ?>">
+                                                        <img class="hover-img"
+                                                             src="<?= $picture['SRC']  ?>"
+                                                             alt="<?= $item['NAME'] ?>">
+                                                    </figure>
+                                                </a>
                                             </div>
-                                            <div class="item-info">
-                                                <div class="info-inner">
-                                                    <div class="item-title">
-                                                        <a title="<?=$item['NAME']?>" href="<?=$item['DETAIL_PAGE_URL']?>"><?=$item['NAME']?></a> </div>
-                                                    <div class="item-content">
-                                                        <p> <?=$item['PREVIEW_TEXT'] ?> </p>
-                                                        <div class="item-price">
-                                                            <div class="price-box"> <span class="regular-price"> <span class="price"> <?=$item['ITEM_PRICES'][$item['ITEM_PRICE_SELECTED']]['BASE_PRICE']?> <?=$item['ITEM_PRICES'][$item['ITEM_PRICE_SELECTED']]['CURRENCY']?> </span> </span> </div>
+                                            <div class="pr-info-area">
+                                            </div>
+                                        </div>
+                                        <div class="item-info">
+                                            <div class="info-inner">
+                                                <div class="item-title">
+                                                    <a title="<?= $item['NAME'] ?>"
+                                                       href="<?= $item['DETAIL_PAGE_URL'] ?>"><?= $item['NAME'] ?></a>
+                                                </div>
+                                                <div class="item-content">
+                                                    <p> <?= $item['PREVIEW_TEXT'] ?> </p>
+                                                    <div class="item-price">
+                                                        <div class="price-box">
+                                                            <span class="regular-price"> <span
+                                                                        class="price"> <?=$item['ITEM_PRICES'][$item['ITEM_PRICE_SELECTED']]['PRINT_RATIO_BASE_PRICE']?> </span> </span>
                                                         </div>
-                                                        <div class="pro-action">
-                                                            <a type="button" class="add-to-cart hashref" href="<?=$item['DETAIL_PAGE_URL']?>"><span> Подробнее</span> </a>
-                                                        </div>
+                                                    </div>
+                                                    <div class="pro-action">
+                                                        <a type="button"
+                                                           class="add-to-cart hashref"
+                                                           href="<?= $item['DETAIL_PAGE_URL'] ?>"><span> Подробнее</span>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </li>
-                                <? endforeach; ?>
-                            </ul>
+                                </div>
+                            </li>
+
+                        <?
+                        endforeach; ?>
+
+                    </ul>
+
+                <?
+                endif; ?>
                         </div><!-- .product-grid-area -->
 
                        <? if ($showBottomPager)

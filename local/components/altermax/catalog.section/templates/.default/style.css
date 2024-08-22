@@ -1,90 +1,65 @@
-@media (min-width: 1200px){
-	/*lg*/
-	/*6*/
-	.product-item-list-col-6   > .col-xs-12 > .row > .col-md-2:nth-child(6n+1),
-	.product-item-list-col-1-6 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-6-1 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-1-6 > .col-sm-6  > .row > .col-md-4:nth-child(3n+1),
-	.product-item-list-col-6-1 > .col-sm-6  > .row > .col-md-4:nth-child(3n+1),
-	/*4*/
-	.product-item-list-col-4   > .col-xs-12 > .row > .col-md-3:nth-child(4n+1),
-	.product-item-list-col-1-4 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-4-1 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	/*3*/
-	.product-item-list-col-3   > .col-xs-12 > .row > .col-sm-4:nth-child(3n+1),
-	/*2*/
-	.product-item-list-col-2   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	/*1*/
-	.product-item-list-col-1   > .col-xs-12 > .row > .col-xs-12:nth-child(1n){clear: both}
+.litle-list {
+	display: flex;
+	flex-direction: column;
 }
-@media (min-width: 992px) and (max-width:1199px){
-	/*md*/
-	/*6*/
-	.product-item-list-col-6   > .col-xs-12 > .row > .col-md-2:nth-child(6n+1),
-	.product-item-list-col-1-6 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-6-1 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-1-6 > .col-sm-6 > .row > .col-md-4:nth-child(3n+1),
-	.product-item-list-col-6-1 > .col-sm-6 > .row > .col-md-4:nth-child(3n+1),
-	/*4*/
-	.product-item-list-col-4   > .col-xs-12 > .row > .col-md-3:nth-child(4n+1),
-	.product-item-list-col-1-4 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-4-1 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	/*3*/
-	.product-item-list-col-3   > .col-xs-12 > .row > .col-sm-4:nth-child(3n+1),
-	/*2*/
-	.product-item-list-col-2   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	/*1*/
-	.product-item-list-col-1   > .col-xs-12 > .row > .col-xs-12:nth-child(1n){clear: both}
-}
-@media (min-width: 768px) and (max-width: 991px){
-	/*sm*/
-	/*6*/
-	.product-item-list-col-6   > .col-xs-12 > .row > .col-sm-4:nth-child(3n+1),
-	.product-item-list-col-1-6 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-6-1 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-1-6 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-6-1 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	/*4*/
-	.product-item-list-col-4   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-1-4 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-4-1 > .col-sm-6:nth-child(2n+1),
-	.product-item-list-col-1-4 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-4-1 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	/*3*/
-	.product-item-list-col-3   > .col-xs-12 > .row > .col-sm-4:nth-child(3n+1),
-	/*2*/
-	.product-item-list-col-2   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	/*1*/
-	.product-item-list-col-1   > .col-xs-12 > .row > .col-xs-12:nth-child(1n){clear: both}
-}
-@media (max-width: 767px){
-	/*xs*/
-	/*6*/
-	.product-item-list-col-6   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-1-6 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-6-1 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	/*4*/
-	.product-item-list-col-4   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-1-4 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	.product-item-list-col-4-1 > .col-sm-6 >  .row > .col-xs-6:nth-child(2n+1),
-	/*3*/
-	.product-item-list-col-3   > .col-xs-12 > .row > .col-sm-4:nth-child(3n+1),
-	/*2*/
-	.product-item-list-col-2   > .col-xs-12 > .row > .col-xs-6:nth-child(2n+1),
-	/*1*/
-	.product-item-list-col-1   > .col-xs-12 > .row > .col-xs-12:nth-child(1n){clear: both}
+.litle-inner {
+	display: flex;
+	justify-content: space-between;
+	max-height: 88px;
+	min-height: 88px;
+	align-items: center;
 }
 
-.catalog-section-header{
-	font-size:14px;
-	font-weight: bold;
-	text-align: left;
-	margin:5px 0;
-	padding:5px 15px;
-	border-bottom: 2px solid #d9dee6;
-	color: #000;
+.product-item .litle-inner .item-info .item-title a {
+	white-space: normal!important;
 }
 
-.row::before {
-	display: initial;
+.litle-product {
+	display: flex;
+	align-items: center;
+	flex-basis: 60%;
+	min-width:60%;
+}
+.litle-img-area {
+	max-width: 80px;
+	min-width: 80px;
+}
+.litle-description {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex-basis: 50%;
+}
+.litle-description p {
+	margin-bottom:0px;
+}
+.litle-item-content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	flex-basis: 10%;
+}
+.litle-pro-action {
+	padding: 9px 12px;
+	font-size: 12px;
+	background-color: #e67817;
+	border-color: #e67817;
+	color: #fff;
+	transition: 0.5s all ease;
+}
+.litle-pro-action a, .litle-pro-action a:hover { color: #fff; }
+
+.litle-pro-action:hover {
+	background-color: #398439;
+}
+.litle_list_li {
+    max-height: 130px;
+}
+.products_show {
+text-align: right;
+margin-bottom: 10px;
+}
+.products_show a:first-child {
+margin-right: 20px;
 }
